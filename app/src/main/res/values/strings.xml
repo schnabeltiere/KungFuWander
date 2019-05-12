@@ -2,8 +2,10 @@
     <string name="app_name" tools:ignore="ExtraTranslation">KungFuWander</string>
     <string name="email">E-mail</string>
     <string name="password">Password</string>
-    <string name="login">Login</string>
+    <string name="login">Already got an Account? Tap here to login!</string>
+    <string name="login2">Login</string>
     <string name="cancel">Cancel</string>
     <string name="buy">Buy</string>
     <string name="search">Enter search term</string>
+    <string name="signup">Sign Up</string>
 </resources>
