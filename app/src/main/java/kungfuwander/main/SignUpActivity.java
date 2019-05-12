@@ -17,10 +17,10 @@ import com.google.firebase.auth.FirebaseAuthException;
 
 public class SignUpActivity extends AppCompatActivity {
 
-     EditText email, password;
-     Button registerButton;
-     TextView textViewLogin;
-     FirebaseAuth firebaseAuth;
+     private EditText email, password;
+     private Button registerButton;
+     private TextView textViewLogin;
+     private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,11 @@ public class SignUpActivity extends AppCompatActivity {
         registerButton = findViewById(R.id.buttonSignUp);
         textViewLogin = findViewById(R.id.textViewLogin);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        //If the user already logged in once on the device AND if no authentification error occures, the user is automatically logged in
+        if(firebaseAuth.getCurrentUser()!=null)
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
+        textViewLogin.setOnClickListener(log -> startActivity(new Intent(getApplicationContext(), LoginActivity.class)));
 
         registerButton.setOnClickListener(v -> {
                     String email = this.email.getText().toString();
@@ -67,9 +71,5 @@ public class SignUpActivity extends AppCompatActivity {
                         }
                     });
                 });
-        textViewLogin.setOnClickListener(log -> startActivity(new Intent(getApplicationContext(), LoginActivity.class)));
-
-        if(firebaseAuth.getCurrentUser()!=null)
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 }

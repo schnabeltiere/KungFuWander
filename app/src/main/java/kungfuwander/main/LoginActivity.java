@@ -13,9 +13,8 @@ import com.google.firebase.auth.FirebaseAuthException;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText email,password;
-    Button login;
-
+    private EditText email,password;
+    private Button login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
