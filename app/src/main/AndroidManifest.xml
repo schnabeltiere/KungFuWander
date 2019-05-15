@@ -13,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
         <activity
             android:name=".navi"
             android:label="@string/title_activity_navi"></activity>
@@ -21,6 +22,11 @@
             android:label="@string/title_activity_navigation_bar" />
         <activity android:name=".Profile" />
         <activity android:name=".MainActivity">
+=======
+        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".SignUpActivity">
+>>>>>>> bd5ac521949129a1ca074bac5fbaacadb098fc9c
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

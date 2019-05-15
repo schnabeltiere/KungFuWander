@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <resources>
     <string name="app_name">KungFuWander</string>
     <string name="title_activity_navigation_bar">NavigationBar</string>
@@ -5,4 +6,16 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_navi">navi</string>
+=======
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" tools:ignore="ExtraTranslation">KungFuWander</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="login">Already got an Account? Tap here to login!</string>
+    <string name="login2">Login</string>
+    <string name="cancel">Cancel</string>
+    <string name="buy">Buy</string>
+    <string name="search">Enter search term</string>
+    <string name="signup">Sign Up</string>
+>>>>>>> bd5ac521949129a1ca074bac5fbaacadb098fc9c
 </resources>
