@@ -14,13 +14,14 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SignUpActivity extends AppCompatActivity {
 
      private EditText email, password;
      private Button registerButton;
      private TextView textViewLogin;
-     private FirebaseAuth firebaseAuth;
+     public static FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +38,11 @@ public class SignUpActivity extends AppCompatActivity {
         textViewLogin = findViewById(R.id.textViewLogin);
 
         //If the user already logged in once on the device AND if no authentification error occures, the user is automatically logged in
-        if(firebaseAuth.getCurrentUser()!=null)
+        if(firebaseAuth.getCurrentUser()!=null){
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            MainActivity.currentFirebaseUser = firebaseAuth.getCurrentUser();
+        }
+
 
         textViewLogin.setOnClickListener(log -> startActivity(new Intent(getApplicationContext(), LoginActivity.class)));
 

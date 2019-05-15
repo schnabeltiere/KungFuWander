@@ -30,7 +30,7 @@ public class ProfilFragment extends Fragment implements View.OnClickListener {
 
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
 
-       imageView = (ImageView) v.findViewById(R.id.imageProfilePicture);
+       imageView = v.findViewById(R.id.imageProfilePicture);
         imageView.setOnClickListener(this);
         return v;
     }
@@ -38,14 +38,18 @@ public class ProfilFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.imageProfilePicture:
-
-                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent, CAMERA_REQUEST);
-
-
-                break;
+        if (getContext().checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+        {
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
+        }
+        else
+        {
+            switch (v.getId()) {
+                case R.id.imageProfilePicture:
+                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                    break;
+            }
         }
     }
 
