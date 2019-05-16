@@ -9,4 +9,22 @@
         android:layout_centerVertical="true"
         android:text="Friends" />
 
+    <Button
+        android:id="@+id/btnStartHiking"
+        android:layout_width="301dp"
+        android:layout_height="282dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="34dp"
+        android:text="Start Hiking" />
+
+    <TextView
+        android:id="@+id/tvSteps"
+        android:layout_width="204dp"
+        android:layout_height="79dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="179dp"
+        android:layout_marginBottom="178dp"
+        android:text="TextView" />
+
 </RelativeLayout>
