@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }).addOnFailureListener(e -> {
                 if (e instanceof FirebaseAuthException) {
-                    Log.e("kungfuwander.main.LoginActivity",((FirebaseAuthException) e).getErrorCode());
+                    Log.e("kungfuwander.main.",((FirebaseAuthException) e).getErrorCode());
                 }
             });
         });

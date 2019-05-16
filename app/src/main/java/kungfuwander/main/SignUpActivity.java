@@ -67,7 +67,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 }
                             }).addOnFailureListener(e -> {
                         if (e instanceof FirebaseAuthException) {
-                            Log.e("kungfuwander.main.SignUpActivity",((FirebaseAuthException) e).getErrorCode());
+                            Log.e("kungfuwander.main.",((FirebaseAuthException) e).getErrorCode());
                         }
                     });
                 });
