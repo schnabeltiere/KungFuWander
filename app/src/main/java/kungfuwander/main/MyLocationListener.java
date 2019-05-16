@@ -41,8 +41,8 @@ public class MyLocationListener implements LocationListener {
             Log.d(TAG, "The E-Mail of the User: " + MainActivity.currentFirebaseUser.getEmail());
 
             // TODO: 16.05.2019 move map here
-            fireBaseHelper.addLocationToSpecificUser(myLocation); // change at call
-            fireBaseHelper.addToGeneralLocation(myLocation);
+            fireBaseHelper.addToSpecificUser(myLocation); // change at call
+            fireBaseHelper.addToGeneralDatabase(myLocation);
             Log.d(TAG, "User location: " + location.toString());
         }
     }

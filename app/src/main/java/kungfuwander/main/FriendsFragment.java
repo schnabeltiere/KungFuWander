@@ -20,6 +20,7 @@ import java.util.Objects;
 public class FriendsFragment extends Fragment implements SensorEventListener {
 
     private String TAG = getClass().getName();
+    private int currentSteps = 0;
     private TextView tvSteps;
 
     @Nullable
@@ -29,16 +30,30 @@ public class FriendsFragment extends Fragment implements SensorEventListener {
         // inflater.inflate(R.layout.fragment_friends, null);
         tvSteps = view.findViewById(R.id.tvSteps);
         Button btnStartHiking = view.findViewById(R.id.btnStartHiking);
+        Button btnStopHiking = view.findViewById(R.id.btnStopHiking);
 
         btnStartHiking.setOnClickListener(v -> startStepCounter());
-
+        btnStopHiking.setOnClickListener(v -> stopStepCounter());
 
         return view;
     }
 
+    private void stopStepCounter() {
+        // TODO: 16.05.2019 stop this
+        // now just add wanderung and stop it
+        FireBaseHelper helper = new FireBaseHelper();
+
+        Wanderung wanderung = new Wanderung();
+        wanderung.setSteps(currentSteps);
+        // TODO: 16.05.2019 fetch locations and time
+
+        helper.addToGeneralDatabase(wanderung);
+        helper.addToSpecificUser(wanderung);
+    }
+
     private void startStepCounter() {
         try {
-            SensorManager sensorManager = (SensorManager) getActivity()
+            SensorManager sensorManager = (SensorManager) Objects.requireNonNull(getActivity())
                     .getSystemService(Context.SENSOR_SERVICE);
             Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
 
@@ -53,6 +68,7 @@ public class FriendsFragment extends Fragment implements SensorEventListener {
     public void onSensorChanged(SensorEvent sensorEvent) {
         float[] values = sensorEvent.values;
         int steps = (int) values[0];
+        currentSteps = steps;
 
         this.tvSteps.setText("Steps: " + steps);
     }

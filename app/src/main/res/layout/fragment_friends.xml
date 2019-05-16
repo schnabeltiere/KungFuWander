@@ -14,7 +14,7 @@
         android:layout_width="301dp"
         android:layout_height="282dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="34dp"
+        android:layout_marginEnd="33dp"
         android:text="Start Hiking" />
 
     <TextView
@@ -26,5 +26,15 @@
         android:layout_marginEnd="179dp"
         android:layout_marginBottom="178dp"
         android:text="TextView" />
+
+    <Button
+        android:id="@+id/btnStopHiking"
+        android:layout_width="250dp"
+        android:layout_height="154dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="9dp"
+        android:text="Stop Hiking" />
 
 </RelativeLayout>

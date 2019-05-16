@@ -9,8 +9,8 @@ import java.util.function.Consumer;
 
 public class FireBaseHelper {
     private static final String DB_NAME_USERS = "users_db";
-    private static final String DB_NAME_ICE = "ices_db";
     private static final String DB_NAME_LOCATION = "location_db";
+    private static final String DB_NAME_HIKING = "hiking_db";
     private final String TAG = getClass().getName();
     private FirebaseFirestore db;
 
@@ -81,8 +81,28 @@ public class FireBaseHelper {
 //                });
 //    }
 
+    public void addToGeneralDatabase(Wanderung wanderung){
+        // Add a new document with a generated ID
+        // will call ADDED listener, so list gets updated
+        db.collection(DB_NAME_HIKING)
+                .add(wanderung)
+                .addOnSuccessListener(documentReference -> Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId()))
+                .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
+    }
+
+    public void addToSpecificUser(Wanderung wanderung){
+        // Add a new document with a generated ID
+        // will call ADDED listener, so list gets updated
+        db.collection(DB_NAME_USERS)
+                .document(MainActivity.currentFirebaseUser.getUid())
+                .collection(DB_NAME_HIKING)
+                .add(wanderung)
+                .addOnSuccessListener(documentReference -> Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId()))
+                .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
+    }
+
     // adds in general database
-    public void addToGeneralLocation(MyLocation myLocation) {
+    public void addToGeneralDatabase(MyLocation myLocation) {
         // Add a new document with a generated ID
         // will call ADDED listener, so list gets updated
         db.collection(DB_NAME_LOCATION)
@@ -91,7 +111,7 @@ public class FireBaseHelper {
                 .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
     }
 
-    public void addLocationToSpecificUser(MyLocation myLocation){
+    public void addToSpecificUser(MyLocation myLocation){
         // Add a new document with a generated ID
         // will call ADDED listener, so list gets updated
         db.collection(DB_NAME_USERS)
