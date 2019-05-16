@@ -5,8 +5,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="382dp"
+        android:layout_marginBottom="401dp"
         android:text="Friends" />
 
     <Button
@@ -36,5 +38,15 @@
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="9dp"
         android:text="Stop Hiking" />
+
+    <TextView
+        android:id="@+id/tvHikings"
+        android:layout_width="282dp"
+        android:layout_height="133dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginBottom="281dp"
+        android:text="TextView" />
 
 </RelativeLayout>

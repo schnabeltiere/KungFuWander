@@ -8,6 +8,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.function.Consumer;
 
 public class FireBaseHelper {
+    // at some point location database will be useless because it is in hiking db
     private static final String DB_NAME_USERS = "users_db";
     private static final String DB_NAME_LOCATION = "location_db";
     private static final String DB_NAME_HIKING = "hiking_db";
@@ -48,6 +49,8 @@ public class FireBaseHelper {
 
                 });
     }
+
+    // TODO: 16.05.2019 fetch all hikings 
 
     // TODO: 16.05.2019 something about user specific
 //    public void listenOnNewUserAdded(Consumer<MyLocation> addLocationConsumer) {
@@ -91,8 +94,9 @@ public class FireBaseHelper {
     }
 
     public void addToSpecificUser(Wanderung wanderung){
-        // Add a new document with a generated ID
-        // will call ADDED listener, so list gets updated
+        // user get sub-collection with hiking
+        // hiking has an array of locations. because it will never get changed
+        // no need for sub-collection
         db.collection(DB_NAME_USERS)
                 .document(MainActivity.currentFirebaseUser.getUid())
                 .collection(DB_NAME_HIKING)

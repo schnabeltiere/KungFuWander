@@ -22,6 +22,7 @@ public class FriendsFragment extends Fragment implements SensorEventListener {
     private String TAG = getClass().getName();
     private int currentSteps = 0;
     private TextView tvSteps;
+    private TextView tvHikings;
 
     @Nullable
     @Override
@@ -29,6 +30,10 @@ public class FriendsFragment extends Fragment implements SensorEventListener {
         View view = inflater.inflate(R.layout.fragment_friends, container, false);
         // inflater.inflate(R.layout.fragment_friends, null);
         tvSteps = view.findViewById(R.id.tvSteps);
+        tvHikings = view.findViewById(R.id.tvHikings);
+
+        setUpRecentHikings();
+
         Button btnStartHiking = view.findViewById(R.id.btnStartHiking);
         Button btnStopHiking = view.findViewById(R.id.btnStopHiking);
 
@@ -36,6 +41,11 @@ public class FriendsFragment extends Fragment implements SensorEventListener {
         btnStopHiking.setOnClickListener(v -> stopStepCounter());
 
         return view;
+    }
+
+    private void setUpRecentHikings() {
+        FireBaseHelper helper = new FireBaseHelper();
+
     }
 
     private void stopStepCounter() {
