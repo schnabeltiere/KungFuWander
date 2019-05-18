@@ -1,6 +1,7 @@
 package kungfuwander.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import java.util.Objects;
 
+// TODO: 17.05.2019 remove this from this fragment
 public class FriendsFragment extends Fragment implements SensorEventListener {
 
     private String TAG = getClass().getName();
@@ -36,11 +38,18 @@ public class FriendsFragment extends Fragment implements SensorEventListener {
 
         Button btnStartHiking = view.findViewById(R.id.btnStartHiking);
         Button btnStopHiking = view.findViewById(R.id.btnStopHiking);
+        Button btnTestChart = view.findViewById(R.id.btnTestChart);
 
         btnStartHiking.setOnClickListener(v -> startStepCounter());
         btnStopHiking.setOnClickListener(v -> stopStepCounter());
+        btnTestChart.setOnClickListener(v -> openChart());
 
         return view;
+    }
+
+    private void openChart() {
+        Intent intent = new Intent(getActivity(), TestRecentHikings.class);
+        startActivity(intent);
     }
 
     private void setUpRecentHikings() {
