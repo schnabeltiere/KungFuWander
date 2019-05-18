@@ -59,15 +59,15 @@ public class FriendsFragment extends Fragment implements SensorEventListener {
 
     private void stopStepCounter() {
         // TODO: 16.05.2019 stop this
-        // now just add wanderung and stop it
+        // now just add hiking and stop it
         FireBaseHelper helper = new FireBaseHelper();
 
-        Wanderung wanderung = new Wanderung();
-        wanderung.setSteps(currentSteps);
+        Hiking hiking = new Hiking();
+        hiking.setSteps(currentSteps);
         // TODO: 16.05.2019 fetch locations and time
 
-        helper.addToGeneralDatabase(wanderung);
-        helper.addToSpecificUser(wanderung);
+        helper.addToGeneralDatabase(hiking);
+        helper.addToSpecificUser(hiking);
     }
 
     private void startStepCounter() {

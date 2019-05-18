@@ -32,6 +32,10 @@ public class MyLocation {
         this.longitude = longitude;
     }
 
+    public LatLng toLatLng(){
+        return new LatLng(latitude, longitude);
+    }
+
     public long getMillisSince1970() {
         return millisSince1970;
     }

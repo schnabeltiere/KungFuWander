@@ -5,8 +5,8 @@ import java.util.List;
 public class User {
     private String name;
     private String country;
-    // consider at some point Map<Wanderung, List<MyLocation>>
-    private List<Wanderung> wanderung;
+    // consider at some point Map<Hiking, List<MyLocation>>
+    private List<Hiking> hiking;
 
 
     public String getName() {
@@ -25,12 +25,12 @@ public class User {
         this.country = country;
     }
 
-    public List<Wanderung> getWanderung() {
-        return wanderung;
+    public List<Hiking> getHiking() {
+        return hiking;
     }
 
-    public void setWanderung(List<Wanderung> wanderung) {
-        this.wanderung = wanderung;
+    public void setHiking(List<Hiking> hiking) {
+        this.hiking = hiking;
     }
 
 }

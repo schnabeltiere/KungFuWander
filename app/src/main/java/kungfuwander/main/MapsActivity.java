@@ -16,8 +16,13 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polygon;
+import com.google.android.gms.maps.model.PolygonOptions;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -49,10 +54,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     REQUEST_PERMISSION_ACCESS_FINE_LOCATION);
         } else {
             updateUserLocation();
+            FireBaseHelper helper = new FireBaseHelper();
+            helper.fetchUserHikings(hikings -> hikings.forEach(this::markAreaOfHiking));
         }
     }
 
-    private void updateUserLocation(){
+    private void markAreaOfHiking(Hiking hiking) {
+        PolygonOptions rectOptions = new PolygonOptions()
+                .addAll(hiking.locationsAsLatLng());
+
+        // Get back the mutable Polygon
+        Polygon polygon = mMap.addPolygon(rectOptions);
+    }
+
+    private void updateUserLocation() {
         locationManager = getSystemService(LocationManager.class);
         if (locationManager == null) {
             finish();
@@ -65,7 +80,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         locationListener = new MyLocationListener();
     }
 
-    private void addLocationToMap(MyLocation myLocation){
+    private void addLocationToMap(MyLocation myLocation) {
         double latitude = myLocation.getLatitude();
         double longitude = myLocation.getLongitude();
 

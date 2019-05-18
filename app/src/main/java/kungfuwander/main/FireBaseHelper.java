@@ -54,42 +54,8 @@ public class FireBaseHelper {
                 });
     }
 
-    // TODO: 16.05.2019 fetch all hikings
-
-    // TODO: 16.05.2019 something about user specific
-//    public void listenOnNewUserAdded(Consumer<MyLocation> addLocationConsumer) {
-//        db.collection(DB_NAME_USERS)
-//                .addSnapshotListener((snapshots, e) -> {
-//                    if (e != null) {
-//                        Log.w(TAG, "listen:error", e);
-//                        return;
-//                    }
-//
-//                    for (DocumentChange dc : snapshots.getDocumentChanges()) {
-//                        MyLocation myLocation = dc.getDocument().toObject(MyLocation.class);
-//
-//                        switch (dc.getType()) {
-//                            case ADDED:
-//                                // this is called the first time at reading the database
-//                                // so everything will be under ADDED the first time
-//
-//                                addLocationConsumer.accept(myLocation);
-//                                Log.d(TAG, "New Location: " + dc.getDocument().getData());
-//                                break;
-//                            case MODIFIED:
-//                                Log.d(TAG, "Modified Location: " + dc.getDocument().getData());
-//                                break;
-//                            case REMOVED:
-//                                Log.d(TAG, "Removed Location: " + dc.getDocument().getData());
-//                                break;
-//                        }
-//                    }
-//
-//                });
-//    }
-
-    public void listenOnUserHikings(Consumer<List<Wanderung>> consumer){
-        List<Wanderung> hikings = new ArrayList<>();
+    public void fetchUserHikings(Consumer<List<Hiking>> consumer){
+        List<Hiking> hikings = new ArrayList<>();
 
         db.collection(DB_NAME_USERS)
                 .document(MainActivity.currentFirebaseUser.getUid())
@@ -98,8 +64,7 @@ public class FireBaseHelper {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            Wanderung hiking = document.toObject(Wanderung.class);
-                            Log.d(TAG, "Is this even a hiking? : " + hiking);
+                            Hiking hiking = document.toObject(Hiking.class);
                             hikings.add(hiking);
                             Log.d(TAG, document.getId() + " => " + document.getData());
                         }
@@ -111,23 +76,23 @@ public class FireBaseHelper {
                 });
     }
 
-    public void addToGeneralDatabase(Wanderung wanderung){
+    public void addToGeneralDatabase(Hiking hiking){
         // Add a new document with a generated ID
         // will call ADDED listener, so list gets updated
         db.collection(DB_NAME_HIKINGS)
-                .add(wanderung)
+                .add(hiking)
                 .addOnSuccessListener(documentReference -> Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId()))
                 .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
     }
 
-    public void addToSpecificUser(Wanderung wanderung){
+    public void addToSpecificUser(Hiking hiking){
         // user get sub-collection with hiking
         // hiking has an array of locations. because it will never get changed
         // no need for sub-collection
         db.collection(DB_NAME_USERS)
                 .document(MainActivity.currentFirebaseUser.getUid())
                 .collection(DB_NAME_HIKINGS)
-                .add(wanderung)
+                .add(hiking)
                 .addOnSuccessListener(documentReference -> Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId()))
                 .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
     }

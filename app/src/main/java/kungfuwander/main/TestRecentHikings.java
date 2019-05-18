@@ -9,7 +9,6 @@ import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Cartesian;
-import com.anychart.charts.Pie;
 import com.anychart.core.cartesian.series.Column;
 import com.anychart.enums.Anchor;
 import com.anychart.enums.HoverMode;
@@ -29,10 +28,10 @@ public class TestRecentHikings extends AppCompatActivity {
         setContentView(R.layout.activity_test_recent_hikings);
 
         FireBaseHelper helper = new FireBaseHelper();
-        helper.listenOnUserHikings(this::initChart);
+        helper.fetchUserHikings(this::initChart);
     }
 
-    private void initChart(List<Wanderung> hikings) {
+    private void initChart(List<Hiking> hikings) {
         AnyChartView anyChartView = findViewById(R.id.any_chart_view);
         anyChartView.setProgressBar(findViewById(R.id.progress_bar));
 
@@ -43,7 +42,7 @@ public class TestRecentHikings extends AppCompatActivity {
         // funny mistake: if they have the same x-name it is the same value
         // they need individual names
         for (int i = 0; i < hikings.size(); i++) {
-            Wanderung h = hikings.get(i);
+            Hiking h = hikings.get(i);
             ValueDataEntry entry = new ValueDataEntry(i+"", h.getSteps());
             data.add(entry);
         }
