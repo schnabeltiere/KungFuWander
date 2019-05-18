@@ -18,12 +18,20 @@ public class Hiking {
         endPointSince1970 = -1;
         steps = -1;
         locations = new ArrayList<>();
-        locations.add(new MyLocation(13, 24));
-        locations.add(new MyLocation(132, -32));
-        locations.add(new MyLocation(-32, 242));
-        locations.add(new MyLocation(-21, -12));
-        locations.add(new MyLocation(11, 65));
-        locations.add(new MyLocation(79, 23));
+//        locations.add(new MyLocation(13, 24));
+//        locations.add(new MyLocation(132, -32));
+//        locations.add(new MyLocation(-32, 242));
+//        locations.add(new MyLocation(-21, -12));
+//        locations.add(new MyLocation(11, 65));
+//        locations.add(new MyLocation(79, 23));
+        locations.add(new MyLocation(10, 23));
+        locations.add(new MyLocation(15, 23));
+        locations.add(new MyLocation(20, 23));
+        locations.add(new MyLocation(25, 28));
+        locations.add(new MyLocation(30, 28));
+        locations.add(new MyLocation(35, 28));
+        locations.add(new MyLocation(40, 28));
+        locations.add(new MyLocation(45, 33));
     }
 
     public List<LatLng> locationsAsLatLng(){

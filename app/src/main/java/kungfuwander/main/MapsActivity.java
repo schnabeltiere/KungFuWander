@@ -2,6 +2,7 @@ package kungfuwander.main;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Criteria;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -18,6 +19,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,7 +37,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LocationListener locationListener;
 
     private String bestProvider;
-    private FireBaseHelper fireBaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        fireBaseHelper = new FireBaseHelper();
+        FireBaseHelper fireBaseHelper = new FireBaseHelper();
         fireBaseHelper.listenOnDatabaseChangedLocation(this::addLocationToMap);
 
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -54,14 +56,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     REQUEST_PERMISSION_ACCESS_FINE_LOCATION);
         } else {
             updateUserLocation();
-            FireBaseHelper helper = new FireBaseHelper();
-            helper.fetchUserHikings(hikings -> hikings.forEach(this::markAreaOfHiking));
+            fireBaseHelper.fetchUserHikings(hikings -> {
+                hikings.forEach(this::markPathOfHiking);
+                hikings.forEach(this::markAreaOfHiking);
+            });
         }
+    }
+
+    private void markPathOfHiking(Hiking hiking){
+        // Instantiates a new Polyline object and adds points to define a rectangle
+        PolylineOptions rectOptions = new PolylineOptions()
+                .addAll(hiking.locationsAsLatLng())
+                .color(Color.RED);
+
+        // Get back the mutable Polyline
+        Polyline polyline = mMap.addPolyline(rectOptions);
     }
 
     private void markAreaOfHiking(Hiking hiking) {
         PolygonOptions rectOptions = new PolygonOptions()
-                .addAll(hiking.locationsAsLatLng());
+                .addAll(hiking.locationsAsLatLng())
+                .fillColor(Color.LTGRAY)
+                .strokeColor(Color.DKGRAY);
 
         // Get back the mutable Polygon
         Polygon polygon = mMap.addPolygon(rectOptions);
