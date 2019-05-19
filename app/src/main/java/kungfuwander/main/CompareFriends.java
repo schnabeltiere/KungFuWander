@@ -1,82 +1,135 @@
 package kungfuwander.main;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.os.Bundle;
 
+import com.anychart.AnyChart;
+import com.anychart.AnyChartView;
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.anychart.charts.Cartesian;
+import com.anychart.core.cartesian.series.Line;
+import com.anychart.data.Mapping;
+import com.anychart.data.Set;
+import com.anychart.enums.Anchor;
+import com.anychart.enums.MarkerType;
+import com.anychart.enums.TooltipPositionMode;
+import com.anychart.graphics.vector.Stroke;
+
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static kungfuwander.main.FriendsList.*;
 
 public class CompareFriends extends AppCompatActivity {
-
-    private List<String> items;
-    private List<UserBean> userBeans;
-    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compare_friends);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
-        listView = findViewById(R.id.listViewUsers);
+        Intent intent = getIntent();
+        String uuidCompare = intent.getStringExtra(UUID_COMPARE);
 
-        FireBaseHelper.fetchAllUsers(this::displayAllUsers);
-        listView.setOnItemLongClickListener((parent, view, position, id) -> compareWithUser(position));
+        // nested so data gets loaded all or nothing
+        FireBaseHelper.fetchLoggedInUserHikings(hikings -> {
+            FireBaseHelper.fetchSpecificUserHikings(uuidCompare, compareHikings -> {
+                List<DataEntry> dataEntries = extractDataOutOfHikings(hikings, compareHikings);
+                initChart(uuidCompare, dataEntries);
+            });
+        });
+
     }
 
-    private boolean compareWithUser(int position) {
-        UserBean user = userBeans.get(position);
+    private void initChart(String uuidCompare, List<DataEntry> seriesData) {
+        AnyChartView anyChartView = findViewById(R.id.any_chart_view);
+        anyChartView.setProgressBar(findViewById(R.id.progress_bar));
 
-        // Get the layout inflater
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        Cartesian cartesian = AnyChart.line();
 
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
-        View alertView = inflater.inflate(R.layout.alert_about_user, null);
+        cartesian.animation(true);
 
-        // set default price
-        TextView tvUserName = alertView.findViewById(R.id.atvUserName);
-        TextView tvHikingSince = alertView.findViewById(R.id.atvUserHikingSince);
-        TextView tvNHikings = alertView.findViewById(R.id.atvUserNHikings);
+        cartesian.padding(10d, 20d, 5d, 20d);
 
-        tvUserName.setText("Challenger: " + user.getName());
-        tvHikingSince.setText("Hiking since: " + user.getCheat());
-        tvNHikings.setText("Here comes nHikings...");
+        cartesian.crosshair().enabled(true);
+        cartesian.crosshair()
+                .yLabel(true)
+                // TODO ystroke
+                .yStroke((Stroke) null, null, null, (String) null, (String) null);
 
-        new AlertDialog.Builder(this)
-                .setView(alertView)
-                .setPositiveButton("Compare", (dialog, which) -> dialog.cancel())
-                .show();
-        return true;
+        cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
+
+        cartesian.title("Win the race against your friend");
+
+        cartesian.yAxis(0).title("Steps");
+        cartesian.xAxis(0).labels().padding(5d, 5d, 5d, 5d);
+
+        Set set = Set.instantiate();
+        set.data(seriesData);
+
+        Mapping series1Mapping = set.mapAs("{ x: 'x', value: 'value' }");
+        Mapping series2Mapping = set.mapAs("{ x: 'x', value: 'value2' }");
+
+        createLine(cartesian, series1Mapping, MainActivity.currentFirebaseUser.getUid());
+        createLine(cartesian, series2Mapping, uuidCompare);
+
+        cartesian.legend().enabled(true);
+        cartesian.legend().fontSize(13d);
+        cartesian.legend().padding(0d, 0d, 10d, 0d);
+
+        anyChartView.setChart(cartesian);
     }
 
-    private void displayAllUsers(List<UserBean> users) {
-        // first attempt was to just read all users from authentification
-        // this is not possible - at least i didn't find any way.
-        // so just list all users from users database - consider creating database at login for user
-        userBeans = users;
-        items = users.stream()
-                .map(UserBean::toString)
-                .collect(Collectors.toList());
+    private List<DataEntry> extractDataOutOfHikings(List<Hiking> hikings, List<Hiking> compareHikings) {
+        List<DataEntry> seriesData = new ArrayList<>();
 
-        ArrayAdapter<String> itemsAdapter =
-                new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
+        // makes it easier
+        hikings.sort(Comparator.comparingLong(Hiking::getStartPointSince1970));
+        compareHikings.sort(Comparator.comparingLong(Hiking::getStartPointSince1970));
 
-        listView.setAdapter(itemsAdapter);
+        // TODO: 19.05.2019 just for testing start with 1 and go up to 5
+        // sum all steps
+
+        int steps1 = 0, steps2 = 0;
+
+        for (int i = 1; i < 6; i++){
+            int finalI = i;
+            // what a mess
+            Hiking hiking1 = hikings.stream().filter(hiking -> hiking.getStartPointSince1970() == finalI).findFirst().orElse(null);
+            Hiking hiking2 = compareHikings.stream().filter(hiking -> hiking.getStartPointSince1970() == finalI).findFirst().orElse(null);
+
+            steps1 += hiking1 == null ? 0 : hiking1.getSteps();
+            steps2 += hiking2 == null ? 0 : hiking2.getSteps();
+
+            seriesData.add(new CustomDataEntry(i+"", steps1, steps2));
+        }
+
+        return seriesData;
     }
 
+    private void createLine(Cartesian cartesian, Mapping series1Mapping, String name) {
+        Line series1 = cartesian.line(series1Mapping);
+        series1.name(name);
+        series1.hovered().markers().enabled(true);
+        series1.hovered().markers()
+                .type(MarkerType.CIRCLE)
+                .size(4d);
+        series1.tooltip()
+                .position("right")
+                .anchor(Anchor.LEFT_CENTER)
+                .offsetX(5d)
+                .offsetY(5d);
+    }
+
+    private class CustomDataEntry extends ValueDataEntry {
+
+        CustomDataEntry(String x, Number value, Number value2) {
+            super(x, value);
+            setValue("value2", value2);
+        }
+
+    }
 }
+

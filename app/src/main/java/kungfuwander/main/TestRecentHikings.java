@@ -35,7 +35,7 @@ public class TestRecentHikings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_recent_hikings);
 
-        FireBaseHelper.fetchUserHikings(this::initChart);
+        FireBaseHelper.fetchLoggedInUserHikings(this::initChart);
     }
 
     private void initChart(List<Hiking> hikings) {

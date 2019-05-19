@@ -21,7 +21,8 @@ public class FireBaseHelper {
     private static final String TAG = "FireBaseHelper";
 
     public static void listenOnDatabaseChangedLocation(Consumer<MyLocation> consumer) {
-        FirebaseFirestore.getInstance().collection(DB_NAME_LOCATIONS)
+        FirebaseFirestore.getInstance()
+                .collection(DB_NAME_LOCATIONS)
                 .addSnapshotListener((snapshots, e) -> {
                     if (e != null) {
                         Log.w(TAG, "listen:error", e);
@@ -65,12 +66,13 @@ public class FireBaseHelper {
                     }
                 });
     }
-    
-    public static void fetchUserHikings(Consumer<List<Hiking>> consumer) {
+
+    public static void fetchSpecificUserHikings(String userUuid, Consumer<List<Hiking>> consumer){
         List<Hiking> hikings = new ArrayList<>();
 
-        FirebaseFirestore.getInstance().collection(DB_NAME_USERS)
-                .document(MainActivity.currentFirebaseUser.getUid())
+        FirebaseFirestore.getInstance()
+                .collection(DB_NAME_USERS)
+                .document(userUuid)
                 .collection(DB_NAME_HIKINGS)
                 .get()
                 .addOnCompleteListener(task -> {
@@ -88,6 +90,11 @@ public class FireBaseHelper {
                 });
     }
 
+    public static void fetchLoggedInUserHikings(Consumer<List<Hiking>> consumer) {
+        Log.d(TAG, "Is the UID really null? " + MainActivity.currentFirebaseUser);
+        fetchSpecificUserHikings(MainActivity.currentFirebaseUser.getUid(), consumer);
+    }
+
     public static void addToGeneralDatabase(Hiking hiking) {
         // Add a new document with a generated ID
         // will call ADDED listener, so list gets updated
@@ -97,11 +104,12 @@ public class FireBaseHelper {
                 .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
     }
 
-    public static void addToSpecificUser(Hiking hiking) {
+    public static void addToLoggedInUser(Hiking hiking) {
         // user get sub-collection with hiking
         // hiking has an array of locations. because it will never get changed
         // no need for sub-collection
-        FirebaseFirestore.getInstance().collection(DB_NAME_USERS)
+        FirebaseFirestore.getInstance()
+                .collection(DB_NAME_USERS)
                 .document(MainActivity.currentFirebaseUser.getUid())
                 .collection(DB_NAME_HIKINGS)
                 .add(hiking)
@@ -112,16 +120,18 @@ public class FireBaseHelper {
     public static void addToGeneralDatabase(MyLocation myLocation) {
         // Add a new document with a generated ID
         // will call ADDED listener, so list gets updated
-        FirebaseFirestore.getInstance().collection(DB_NAME_LOCATIONS)
+        FirebaseFirestore.getInstance()
+                .collection(DB_NAME_LOCATIONS)
                 .add(myLocation)
                 .addOnSuccessListener(documentReference -> Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId()))
                 .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
     }
 
-    public static void addToSpecificUser(MyLocation myLocation) {
+    public static void addToLoggedInUser(MyLocation myLocation) {
         // Add a new document with a generated ID
         // will call ADDED listener, so list gets updated
-        FirebaseFirestore.getInstance().collection(DB_NAME_USERS)
+        FirebaseFirestore.getInstance()
+                .collection(DB_NAME_USERS)
                 .document(MainActivity.currentFirebaseUser.getUid())
                 .collection(DB_NAME_LOCATIONS)
                 .add(myLocation)

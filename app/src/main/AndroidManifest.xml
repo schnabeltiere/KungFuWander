@@ -19,10 +19,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".CompareFriends"></activity>
         <activity
-            android:name=".CompareFriends"
+            android:name=".FriendsList"
             android:label="@string/title_activity_compare_friends"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".TestRecentHikings" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

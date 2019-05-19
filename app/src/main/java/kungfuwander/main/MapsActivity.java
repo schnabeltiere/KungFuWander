@@ -22,10 +22,7 @@ import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -55,7 +52,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     REQUEST_PERMISSION_ACCESS_FINE_LOCATION);
         } else {
             updateUserLocation();
-            FireBaseHelper.fetchUserHikings(hikings -> {
+            FireBaseHelper.fetchLoggedInUserHikings(hikings -> {
                 hikings.forEach(this::markPathOfHiking);
                 hikings.forEach(this::markAreaOfHiking);
             });

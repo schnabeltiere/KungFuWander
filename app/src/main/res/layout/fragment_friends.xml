@@ -13,10 +13,10 @@
 
     <Button
         android:id="@+id/btnStartHiking"
-        android:layout_width="301dp"
-        android:layout_height="282dp"
+        android:layout_width="99dp"
+        android:layout_height="72dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="33dp"
+        android:layout_marginEnd="92dp"
         android:text="Start Hiking" />
 
     <TextView
@@ -31,42 +31,41 @@
 
     <Button
         android:id="@+id/btnStopHiking"
-        android:layout_width="250dp"
-        android:layout_height="154dp"
+        android:layout_width="160dp"
+        android:layout_height="99dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="9dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="75dp"
         android:text="Stop Hiking" />
 
     <TextView
         android:id="@+id/tvHikings"
-        android:layout_width="282dp"
-        android:layout_height="133dp"
+        android:layout_width="150dp"
+        android:layout_height="65dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="100dp"
-        android:layout_marginBottom="281dp"
+        android:layout_marginStart="238dp"
+        android:layout_marginBottom="252dp"
         android:text="TextView" />
 
     <Button
         android:id="@+id/btnTestChart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="310dp"
-        android:layout_marginBottom="277dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="23dp"
         android:text="TestChart" />
 
     <Button
         android:id="@+id/btnCompareFriends"
         android:layout_width="118dp"
         android:layout_height="56dp"
+        android:layout_below="@+id/btnStartHiking"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="293dp"
-        android:layout_marginBottom="571dp"
+        android:layout_marginTop="58dp"
+        android:layout_marginEnd="186dp"
+        android:layout_marginBottom="436dp"
         android:text="Compare Friends" />
 
 </RelativeLayout>

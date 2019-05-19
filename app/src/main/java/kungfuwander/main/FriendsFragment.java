@@ -48,7 +48,7 @@ public class FriendsFragment extends Fragment implements SensorEventListener {
     }
 
     private void compareFriends() {
-        Intent intent = new Intent(getActivity(), CompareFriends.class);
+        Intent intent = new Intent(getActivity(), FriendsList.class);
         startActivity(intent);
     }
 
@@ -65,7 +65,7 @@ public class FriendsFragment extends Fragment implements SensorEventListener {
         // TODO: 16.05.2019 fetch locations and time
 
         FireBaseHelper.addToGeneralDatabase(hiking);
-        FireBaseHelper.addToSpecificUser(hiking);
+        FireBaseHelper.addToLoggedInUser(hiking);
     }
 
     private void startStepCounter() {

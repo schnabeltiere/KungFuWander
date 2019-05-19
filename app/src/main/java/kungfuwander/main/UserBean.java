@@ -1,6 +1,8 @@
 package kungfuwander.main;
 
 public class UserBean {
+    // TODO: 19.05.2019 consider creating database for each user immediately
+    // therefore they must have a name, store friends in subcollection only with uuid?
     private int cheat;
     private String name;
     private String uuid;
