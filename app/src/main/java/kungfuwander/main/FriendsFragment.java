@@ -34,27 +34,27 @@ public class FriendsFragment extends Fragment implements SensorEventListener {
         tvSteps = view.findViewById(R.id.tvSteps);
         tvHikings = view.findViewById(R.id.tvHikings);
 
-        setUpRecentHikings();
-
         Button btnStartHiking = view.findViewById(R.id.btnStartHiking);
         Button btnStopHiking = view.findViewById(R.id.btnStopHiking);
         Button btnTestChart = view.findViewById(R.id.btnTestChart);
+        Button btnCompareFriends = view.findViewById(R.id.btnCompareFriends);
 
         btnStartHiking.setOnClickListener(v -> startStepCounter());
         btnStopHiking.setOnClickListener(v -> stopStepCounter());
         btnTestChart.setOnClickListener(v -> openChart());
+        btnCompareFriends.setOnClickListener(v -> compareFriends());
 
         return view;
+    }
+
+    private void compareFriends() {
+        Intent intent = new Intent(getActivity(), CompareFriends.class);
+        startActivity(intent);
     }
 
     private void openChart() {
         Intent intent = new Intent(getActivity(), TestRecentHikings.class);
         startActivity(intent);
-    }
-
-    private void setUpRecentHikings() {
-        FireBaseHelper helper = new FireBaseHelper();
-
     }
 
     private void stopStepCounter() {

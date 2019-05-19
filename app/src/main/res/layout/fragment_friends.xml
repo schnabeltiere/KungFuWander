@@ -53,6 +53,20 @@
         android:id="@+id/btnTestChart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="310dp"
+        android:layout_marginBottom="277dp"
         android:text="TestChart" />
+
+    <Button
+        android:id="@+id/btnCompareFriends"
+        android:layout_width="118dp"
+        android:layout_height="56dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="293dp"
+        android:layout_marginBottom="571dp"
+        android:text="Compare Friends" />
 
 </RelativeLayout>
