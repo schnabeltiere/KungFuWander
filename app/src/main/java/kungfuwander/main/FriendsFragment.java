@@ -60,14 +60,12 @@ public class FriendsFragment extends Fragment implements SensorEventListener {
     private void stopStepCounter() {
         // TODO: 16.05.2019 stop this
         // now just add hiking and stop it
-        FireBaseHelper helper = new FireBaseHelper();
-
         Hiking hiking = new Hiking();
         hiking.setSteps(currentSteps);
         // TODO: 16.05.2019 fetch locations and time
 
-        helper.addToGeneralDatabase(hiking);
-        helper.addToSpecificUser(hiking);
+        FireBaseHelper.addToGeneralDatabase(hiking);
+        FireBaseHelper.addToSpecificUser(hiking);
     }
 
     private void startStepCounter() {

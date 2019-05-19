@@ -3,6 +3,15 @@ package kungfuwander.main;
 public class UserBean {
     private int cheat;
     private String name;
+    private String uuid;
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
     public String getName() {
         return name;

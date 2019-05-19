@@ -47,8 +47,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        FireBaseHelper fireBaseHelper = new FireBaseHelper();
-        fireBaseHelper.listenOnDatabaseChangedLocation(this::addLocationToMap);
+        FireBaseHelper.listenOnDatabaseChangedLocation(this::addLocationToMap);
 
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{
@@ -56,7 +55,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     REQUEST_PERMISSION_ACCESS_FINE_LOCATION);
         } else {
             updateUserLocation();
-            fireBaseHelper.fetchUserHikings(hikings -> {
+            FireBaseHelper.fetchUserHikings(hikings -> {
                 hikings.forEach(this::markPathOfHiking);
                 hikings.forEach(this::markAreaOfHiking);
             });

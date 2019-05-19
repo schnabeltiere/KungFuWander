@@ -8,12 +8,6 @@ import android.util.Log;
 public class MyLocationListener implements LocationListener {
     private final String TAG = getClass().getName();
 
-    private FireBaseHelper fireBaseHelper;
-
-    public MyLocationListener(){
-        fireBaseHelper = new FireBaseHelper();
-    }
-
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
         Log.d(TAG, "onStatusChanged()\n");
@@ -41,8 +35,8 @@ public class MyLocationListener implements LocationListener {
             Log.d(TAG, "The E-Mail of the User: " + MainActivity.currentFirebaseUser.getEmail());
 
             // TODO: 16.05.2019 move map here
-            fireBaseHelper.addToSpecificUser(myLocation); // change at call
-            fireBaseHelper.addToGeneralDatabase(myLocation);
+            FireBaseHelper.addToSpecificUser(myLocation); // change at call
+            FireBaseHelper.addToGeneralDatabase(myLocation);
             Log.d(TAG, "User location: " + location.toString());
         }
     }
