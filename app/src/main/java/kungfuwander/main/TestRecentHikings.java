@@ -112,7 +112,7 @@ public class TestRecentHikings extends AppCompatActivity {
         TextView tvSteps = alertView.findViewById(R.id.atvSteps);
         TextView tvMeter = alertView.findViewById(R.id.atvMeter);
 
-        tvDate.setText("Everything started on " + hiking.getStartPointSince1970());
+        tvDate.setText("Everything started on " + hiking.getStart());
         tvSteps.setText("With small feet you went " + hiking.getSteps() + " steps");
         tvMeter.setText("That's about " + hiking.inMeter() + " meters. Congrats");
 

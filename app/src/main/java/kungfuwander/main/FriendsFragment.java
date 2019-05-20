@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.Timestamp;
+
 import java.util.Objects;
 
 // TODO: 17.05.2019 remove this from this fragment
@@ -25,6 +27,8 @@ public class FriendsFragment extends Fragment implements SensorEventListener {
     private int currentSteps = 0;
     private TextView tvSteps;
     private TextView tvHikings;
+
+    private Hiking hiking;
 
     @Nullable
     @Override
@@ -59,9 +63,11 @@ public class FriendsFragment extends Fragment implements SensorEventListener {
 
     private void stopStepCounter() {
         // TODO: 16.05.2019 stop this
+        // look if steps < 100
         // now just add hiking and stop it
-        Hiking hiking = new Hiking();
         hiking.setSteps(currentSteps);
+        Timestamp end = Timestamp.now();
+        hiking.setEnd(end);
         // TODO: 16.05.2019 fetch locations and time
 
         FireBaseHelper.addToGeneralDatabase(hiking);
@@ -69,6 +75,11 @@ public class FriendsFragment extends Fragment implements SensorEventListener {
     }
 
     private void startStepCounter() {
+        // TODO: 20.05.2019 warning if hiking is already started
+        hiking = new Hiking();
+        Timestamp now = Timestamp.now();
+        hiking.setStart(now);
+
         try {
             SensorManager sensorManager = (SensorManager) Objects.requireNonNull(getActivity())
                     .getSystemService(Context.SENSOR_SERVICE);
@@ -77,7 +88,7 @@ public class FriendsFragment extends Fragment implements SensorEventListener {
             Objects.requireNonNull(sensorManager).registerListener(this, sensor,
                     SensorManager.SENSOR_DELAY_UI);
         } catch (NullPointerException ne){
-            Log.d(TAG, "something is null", ne);
+            Log.w(TAG, "something is null at sensor for steps", ne);
         }
     }
 

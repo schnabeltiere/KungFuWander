@@ -4,6 +4,7 @@ import android.location.Location;
 
 import com.google.android.gms.maps.model.LatLng;
 
+@Deprecated
 public class MyLocation {
 
     private double latitude;

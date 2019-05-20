@@ -86,25 +86,27 @@ public class CompareFriends extends AppCompatActivity {
         List<DataEntry> seriesData = new ArrayList<>();
 
         // makes it easier
-        hikings.sort(Comparator.comparingLong(Hiking::getStartPointSince1970));
-        compareHikings.sort(Comparator.comparingLong(Hiking::getStartPointSince1970));
+        hikings.sort(Comparator.comparing(Hiking::getStart));
+        compareHikings.sort(Comparator.comparing(Hiking::getStart));
 
         // TODO: 19.05.2019 just for testing start with 1 and go up to 5
         // sum all steps
 
         int steps1 = 0, steps2 = 0;
 
-        for (int i = 1; i < 6; i++){
-            int finalI = i;
-            // what a mess
-            Hiking hiking1 = hikings.stream().filter(hiking -> hiking.getStartPointSince1970() == finalI).findFirst().orElse(null);
-            Hiking hiking2 = compareHikings.stream().filter(hiking -> hiking.getStartPointSince1970() == finalI).findFirst().orElse(null);
-
-            steps1 += hiking1 == null ? 0 : hiking1.getSteps();
-            steps2 += hiking2 == null ? 0 : hiking2.getSteps();
-
-            seriesData.add(new CustomDataEntry(i+"", steps1, steps2));
-        }
+        // set i to start of week or something
+//        for (int i = 1; i < 6; i++){
+//            int finalI = i;
+//            // what a mess
+//            // TODO: 20.05.2019 sort by week, month, year...
+//            Hiking hiking1 = hikings.stream().filter(hiking -> hiking() == finalI).findFirst().orElse(null);
+//            Hiking hiking2 = compareHikings.stream().filter(hiking -> hiking.getStart() == finalI).findFirst().orElse(null);
+//
+//            steps1 += hiking1 == null ? 0 : hiking1.getSteps();
+//            steps2 += hiking2 == null ? 0 : hiking2.getSteps();
+//
+//            seriesData.add(new CustomDataEntry(i+"", steps1, steps2));
+//        }
 
         return seriesData;
     }

@@ -1,6 +1,8 @@
 package kungfuwander.main;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.GeoPoint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,30 +10,50 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Hiking {
-    private long startPointSince1970;
-    private long endPointSince1970;
     private int steps;
     private List<MyLocation> locations;
+    private List<GeoPoint> geoPoints;
+
+    private Timestamp start;
+    private Timestamp end;
+
+    public Timestamp getStart() {
+        return start;
+    }
+
+    public void setStart(Timestamp start) {
+        this.start = start;
+    }
+
+    public Timestamp getEnd() {
+        return end;
+    }
+
+    public void setEnd(Timestamp end) {
+        this.end = end;
+    }
 
     public Hiking() {
-        startPointSince1970 = -1; // TODO: 16.05.2019 change later, it's default
-        endPointSince1970 = -1;
-        steps = -1;
-        locations = new ArrayList<>();
-//        locations.add(new MyLocation(13, 24));
-//        locations.add(new MyLocation(132, -32));
-//        locations.add(new MyLocation(-32, 242));
-//        locations.add(new MyLocation(-21, -12));
-//        locations.add(new MyLocation(11, 65));
-//        locations.add(new MyLocation(79, 23));
-        locations.add(new MyLocation(10, 23));
-        locations.add(new MyLocation(15, 23));
-        locations.add(new MyLocation(20, 23));
-        locations.add(new MyLocation(25, 28));
-        locations.add(new MyLocation(30, 28));
-        locations.add(new MyLocation(35, 28));
-        locations.add(new MyLocation(40, 28));
-        locations.add(new MyLocation(45, 33));
+//        locations = new ArrayList<>();
+////        locations.add(new MyLocation(13, 24));
+////        locations.add(new MyLocation(132, -32));
+////        locations.add(new MyLocation(-32, 242));
+////        locations.add(new MyLocation(-21, -12));
+////        locations.add(new MyLocation(11, 65));
+////        locations.add(new MyLocation(79, 23));
+//        locations.add(new MyLocation(10, 23));
+//        locations.add(new MyLocation(15, 23));
+//        locations.add(new MyLocation(20, 23));
+//        locations.add(new MyLocation(25, 28));
+//        locations.add(new MyLocation(30, 28));
+//        locations.add(new MyLocation(35, 28));
+//        locations.add(new MyLocation(40, 28));
+//        locations.add(new MyLocation(45, 33));
+        geoPoints = new ArrayList<>();
+        geoPoints.add(new GeoPoint(10, 20));
+        geoPoints.add(new GeoPoint(23, 13));
+        geoPoints.add(new GeoPoint(23, 77));
+        geoPoints.add(new GeoPoint(54, 36));
     }
 
     public List<LatLng> locationsAsLatLng(){
@@ -45,39 +67,33 @@ public class Hiking {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Hiking hiking = (Hiking) o;
-        return startPointSince1970 == hiking.startPointSince1970 &&
-                endPointSince1970 == hiking.endPointSince1970 &&
-                steps == hiking.steps &&
-                Objects.equals(locations, hiking.locations);
+        return steps == hiking.steps &&
+                Objects.equals(geoPoints, hiking.geoPoints) &&
+                Objects.equals(start, hiking.start) &&
+                Objects.equals(end, hiking.end);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(startPointSince1970, endPointSince1970, steps, locations);
+        return Objects.hash(steps, geoPoints, start, end);
     }
 
-    public long getStartPointSince1970() {
-        return startPointSince1970;
+//
+//    public List<MyLocation> getLocations() {
+//        return locations;
+//    }
+//
+//    public void setLocations(List<MyLocation> locations) {
+//        this.locations = locations;
+//    }
+
+
+    public List<GeoPoint> getGeoPoints() {
+        return geoPoints;
     }
 
-    public void setStartPointSince1970(long startPointSince1970) {
-        this.startPointSince1970 = startPointSince1970;
-    }
-
-    public long getEndPointSince1970() {
-        return endPointSince1970;
-    }
-
-    public void setEndPointSince1970(long endPointSince1970) {
-        this.endPointSince1970 = endPointSince1970;
-    }
-
-    public List<MyLocation> getLocations() {
-        return locations;
-    }
-
-    public void setLocations(List<MyLocation> locations) {
-        this.locations = locations;
+    public void setGeoPoints(List<GeoPoint> geoPoints) {
+        this.geoPoints = geoPoints;
     }
 
     public int getSteps() {
@@ -93,6 +109,4 @@ public class Hiking {
         return steps * 0.75;
     }
 
-    //TODO destination selber eingeben
-    //TODO date =  new Date()
 }
