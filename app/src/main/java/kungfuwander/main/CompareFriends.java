@@ -3,6 +3,7 @@ package kungfuwander.main;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
@@ -17,13 +18,20 @@ import com.anychart.enums.MarkerType;
 import com.anychart.enums.TooltipPositionMode;
 import com.anychart.graphics.vector.Stroke;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static kungfuwander.main.FriendsList.*;
 
 public class CompareFriends extends AppCompatActivity {
+
+    private final String TAG = getClass().getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +39,12 @@ public class CompareFriends extends AppCompatActivity {
         setContentView(R.layout.activity_compare_friends);
 
         Intent intent = getIntent();
-        String uuidCompare = intent.getStringExtra(UUID_COMPARE);
+        String uuidCompare = intent.getStringExtra(UID_COMPARE);
 
         // nested so data gets loaded all or nothing
-        FireBaseHelper.fetchLoggedInUserHikings(hikings -> {
-            FireBaseHelper.fetchSpecificUserHikings(uuidCompare, compareHikings -> {
-                List<DataEntry> dataEntries = extractDataOutOfHikings(hikings, compareHikings);
+        FireBaseHelper.fetchLoggedInUserHikes(hikes -> {
+            FireBaseHelper.fetchSpecificUserHikes(uuidCompare, compareHikes -> {
+                List<DataEntry> dataEntries = extractDataOutOfHikes(hikes, compareHikes);
                 initChart(uuidCompare, dataEntries);
             });
         });
@@ -82,33 +90,62 @@ public class CompareFriends extends AppCompatActivity {
         anyChartView.setChart(cartesian);
     }
 
-    private List<DataEntry> extractDataOutOfHikings(List<Hiking> hikings, List<Hiking> compareHikings) {
+    private List<DataEntry> extractDataOutOfHikes(List<Hiking> allHikes, List<Hiking> allCompareHikes) {
         List<DataEntry> seriesData = new ArrayList<>();
 
         // makes it easier
-        hikings.sort(Comparator.comparing(Hiking::getStart));
-        compareHikings.sort(Comparator.comparing(Hiking::getStart));
+        allHikes.sort(Comparator.comparing(Hiking::getStart));
+        allCompareHikes.sort(Comparator.comparing(Hiking::getStart));
+        Log.d(TAG, "The only one: " + allHikes.get(0));
+        Log.d(TAG, "His date: "+ allHikes.get(0).startAsLocalDate().format(DateTimeFormatter.ofPattern("dd.MM")));
 
         // TODO: 19.05.2019 just for testing start with 1 and go up to 5
         // sum all steps
 
-        int steps1 = 0, steps2 = 0;
+        LocalDate previousMonday = determineStartOfWeek();
+        LocalDate endOfWeek = determineEndOfWeek(previousMonday);
+        Log.d(TAG, "Start is: " + previousMonday + " end is: " + endOfWeek);
 
-        // set i to start of week or something
-//        for (int i = 1; i < 6; i++){
-//            int finalI = i;
-//            // what a mess
-//            // TODO: 20.05.2019 sort by week, month, year...
-//            Hiking hiking1 = hikings.stream().filter(hiking -> hiking() == finalI).findFirst().orElse(null);
-//            Hiking hiking2 = compareHikings.stream().filter(hiking -> hiking.getStart() == finalI).findFirst().orElse(null);
-//
-//            steps1 += hiking1 == null ? 0 : hiking1.getSteps();
-//            steps2 += hiking2 == null ? 0 : hiking2.getSteps();
-//
-//            seriesData.add(new CustomDataEntry(i+"", steps1, steps2));
-//        }
+        for (LocalDate currentDay = previousMonday; currentDay.isBefore(endOfWeek); currentDay = currentDay.plusDays(1)) {
+
+            // TODO: 20.05.2019 merge this into map with LocalDate, Steps
+            List<Hiking> hikesOnSameDay = hikesOnSameDay(allHikes, currentDay);
+            List<Hiking> hikesOnSameDayCompare = hikesOnSameDay(allCompareHikes, currentDay);
+
+            Log.d(TAG, "Same day: " + hikesOnSameDay.size());
+            Log.d(TAG, "Same compare: " + hikesOnSameDayCompare.size());
+
+            // what a mess
+            // TODO: 20.05.2019 sort by week, month, year... maybe by tab view
+            int steps1 = sumSteps(hikesOnSameDay);
+            int steps2 = sumSteps(hikesOnSameDayCompare);
+
+            String format = currentDay.format(DateTimeFormatter.ofPattern("dd.MM"));
+            seriesData.add(new CustomDataEntry(format, steps1, steps2));
+        }
 
         return seriesData;
+    }
+
+    private int sumSteps(List<Hiking> allHikes) {
+        return allHikes.stream()
+                .mapToInt(Hiking::getSteps)
+                .sum();
+    }
+
+    private List<Hiking> hikesOnSameDay(List<Hiking> hikes, LocalDate currentDay) {
+        return hikes.stream().filter(hiking -> hiking.startAsLocalDate().isEqual(currentDay)).collect(Collectors.toList());
+    }
+
+    private LocalDate determineEndOfWeek(LocalDate monday) {
+        return monday.with(TemporalAdjusters.next(DayOfWeek.TUESDAY)); // TODO: 20.05.2019 change to monday
+    }
+
+    private LocalDate determineStartOfWeek() {
+        // TODO: 20.05.2019 this could be a unit test
+        // what happens if today is monday?
+        return LocalDate.now()
+                .with(TemporalAdjusters.previous(DayOfWeek.FRIDAY)); // TODO: 20.05.2019 change to monday 
     }
 
     private void createLine(Cartesian cartesian, Mapping series1Mapping, String name) {

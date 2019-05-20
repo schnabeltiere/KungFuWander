@@ -66,19 +66,17 @@ public class FriendsFragment extends Fragment implements SensorEventListener {
         // look if steps < 100
         // now just add hiking and stop it
         hiking.setSteps(currentSteps);
-        Timestamp end = Timestamp.now();
-        hiking.setEnd(end);
+        hiking.setEnd(Timestamp.now());
         // TODO: 16.05.2019 fetch locations and time
 
-        FireBaseHelper.addToGeneralDatabase(hiking);
+        FireBaseHelper.addToGeneralDatabase(hiking); // should be removed
         FireBaseHelper.addToLoggedInUser(hiking);
     }
 
     private void startStepCounter() {
         // TODO: 20.05.2019 warning if hiking is already started
         hiking = new Hiking();
-        Timestamp now = Timestamp.now();
-        hiking.setStart(now);
+        hiking.setStart(Timestamp.now());
 
         try {
             SensorManager sensorManager = (SensorManager) Objects.requireNonNull(getActivity())
@@ -88,7 +86,7 @@ public class FriendsFragment extends Fragment implements SensorEventListener {
             Objects.requireNonNull(sensorManager).registerListener(this, sensor,
                     SensorManager.SENSOR_DELAY_UI);
         } catch (NullPointerException ne){
-            Log.w(TAG, "something is null at sensor for steps", ne);
+            Log.w(TAG, "something is null at sensor for steps - happens at emulator", ne);
         }
     }
 

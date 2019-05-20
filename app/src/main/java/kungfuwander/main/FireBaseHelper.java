@@ -67,7 +67,7 @@ public class FireBaseHelper {
                 });
     }
 
-    public static void fetchSpecificUserHikings(String userUuid, Consumer<List<Hiking>> consumer){
+    public static void fetchSpecificUserHikes(String userUuid, Consumer<List<Hiking>> consumer){
         List<Hiking> hikings = new ArrayList<>();
 
         FirebaseFirestore.getInstance()
@@ -90,9 +90,9 @@ public class FireBaseHelper {
                 });
     }
 
-    public static void fetchLoggedInUserHikings(Consumer<List<Hiking>> consumer) {
+    public static void fetchLoggedInUserHikes(Consumer<List<Hiking>> consumer) {
         Log.d(TAG, "Is the UID really null? " + MainActivity.currentFirebaseUser);
-        fetchSpecificUserHikings(MainActivity.currentFirebaseUser.getUid(), consumer);
+        fetchSpecificUserHikes(MainActivity.currentFirebaseUser.getUid(), consumer);
     }
 
     public static void addToGeneralDatabase(Hiking hiking) {

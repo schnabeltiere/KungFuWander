@@ -4,6 +4,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.GeoPoint;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -34,21 +36,7 @@ public class Hiking {
     }
 
     public Hiking() {
-//        locations = new ArrayList<>();
-////        locations.add(new MyLocation(13, 24));
-////        locations.add(new MyLocation(132, -32));
-////        locations.add(new MyLocation(-32, 242));
-////        locations.add(new MyLocation(-21, -12));
-////        locations.add(new MyLocation(11, 65));
-////        locations.add(new MyLocation(79, 23));
-//        locations.add(new MyLocation(10, 23));
-//        locations.add(new MyLocation(15, 23));
-//        locations.add(new MyLocation(20, 23));
-//        locations.add(new MyLocation(25, 28));
-//        locations.add(new MyLocation(30, 28));
-//        locations.add(new MyLocation(35, 28));
-//        locations.add(new MyLocation(40, 28));
-//        locations.add(new MyLocation(45, 33));
+        // TODO: 20.05.2019 remove this - only for testing
         geoPoints = new ArrayList<>();
         geoPoints.add(new GeoPoint(10, 20));
         geoPoints.add(new GeoPoint(23, 13));
@@ -56,10 +44,22 @@ public class Hiking {
         geoPoints.add(new GeoPoint(54, 36));
     }
 
+    @Deprecated // maybe need this later
     public List<LatLng> locationsAsLatLng(){
         return locations.stream()
                 .map(MyLocation::toLatLng)
                 .collect(Collectors.toList());
+    }
+
+    public LocalDate startAsLocalDate(){
+        return start.toDate().toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+    }
+    public LocalDate endAsLocalDate(){
+        return end.toDate().toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
     }
 
     @Override
@@ -77,16 +77,6 @@ public class Hiking {
     public int hashCode() {
         return Objects.hash(steps, geoPoints, start, end);
     }
-
-//
-//    public List<MyLocation> getLocations() {
-//        return locations;
-//    }
-//
-//    public void setLocations(List<MyLocation> locations) {
-//        this.locations = locations;
-//    }
-
 
     public List<GeoPoint> getGeoPoints() {
         return geoPoints;
@@ -109,4 +99,14 @@ public class Hiking {
         return steps * 0.75;
     }
 
+    @Override
+    public String toString() {
+        return "Hiking{" +
+                "steps=" + steps +
+                ", locations=" + locations +
+                ", geoPoints=" + geoPoints +
+                ", start=" + start +
+                ", end=" + end +
+                '}';
+    }
 }

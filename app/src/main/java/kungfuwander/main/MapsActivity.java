@@ -52,7 +52,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     REQUEST_PERMISSION_ACCESS_FINE_LOCATION);
         } else {
             updateUserLocation();
-            FireBaseHelper.fetchLoggedInUserHikings(hikings -> {
+            FireBaseHelper.fetchLoggedInUserHikes(hikings -> {
                 hikings.forEach(this::markPathOfHiking);
                 hikings.forEach(this::markAreaOfHiking);
             });

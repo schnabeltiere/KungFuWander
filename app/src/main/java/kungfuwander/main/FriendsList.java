@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 public class FriendsList extends AppCompatActivity {
 
-    public static final String UUID_COMPARE = "uuid_compare";
+    public static final String UID_COMPARE = "uid_compare";
     private List<String> items;
     private List<UserBean> userBeans;
     private ListView listView;
@@ -57,7 +57,7 @@ public class FriendsList extends AppCompatActivity {
 
         // TODO: 19.05.2019 change this to only display nCounts
         // otherwise waste of queries if we just want number of hikings
-        FireBaseHelper.fetchSpecificUserHikings(user.getUuid(), hikings -> {
+        FireBaseHelper.fetchSpecificUserHikes(user.getUuid(), hikings -> {
             tvUserName.setText("Challenger: " + user.getName());
             tvHikingSince.setText("Hiking since: " + user.getCheat());
             tvNHikings.setText("Here comes nHikings..." + hikings.size());
@@ -67,7 +67,7 @@ public class FriendsList extends AppCompatActivity {
                 .setView(alertView)
                 .setPositiveButton("Compare", (dialog, which) -> {
                     Intent intent = new Intent(this, CompareFriends.class);
-                    intent.putExtra(UUID_COMPARE, user.getUuid());
+                    intent.putExtra(UID_COMPARE, user.getUuid());
                     startActivity(intent);
                 })
                 .show();

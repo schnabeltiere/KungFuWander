@@ -28,18 +28,18 @@ import java.util.List;
 public class TestRecentHikings extends AppCompatActivity {
 
     private final String TAG = getClass().getName();
-    private List<Hiking> hikings;
+    private List<Hiking> hikes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_recent_hikings);
 
-        FireBaseHelper.fetchLoggedInUserHikings(this::initChart);
+        FireBaseHelper.fetchLoggedInUserHikes(this::initChart);
     }
 
-    private void initChart(List<Hiking> hikings) {
-        this.hikings = hikings;
+    private void initChart(List<Hiking> hikes) {
+        this.hikes = hikes;
 
         AnyChartView anyChartView = findViewById(R.id.any_chart_view);
         anyChartView.setProgressBar(findViewById(R.id.progress_bar));
@@ -48,10 +48,10 @@ public class TestRecentHikings extends AppCompatActivity {
 
         List<DataEntry> data = new ArrayList<>();
 
-        // funny mistake: if they have the same x-name it is the same value
+        // funny mistake made by me: if they have the same x-name it is the same value
         // they need individual names
-        for (int i = 0; i < hikings.size(); i++) {
-            Hiking h = hikings.get(i);
+        for (int i = 0; i < hikes.size(); i++) {
+            Hiking h = hikes.get(i);
             ValueDataEntry entry = new ValueDataEntry(i + "", h.getSteps());
             data.add(entry);
         }
@@ -68,7 +68,7 @@ public class TestRecentHikings extends AppCompatActivity {
                 .format("${%Value}{groupsSeparator: }");
 
         cartesian.animation(true);
-        cartesian.title("Your recent hikings");
+        cartesian.title("Your recent hikes");
 
         cartesian.yScale().minimum(0d);
 
@@ -94,7 +94,7 @@ public class TestRecentHikings extends AppCompatActivity {
                 String value = event.getData().get("value");
 
                 // TODO: 18.05.2019 remove this cheat with x
-                showDialogAbout(hikings.get(Integer.parseInt(x)));
+                showDialogAbout(hikes.get(Integer.parseInt(x)));
             }
         });
     }
