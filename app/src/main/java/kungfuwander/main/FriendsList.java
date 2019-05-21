@@ -57,9 +57,9 @@ public class FriendsList extends AppCompatActivity {
 
         // TODO: 19.05.2019 change this to only display nCounts
         // otherwise waste of queries if we just want number of hikings
-        FireBaseHelper.fetchSpecificUserHikes(user.getUuid(), hikings -> {
+        FireBaseHelper.fetchSpecificUserHikes(user.getUid(), hikings -> {
             tvUserName.setText("Challenger: " + user.getName());
-            tvHikingSince.setText("Hiking since: " + user.getCheat());
+            tvHikingSince.setText("Hiking since: " + user.getUid());
             tvNHikings.setText("Here comes nHikings..." + hikings.size());
         });
 
@@ -67,7 +67,7 @@ public class FriendsList extends AppCompatActivity {
                 .setView(alertView)
                 .setPositiveButton("Compare", (dialog, which) -> {
                     Intent intent = new Intent(this, CompareFriends.class);
-                    intent.putExtra(UID_COMPARE, user.getUuid());
+                    intent.putExtra(UID_COMPARE, user.getUid());
                     startActivity(intent);
                 })
                 .show();

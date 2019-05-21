@@ -145,7 +145,7 @@ public class CompareFriends extends AppCompatActivity {
         // TODO: 20.05.2019 this could be a unit test
         // what happens if today is monday?
         return LocalDate.now()
-                .with(TemporalAdjusters.previous(DayOfWeek.FRIDAY)); // TODO: 20.05.2019 change to monday 
+                .with(TemporalAdjusters.previous(DayOfWeek.FRIDAY)); // TODO: 20.05.2019 change to monday
     }
 
     private void createLine(Cartesian cartesian, Mapping series1Mapping, String name) {

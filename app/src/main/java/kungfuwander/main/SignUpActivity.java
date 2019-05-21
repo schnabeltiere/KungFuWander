@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -65,6 +66,8 @@ public class SignUpActivity extends AppCompatActivity {
                     firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
                                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                    // this creates at login, updates following later...
+                                    FireBaseHelper.createNewUserDatabase();
                                     finish();
                                 } else {
                                     Toast.makeText(getApplicationContext(), "E-mail or password is wrong", Toast.LENGTH_SHORT).show();

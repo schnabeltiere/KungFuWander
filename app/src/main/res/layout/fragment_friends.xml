@@ -68,4 +68,14 @@
         android:layout_marginBottom="436dp"
         android:text="Compare Friends" />
 
+    <Button
+        android:id="@+id/btnNotification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="243dp"
+        android:layout_marginBottom="448dp"
+        android:text="Notification" />
+
 </RelativeLayout>

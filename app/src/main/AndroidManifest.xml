@@ -19,7 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CompareFriends"></activity>
+        <activity android:name=".TestNotification"></activity>
+        <activity android:name=".CompareFriends" />
         <activity
             android:name=".FriendsList"
             android:label="@string/title_activity_compare_friends"

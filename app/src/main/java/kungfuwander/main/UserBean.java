@@ -1,18 +1,31 @@
 package kungfuwander.main;
 
-public class UserBean {
-    // TODO: 19.05.2019 consider creating database for each user immediately
-    // therefore they must have a name, store friends in subcollection only with uuid?
-    private int cheat;
-    private String name;
-    private String uuid;
+import java.util.Objects;
 
-    public String getUuid() {
-        return uuid;
+public class UserBean {
+    // therefore they must have a name, store friends in subcollection only with uid?
+    private String uid;
+    private String name;
+
+    public UserBean(){ }
+
+    public UserBean(String uid) {
+        this.uid = uid;
+        // TODO: 21.05.2019 need this at creation - or at least not allow to proceed without name
+        this.name = "default_name";
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public UserBean(String uid, String name) {
+        this.uid = uid;
+        this.name = name;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getName() {
@@ -23,26 +36,25 @@ public class UserBean {
         this.name = name;
     }
 
-    public UserBean(){
-
-    }
-    public UserBean(int cheat) {
-        this.cheat = cheat;
-    }
-
     @Override
     public String toString() {
         return "UserBean{" +
-                "cheat=" + cheat +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
+                ", uid='" + uid + '\'' +
                 '}';
     }
 
-    public int getCheat() {
-        return cheat;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserBean userBean = (UserBean) o;
+        return Objects.equals(name, userBean.name) &&
+                Objects.equals(uid, userBean.uid);
     }
 
-    public void setCheat(int cheat) {
-        this.cheat = cheat;
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, uid);
     }
 }
