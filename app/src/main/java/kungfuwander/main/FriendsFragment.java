@@ -136,7 +136,6 @@ public class FriendsFragment extends Fragment implements SensorEventListener {
         hiking.setEnd(Timestamp.now());
         // TODO: 16.05.2019 fetch locations and time
 
-        FireBaseHelper.addToGeneralDatabase(hiking); // should be removed
         FireBaseHelper.addToLoggedInUser(hiking);
     }
 

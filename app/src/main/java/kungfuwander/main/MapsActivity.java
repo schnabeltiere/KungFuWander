@@ -44,7 +44,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        FireBaseHelper.listenOnDatabaseChangedLocation(this::addLocationToMap);
+//        FireBaseHelper.listenOnDatabaseChangedLocation(this::addLocationToMap);
 
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{

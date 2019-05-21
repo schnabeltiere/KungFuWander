@@ -3,7 +3,6 @@ package kungfuwander.main;
 
 import android.util.Log;
 
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -20,40 +19,7 @@ public class FireBaseHelper {
     private static final String DB_HIKES = "hikes";
     private static final String DB_FRIENDS = "friends";
     private static final String TAG = "FireBaseHelper";
-
-    @Deprecated
-    public static void listenOnDatabaseChangedLocation(Consumer<MyLocation> consumer) {
-        FirebaseFirestore.getInstance()
-                .collection(DB_LOCATIONS)
-                .addSnapshotListener((snapshots, e) -> {
-                    if (e != null) {
-                        Log.w(TAG, "listen:error", e);
-                        return;
-                    }
-
-                    for (DocumentChange dc : snapshots.getDocumentChanges()) {
-                        MyLocation myLocation = dc.getDocument().toObject(MyLocation.class);
-
-                        switch (dc.getType()) {
-                            case ADDED:
-                                // this is called the first time at reading the database
-                                // so everything will be under ADDED the first time
-
-                                consumer.accept(myLocation);
-                                Log.d(TAG, "New Location: " + dc.getDocument().getData());
-                                break;
-                            case MODIFIED:
-                                Log.d(TAG, "Modified Location: " + dc.getDocument().getData());
-                                break;
-                            case REMOVED:
-                                Log.d(TAG, "Removed Location: " + dc.getDocument().getData());
-                                break;
-                        }
-                    }
-                });
-    }
-
-    
+    // TODO: 21.05.2019 add friends database
 
     public static void createNewUserDatabase(){
         FirebaseFirestore.getInstance()
@@ -112,17 +78,7 @@ public class FireBaseHelper {
     }
 
     public static void fetchLoggedInUserHikes(Consumer<List<Hiking>> consumer) {
-        Log.d(TAG, "Is the UID really null? " + MainActivity.currentFirebaseUser);
         fetchSpecificUserHikes(MainActivity.currentFirebaseUser.getUid(), consumer);
-    }
-
-    public static void addToGeneralDatabase(Hiking hiking) {
-        // Add a new document with a generated ID
-        // will call ADDED listener, so list gets updated
-        FirebaseFirestore.getInstance().collection(DB_HIKES)
-                .add(hiking)
-                .addOnSuccessListener(documentReference -> Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId()))
-                .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
     }
 
     public static void addToLoggedInUser(Hiking hiking) {
@@ -138,27 +94,4 @@ public class FireBaseHelper {
                 .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
     }
 
-    @Deprecated
-    public static void addToGeneralDatabase(MyLocation myLocation) {
-        // Add a new document with a generated ID
-        // will call ADDED listener, so list gets updated
-        FirebaseFirestore.getInstance()
-                .collection(DB_LOCATIONS)
-                .add(myLocation)
-                .addOnSuccessListener(documentReference -> Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId()))
-                .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
-    }
-
-    @Deprecated
-    public static void addToLoggedInUser(MyLocation myLocation) {
-        // Add a new document with a generated ID
-        // will call ADDED listener, so list gets updated
-        FirebaseFirestore.getInstance()
-                .collection(DB_USERS)
-                .document(MainActivity.currentFirebaseUser.getUid())
-                .collection(DB_LOCATIONS)
-                .add(myLocation)
-                .addOnSuccessListener(documentReference -> Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId()))
-                .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
-    }
 }
