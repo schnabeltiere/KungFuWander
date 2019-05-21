@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.SetOptions;
 
@@ -22,6 +23,8 @@ public class FireBaseHelper {
     private static final String TAG = "FireBaseHelper";
     // TODO: 21.05.2019 add friends database
 
+    // TODO: 21.05.2019 read username from db or save in app?
+
     public static void createNewUserDatabase(){
         FirebaseFirestore.getInstance()
                 .collection(DB_USERS)
@@ -30,12 +33,11 @@ public class FireBaseHelper {
     }
 
     // if there is more to update -> write methods
-    public static void updateUserName(String userName){
+    public static void updateLoggedInUserName(String userName){
         FirebaseFirestore.getInstance()
                 .collection(DB_USERS)
                 .document(MainActivity.currentFirebaseUser.getUid())
                 .set(new UserBean(MainActivity.currentFirebaseUser.getUid(), userName), SetOptions.mergeFields("name"));
-
     }
 
     public static void fetchAllUsers(Consumer<List<UserBean>> consumer){

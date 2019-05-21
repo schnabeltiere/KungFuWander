@@ -99,13 +99,11 @@ public class CompareFriends extends AppCompatActivity {
         Log.d(TAG, "The only one: " + allHikes.get(0));
         Log.d(TAG, "His date: "+ allHikes.get(0).startAsLocalDate().format(DateTimeFormatter.ofPattern("dd.MM")));
 
-        // TODO: 19.05.2019 just for testing start with 1 and go up to 5
-        // sum all steps
-
         LocalDate previousMonday = determineStartOfWeek();
         LocalDate endOfWeek = determineEndOfWeek(previousMonday);
         Log.d(TAG, "Start is: " + previousMonday + " end is: " + endOfWeek);
 
+        int sumSteps1 = 0, sumSteps2 = 0;
         for (LocalDate currentDay = previousMonday; currentDay.isBefore(endOfWeek); currentDay = currentDay.plusDays(1)) {
 
             // TODO: 20.05.2019 merge this into map with LocalDate, Steps
@@ -120,8 +118,10 @@ public class CompareFriends extends AppCompatActivity {
             int steps1 = sumSteps(hikesOnSameDay);
             int steps2 = sumSteps(hikesOnSameDayCompare);
 
+            sumSteps1 += steps1; sumSteps2 += steps2;
+
             String format = currentDay.format(DateTimeFormatter.ofPattern("dd.MM"));
-            seriesData.add(new CustomDataEntry(format, steps1, steps2));
+            seriesData.add(new CustomDataEntry(format, sumSteps1, sumSteps2));
         }
 
         return seriesData;
@@ -137,15 +137,14 @@ public class CompareFriends extends AppCompatActivity {
         return hikes.stream().filter(hiking -> hiking.startAsLocalDate().isEqual(currentDay)).collect(Collectors.toList());
     }
 
-    private LocalDate determineEndOfWeek(LocalDate monday) {
-        return monday.with(TemporalAdjusters.next(DayOfWeek.TUESDAY)); // TODO: 20.05.2019 change to monday
+    private LocalDate determineEndOfWeek(LocalDate startDate) {
+        return startDate.with(TemporalAdjusters.next(DayOfWeek.FRIDAY)); // TODO: 20.05.2019 change to monday
     }
 
     private LocalDate determineStartOfWeek() {
         // TODO: 20.05.2019 this could be a unit test
         // what happens if today is monday?
-        return LocalDate.now()
-                .with(TemporalAdjusters.previous(DayOfWeek.FRIDAY)); // TODO: 20.05.2019 change to monday
+        return LocalDate.now().with(TemporalAdjusters.previous(DayOfWeek.FRIDAY)); // TODO: 20.05.2019 change to monday
     }
 
     private void createLine(Cartesian cartesian, Mapping series1Mapping, String name) {

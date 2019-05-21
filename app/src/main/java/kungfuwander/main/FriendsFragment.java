@@ -1,22 +1,18 @@
 package kungfuwander.main;
 
 import android.app.Notification;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,10 +21,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.GeoPoint;
 
 import java.util.Objects;
 
-import static android.content.Context.NOTIFICATION_SERVICE;
+import im.delight.android.location.SimpleLocation;
 
 // TODO: 17.05.2019 remove this from this fragment
 public class FriendsFragment extends Fragment implements SensorEventListener {
@@ -36,9 +33,10 @@ public class FriendsFragment extends Fragment implements SensorEventListener {
     private String TAG = getClass().getName();
     private int currentSteps = 0;
     private TextView tvSteps;
-    private TextView tvHikings;
+    private TextView tvHikes;
 
     private Hiking hiking;
+    private SimpleLocation simpleLocation;
 
     @Nullable
     @Override
@@ -46,7 +44,7 @@ public class FriendsFragment extends Fragment implements SensorEventListener {
         View view = inflater.inflate(R.layout.fragment_friends, container, false);
         // inflater.inflate(R.layout.fragment_friends, null);
         tvSteps = view.findViewById(R.id.tvSteps);
-        tvHikings = view.findViewById(R.id.tvHikings);
+        tvHikes = view.findViewById(R.id.tvHikings);
 
         Button btnStartHiking = view.findViewById(R.id.btnStartHiking);
         Button btnStopHiking = view.findViewById(R.id.btnStopHiking);
@@ -60,14 +58,64 @@ public class FriendsFragment extends Fragment implements SensorEventListener {
         btnCompareFriends.setOnClickListener(v -> compareFriends());
         btnNotification.setOnClickListener(v -> updateUserNameToJustin());
 
+        simpleLocation = setUpSimpleLocation();
+
+        // if we can't access the location yet
+        if (!simpleLocation.hasLocationEnabled()) {
+            // ask the user to enable location access
+            SimpleLocation.openSettings(getContext());
+        }
+
+        simpleLocation.setListener(() -> {
+            // new location data has been received and can be accessed
+            double latitude = simpleLocation.getLatitude();
+            double longitude = simpleLocation.getLongitude();
+
+            GeoPoint geoPoint = new GeoPoint(latitude, longitude);
+            if (hiking == null) {
+                Log.w(TAG, "No hiking init...");
+            } else {
+                hiking.addGeoPoint(geoPoint);
+                tvHikes.setText("Added: " + geoPoint.toString() + ", size of hiking: " + hiking.getGeoPoints().size());
+                Log.d(TAG, "Added: " + geoPoint.toString() + ", size of hiking: " + hiking.getGeoPoints().size());
+            }
+        });
+
         return view;
     }
 
-    private void updateUserNameToJustin() {
-        FireBaseHelper.updateUserName("Justin");
+    private SimpleLocation setUpSimpleLocation() {
+        Context context = getContext();
+        boolean requireFineGranularity = true;
+        boolean passiveMode = false;
+        long updateIntervalInMilliseconds = 100;
+        boolean requireNewLocation = true;
+
+        return new SimpleLocation(context, requireFineGranularity, passiveMode, updateIntervalInMilliseconds, requireNewLocation);
     }
 
-    private void startNewIntentForNotification(){
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // make the device update its location
+        simpleLocation.beginUpdates();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        // stop location updates (saves battery)
+        simpleLocation.endUpdates();
+    }
+
+    @Deprecated
+    private void updateUserNameToJustin() {
+        FireBaseHelper.updateLoggedInUserName("Justin");
+    }
+
+    private void startNewIntentForNotification() {
         Intent intent = new Intent(getActivity(), TestNotification.class);
         startActivity(intent);
     }

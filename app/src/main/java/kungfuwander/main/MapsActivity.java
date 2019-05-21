@@ -21,8 +21,12 @@ import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 
 import java.util.List;
+
+import im.delight.android.location.SimpleLocation;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -34,6 +38,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LocationListener locationListener;
 
     private String bestProvider;
+
+    private SimpleLocation simpleLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,6 +158,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             locationManager.requestLocationUpdates(bestProvider, 3000, 0, locationListener);
         }
+
+        // make the device update its location
+        simpleLocation.beginUpdates();
     }
 
     @Override
@@ -160,5 +169,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             locationManager.removeUpdates(locationListener);
         }
+
+        // stop location updates (saves battery)
+        simpleLocation.endUpdates();
     }
 }

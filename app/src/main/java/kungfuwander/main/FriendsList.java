@@ -53,14 +53,14 @@ public class FriendsList extends AppCompatActivity {
         // set default price
         TextView tvUserName = alertView.findViewById(R.id.atvUserName);
         TextView tvHikingSince = alertView.findViewById(R.id.atvUserHikingSince);
-        TextView tvNHikings = alertView.findViewById(R.id.atvUserNHikings);
+        TextView tvNHikes = alertView.findViewById(R.id.atvUserNHikings);
 
         // TODO: 19.05.2019 change this to only display nCounts
-        // otherwise waste of queries if we just want number of hikings
-        FireBaseHelper.fetchSpecificUserHikes(user.getUid(), hikings -> {
+        // otherwise waste of queries if we just want number of hikes
+        FireBaseHelper.fetchSpecificUserHikes(user.getUid(), hikes -> {
             tvUserName.setText("Challenger: " + user.getName());
             tvHikingSince.setText("Hiking since: " + user.getUid());
-            tvNHikings.setText("Here comes nHikings..." + hikings.size());
+            tvNHikes.setText("Here comes nHikings..." + hikes.size());
         });
 
         new AlertDialog.Builder(this)
