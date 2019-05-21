@@ -44,17 +44,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-//        FireBaseHelper.listenOnDatabaseChangedLocation(this::addLocationToMap);
-
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{
                             Manifest.permission.ACCESS_FINE_LOCATION},
                     REQUEST_PERMISSION_ACCESS_FINE_LOCATION);
         } else {
             updateUserLocation();
-            FireBaseHelper.fetchLoggedInUserHikes(hikings -> {
-                hikings.forEach(this::markPathOfHiking);
-                hikings.forEach(this::markAreaOfHiking);
+            // here fetch of friends if wanted
+            FireBaseHelper.fetchLoggedInUserHikes(hikes -> {
+                hikes.forEach(this::markPathOfHiking);
+                hikes.forEach(this::markAreaOfHiking);
             });
         }
     }
@@ -90,19 +89,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         bestProvider = getBestProvider();
         locationListener = new MyLocationListener();
-    }
-
-    private void addLocationToMap(MyLocation myLocation) {
-        double latitude = myLocation.getLatitude();
-        double longitude = myLocation.getLongitude();
-
-        LatLng position = new LatLng(latitude, longitude);
-
-        MarkerOptions markerOptions = new MarkerOptions().position(position).title(myLocation.getUserName());
-        Log.d(TAG, "The Username for the marker: " + myLocation.getUserName());
-        Log.d(TAG, "The Title is : " + markerOptions.getTitle());
-        mMap.addMarker(markerOptions);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(position));
     }
 
     private String getBestProvider() {

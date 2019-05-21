@@ -58,9 +58,13 @@ public class FriendsFragment extends Fragment implements SensorEventListener {
         btnStopHiking.setOnClickListener(v -> stopStepCounter());
         btnTestChart.setOnClickListener(v -> openChart());
         btnCompareFriends.setOnClickListener(v -> compareFriends());
-        btnNotification.setOnClickListener(v -> startNewIntentForNotification());
+        btnNotification.setOnClickListener(v -> updateUserNameToJustin());
 
         return view;
+    }
+
+    private void updateUserNameToJustin() {
+        FireBaseHelper.updateUserName("Justin");
     }
 
     private void startNewIntentForNotification(){
@@ -152,6 +156,7 @@ public class FriendsFragment extends Fragment implements SensorEventListener {
             Objects.requireNonNull(sensorManager).registerListener(this, sensor,
                     SensorManager.SENSOR_DELAY_UI);
         } catch (NullPointerException ne) {
+            currentSteps = 4711; // so there is something in database
             Log.w(TAG, "something is null at sensor for steps - happens at emulator", ne);
         }
     }

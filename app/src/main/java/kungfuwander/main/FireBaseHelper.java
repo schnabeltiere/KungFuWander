@@ -6,6 +6,7 @@ import android.util.Log;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,16 +26,15 @@ public class FireBaseHelper {
         FirebaseFirestore.getInstance()
                 .collection(DB_USERS)
                 .document(MainActivity.currentFirebaseUser.getUid())
-                // TODO: 21.05.2019 will this work? also set name
                 .set(new UserBean(MainActivity.currentFirebaseUser.getUid()));
     }
 
+    // if there is more to update -> write methods
     public static void updateUserName(String userName){
         FirebaseFirestore.getInstance()
                 .collection(DB_USERS)
                 .document(MainActivity.currentFirebaseUser.getUid())
-                // TODO: 21.05.2019 will this work? also set name
-                .set(new UserBean(MainActivity.currentFirebaseUser.getUid(), userName));
+                .set(new UserBean(MainActivity.currentFirebaseUser.getUid(), userName), SetOptions.mergeFields("name"));
 
     }
 

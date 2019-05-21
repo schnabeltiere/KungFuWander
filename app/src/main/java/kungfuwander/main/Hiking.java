@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 
 public class Hiking {
     private int steps;
-    private List<MyLocation> locations;
     private List<GeoPoint> geoPoints;
 
     private Timestamp start;
@@ -38,16 +37,17 @@ public class Hiking {
     public Hiking() {
         // TODO: 20.05.2019 remove this - only for testing
         geoPoints = new ArrayList<>();
-        geoPoints.add(new GeoPoint(10, 20));
-        geoPoints.add(new GeoPoint(23, 13));
-        geoPoints.add(new GeoPoint(23, 77));
-        geoPoints.add(new GeoPoint(54, 36));
+        geoPoints.add(new GeoPoint(2.3, 20.1));
+        geoPoints.add(new GeoPoint(2.4, 20.2));
+        geoPoints.add(new GeoPoint(2.5, 20.2));
+        geoPoints.add(new GeoPoint(2.6, 20.3));
+        geoPoints.add(new GeoPoint(2.6, 20.2));
+        geoPoints.add(new GeoPoint(2.5, 20.0));
     }
 
-    @Deprecated // maybe need this later
     public List<LatLng> locationsAsLatLng(){
-        return locations.stream()
-                .map(MyLocation::toLatLng)
+        return geoPoints.stream()
+                .map(gp -> new LatLng(gp.getLatitude(), gp.getLongitude()))
                 .collect(Collectors.toList());
     }
 
@@ -103,7 +103,6 @@ public class Hiking {
     public String toString() {
         return "Hiking{" +
                 "steps=" + steps +
-                ", locations=" + locations +
                 ", geoPoints=" + geoPoints +
                 ", start=" + start +
                 ", end=" + end +
