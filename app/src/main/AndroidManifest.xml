@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <uses-feature android:name="android.hardware.camera" />
+
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -19,7 +20,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityJustForNotification"></activity>
+        <activity android:name=".ReplacementForFriends"></activity>
+        <activity android:name=".ActivityJustForNotification" />
         <activity android:name=".CompareFriends" />
         <activity
             android:name=".FriendsList"

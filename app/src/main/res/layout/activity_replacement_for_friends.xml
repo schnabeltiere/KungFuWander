@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btnStartHiking"
+        android:layout_width="99dp"
+        android:layout_height="72dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="233dp"
+        android:layout_marginTop="70dp"
+        android:text="Start Hiking"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSteps"
+        android:layout_width="183dp"
+        android:layout_height="180dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="66dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/btnStopHiking"
+        app:layout_constraintTop_toBottomOf="@id/btnStartHiking" />
+
+    <Button
+        android:id="@+id/btnStopHiking"
+        android:layout_width="160dp"
+        android:layout_height="99dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="22dp"
+        android:text="Stop Hiking"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnNotification" />
+
+    <TextView
+        android:id="@+id/tvHikings"
+        android:layout_width="244dp"
+        android:layout_height="163dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="22dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/btnTestChart"
+        app:layout_constraintTop_toBottomOf="@+id/tvSteps" />
+
+    <Button
+        android:id="@+id/btnTestChart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="19dp"
+        android:text="TestChart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCompareFriends" />
+
+    <Button
+        android:id="@+id/btnCompareFriends"
+        android:layout_width="118dp"
+        android:layout_height="56dp"
+        android:layout_below="@id/btnStartHiking"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="22dp"
+        android:text="Compare Friends"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnStopHiking" />
+
+    <Button
+        android:id="@+id/btnNotification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="219dp"
+        android:text="Notification"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

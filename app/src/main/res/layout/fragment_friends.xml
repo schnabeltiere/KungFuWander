@@ -2,6 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/btnShowReplacement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="144dp"
+        android:layout_marginBottom="574dp"
+        android:text="Button" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -10,72 +20,5 @@
         android:layout_marginEnd="382dp"
         android:layout_marginBottom="401dp"
         android:text="Friends" />
-
-    <Button
-        android:id="@+id/btnStartHiking"
-        android:layout_width="99dp"
-        android:layout_height="72dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="92dp"
-        android:text="Start Hiking" />
-
-    <TextView
-        android:id="@+id/tvSteps"
-        android:layout_width="183dp"
-        android:layout_height="180dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="200dp"
-        android:layout_marginBottom="76dp"
-        android:text="TextView" />
-
-    <Button
-        android:id="@+id/btnStopHiking"
-        android:layout_width="160dp"
-        android:layout_height="99dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="21dp"
-        android:layout_marginBottom="75dp"
-        android:text="Stop Hiking" />
-
-    <TextView
-        android:id="@+id/tvHikings"
-        android:layout_width="244dp"
-        android:layout_height="163dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="144dp"
-        android:layout_marginBottom="252dp"
-        android:text="TextView" />
-
-    <Button
-        android:id="@+id/btnTestChart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="23dp"
-        android:text="TestChart" />
-
-    <Button
-        android:id="@+id/btnCompareFriends"
-        android:layout_width="118dp"
-        android:layout_height="56dp"
-        android:layout_below="@+id/btnStartHiking"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="58dp"
-        android:layout_marginEnd="186dp"
-        android:layout_marginBottom="436dp"
-        android:text="Compare Friends" />
-
-    <Button
-        android:id="@+id/btnNotification"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="243dp"
-        android:layout_marginBottom="448dp"
-        android:text="Notification" />
 
 </RelativeLayout>
