@@ -7,7 +7,7 @@
     <Button
         android:id="@+id/btnStartHiking"
         android:layout_width="121dp"
-        android:layout_height="81dp"
+        android:layout_height="62dp"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="12dp"
         android:layout_marginTop="32dp"
@@ -31,8 +31,8 @@
 
     <Button
         android:id="@+id/btnStopHiking"
-        android:layout_width="131dp"
-        android:layout_height="84dp"
+        android:layout_width="128dp"
+        android:layout_height="62dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="36dp"
@@ -57,8 +57,8 @@
 
     <Button
         android:id="@+id/btnTestChart"
-        android:layout_width="133dp"
-        android:layout_height="52dp"
+        android:layout_width="116dp"
+        android:layout_height="46dp"
         android:layout_alignParentStart="true"
         android:layout_marginTop="19dp"
         android:layout_marginEnd="13dp"
@@ -68,14 +68,40 @@
 
     <Button
         android:id="@+id/btnCompareFriends"
-        android:layout_width="118dp"
-        android:layout_height="56dp"
+        android:layout_width="94dp"
+        android:layout_height="53dp"
         android:layout_below="@id/btnStartHiking"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="14dp"
         android:layout_marginTop="18dp"
         android:text="Compare Friends"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnStartHiking" />
+
+    <Button
+        android:id="@+id/btnRename"
+        android:layout_width="96dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="19dp"
+        android:text="Rename "
+        app:layout_constraintEnd_toStartOf="@+id/btnStopHiking"
+        app:layout_constraintStart_toEndOf="@+id/btnStartHiking"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextNameRename"
+        android:layout_width="129dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="23dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintEnd_toStartOf="@+id/btnTestChart"
+        app:layout_constraintStart_toEndOf="@+id/btnCompareFriends"
         app:layout_constraintTop_toBottomOf="@+id/btnStartHiking" />
 
 </android.support.constraint.ConstraintLayout>
