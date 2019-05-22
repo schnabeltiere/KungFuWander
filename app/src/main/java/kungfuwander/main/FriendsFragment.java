@@ -56,7 +56,7 @@ public class FriendsFragment extends Fragment implements SensorEventListener {
         btnStopHiking.setOnClickListener(v -> stopStepCounter());
         btnTestChart.setOnClickListener(v -> openChart());
         btnCompareFriends.setOnClickListener(v -> compareFriends());
-        btnNotification.setOnClickListener(v -> updateUserNameToJustin());
+        btnNotification.setOnClickListener(v -> startServiceNotification());
 
         simpleLocation = setUpSimpleLocation();
 
@@ -82,6 +82,11 @@ public class FriendsFragment extends Fragment implements SensorEventListener {
         });
 
         return view;
+    }
+
+    private void startServiceNotification() {
+        Intent intent = new Intent(getContext(), ActivityJustForNotification.class);
+        startActivity(intent);
     }
 
     private SimpleLocation setUpSimpleLocation() {
@@ -113,61 +118,6 @@ public class FriendsFragment extends Fragment implements SensorEventListener {
     @Deprecated
     private void updateUserNameToJustin() {
         FireBaseHelper.updateLoggedInUserName("Justin");
-    }
-
-    private void startNewIntentForNotification() {
-        Intent intent = new Intent(getActivity(), TestNotification.class);
-        startActivity(intent);
-    }
-
-    @Deprecated
-    // this does not work somehow? don't know?
-    private void stackOverflowNotification() {
-        Log.d(TAG, "Gets to stackoverflow notification...");
-
-        NotificationManager mNotificationManager;
-        Context mContext = getActivity();
-
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(mContext.getApplicationContext(), "notify_001");
-        Intent ii = new Intent(mContext.getApplicationContext(), MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, ii, 0);
-
-        NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
-        bigText.bigText("Big Text");
-        bigText.setBigContentTitle("Today's Bible Verse");
-        bigText.setSummaryText("Text in detail");
-
-        mBuilder.setContentIntent(pendingIntent);
-        mBuilder.setSmallIcon(R.mipmap.ic_launcher_round);
-        mBuilder.setContentTitle("Your Title");
-        mBuilder.setContentText("Your text");
-        mBuilder.setPriority(Notification.PRIORITY_MAX);
-        mBuilder.setStyle(bigText);
-
-        mNotificationManager =
-                (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-
-        mNotificationManager.notify(0, mBuilder.build());
-    }
-
-    @Deprecated
-    private void sendNotification() {
-        // Builds your notification
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity())
-                .setSmallIcon(R.mipmap.ic_launcher_round)
-                .setContentTitle("John's Android Studio Tutorials")
-                .setContentText("A video has just arrived!");
-
-        // Creates the intent needed to show the notification
-        Intent notificationIntent = new Intent(getActivity(), SignUpActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(getActivity(), 0,
-                notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(contentIntent);
-
-        // Add as notification
-        NotificationManager manager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(0, builder.build());
     }
 
     private void compareFriends() {

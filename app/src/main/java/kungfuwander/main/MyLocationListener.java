@@ -29,9 +29,9 @@ public class MyLocationListener implements LocationListener {
         if (location != null) {
 //                    moveMapToLocation(location);
             // TODO: 09.04.2019 userName from login
-            MyLocation myLocation = new MyLocation(location);
+//            MyLocation myLocation = new MyLocation(location);
             // TODO: 16.05.2019 change this to getDisplayName
-            myLocation.setUserName(MainActivity.currentFirebaseUser.getEmail());
+//            myLocation.setUserName(MainActivity.currentFirebaseUser.getEmail());
             Log.d(TAG, "The E-Mail of the User: " + MainActivity.currentFirebaseUser.getEmail());
 
             // TODO: 16.05.2019 move map here
