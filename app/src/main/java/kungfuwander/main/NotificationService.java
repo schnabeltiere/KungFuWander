@@ -14,7 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 
-public class ExampleService extends Service {
+public class NotificationService extends Service {
 
     public static final String CHANNEL_ID = "myService";
     public static final String CHANNEL_NAME = "Walker Service";

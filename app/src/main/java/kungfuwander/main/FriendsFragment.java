@@ -11,8 +11,6 @@ import android.widget.Button;
 
 public class FriendsFragment extends Fragment {
 
-    private String TAG = getClass().getName();
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

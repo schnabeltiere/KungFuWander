@@ -10,19 +10,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class FriendsList extends AppCompatActivity {
 
     public static final String UID_COMPARE = "uid_compare";
-    private List<String> items;
-    private List<UserBean> userBeans;
-    private ListView listView;
+    private FriendsListAdapter adapter;
+    private List<UserBean> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +31,12 @@ public class FriendsList extends AppCompatActivity {
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show());
-        listView = findViewById(R.id.listViewUsers);
 
-        FireBaseHelper.fetchAllUsers(this::displayAllUsers);
-        listView.setOnItemLongClickListener((parent, view, position, id) -> compareWithUser(position));
+        FireBaseHelper.fetchAllUsers(this::setUpListView);
     }
 
     private boolean compareWithUser(int position) {
-        UserBean user = userBeans.get(position);
+        UserBean user = users.get(position);
 
         // Get the layout inflater
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -74,19 +69,36 @@ public class FriendsList extends AppCompatActivity {
         return true;
     }
 
-    private void displayAllUsers(List<UserBean> users) {
-        // first attempt was to just read all users from authentification
+    private void setUpListView(List<UserBean> users) {
+        // first attempt was to just read all users from authentification database
         // this is not possible - at least i didn't find any way.
         // so just list all users from users database - consider creating database at login for user
-        userBeans = users;
-        items = users.stream()
-                .map(UserBean::toString)
-                .collect(Collectors.toList());
+        ListView listView = findViewById(R.id.listViewUsers);
+        this.users = users;
 
-        ArrayAdapter<String> itemsAdapter =
-                new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
+        adapter = new FriendsListAdapter(this, 0, users);
+        listView.setAdapter(adapter);
 
-        listView.setAdapter(itemsAdapter);
+        listView.setOnItemClickListener((parent, view, position, id) -> compareWithUser(position));
+        listView.setOnItemLongClickListener((parent, view, position, id) -> showAddUserDialog(position));
+        // do something with long click listener
+    }
+
+    private boolean showAddUserDialog(int position) {
+        // TODO: 22.05.2019 can't add himself
+        UserBean user = users.get(position);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setMessage("Dou you want to add him as your friend?")
+                .setPositiveButton("Yes", (dialog, id) -> {
+                    FireBaseHelper.addFriendToLoggedInUser(user);
+                })
+                .setNegativeButton(R.string.cancel, (dialog, id) -> {
+                    // User wants everything back to normal - do nothing
+                });
+
+        builder.create().show();
+        return true;
     }
 
 }

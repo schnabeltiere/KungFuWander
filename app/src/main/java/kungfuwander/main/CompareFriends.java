@@ -96,8 +96,6 @@ public class CompareFriends extends AppCompatActivity {
         // makes it easier
         allHikes.sort(Comparator.comparing(Hiking::getStart));
         allCompareHikes.sort(Comparator.comparing(Hiking::getStart));
-        Log.d(TAG, "The only one: " + allHikes.get(0));
-        Log.d(TAG, "His date: "+ allHikes.get(0).startAsLocalDate().format(DateTimeFormatter.ofPattern("dd.MM")));
 
         LocalDate previousMonday = determineStartOfWeek();
         LocalDate endOfWeek = determineEndOfWeek(previousMonday);

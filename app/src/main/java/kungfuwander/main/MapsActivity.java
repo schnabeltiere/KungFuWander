@@ -30,16 +30,8 @@ import im.delight.android.location.SimpleLocation;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private static final int REQUEST_PERMISSION_ACCESS_FINE_LOCATION = 69;
     private final String TAG = getClass().getName();
     private GoogleMap mMap;
-
-    private LocationManager locationManager;
-    private LocationListener locationListener;
-
-    private String bestProvider;
-
-    private SimpleLocation simpleLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,21 +42,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{
-                            Manifest.permission.ACCESS_FINE_LOCATION},
-                    REQUEST_PERMISSION_ACCESS_FINE_LOCATION);
-        } else {
-            updateUserLocation();
-            // here fetch of friends if wanted
-            FireBaseHelper.fetchLoggedInUserHikes(hikes -> {
-                hikes.forEach(this::markPathOfHiking);
-                hikes.forEach(this::markAreaOfHiking);
-            });
-        }
+
+        // here fetch of friends if wanted
+        FireBaseHelper.fetchLoggedInUserHikes(hikes -> {
+            hikes.forEach(this::markPathOfHiking);
+//            hikes.forEach(this::markAreaOfHiking);
+        });
     }
 
-    private void markPathOfHiking(Hiking hiking){
+    private void markPathOfHiking(Hiking hiking) {
+        // TODO: 22.05.2019 add what date the hiking was on click
         // Instantiates a new Polyline object and adds points to define a rectangle
         PolylineOptions rectOptions = new PolylineOptions()
                 .addAll(hiking.locationsAsLatLng())
@@ -84,47 +71,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Polygon polygon = mMap.addPolygon(rectOptions);
     }
 
-    private void updateUserLocation() {
-        locationManager = getSystemService(LocationManager.class);
-        if (locationManager == null) {
-            finish();
-        }
-
-        // only for debugging
-        infoAboutAllProviders();
-
-        bestProvider = getBestProvider();
-        locationListener = new MyLocationListener();
-    }
-
-    private String getBestProvider() {
-        Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_COARSE);
-        criteria.setPowerRequirement(Criteria.POWER_LOW);
-        String bestProvider = locationManager.getBestProvider(criteria, true);
-
-        Log.d(TAG, "Best bestProvider : " + bestProvider);
-        return bestProvider;
-    }
-
-    private void infoAboutAllProviders() {
-        // get all providers
-        List<String> providers = locationManager.getAllProviders();
-        for (String name : providers) {
-            boolean enabled = locationManager.isProviderEnabled(name);
-            Log.d(TAG, "Name: " + name + " --- isProviderEnabled(): " + enabled + "\n");
-
-            if (!enabled) {
-                continue;
-            }
-
-            LocationProvider lp = locationManager.getProvider(name);
-            Log.d(TAG, "   requiresCell(): " + lp.requiresCell() + "\n");
-            Log.d(TAG, "   requiresNetwork(): " + lp.requiresNetwork() + "\n");
-            Log.d(TAG, "   requiresSatellite(): " + lp.requiresSatellite() + "\n\n");
-        }
-    }
-
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -138,39 +84,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        // TODO: 22.05.2019 replace this with actual position or default if unknown
+        // the current position is zagreb, croatia
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(45.815399,15.966568)));
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        if ((requestCode == REQUEST_PERMISSION_ACCESS_FINE_LOCATION) &&
-                (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-            updateUserLocation();
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            locationManager.requestLocationUpdates(bestProvider, 3000, 0, locationListener);
-        }
-
-        // make the device update its location
-        simpleLocation.beginUpdates();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            locationManager.removeUpdates(locationListener);
-        }
-
-        // stop location updates (saves battery)
-        simpleLocation.endUpdates();
-    }
 }

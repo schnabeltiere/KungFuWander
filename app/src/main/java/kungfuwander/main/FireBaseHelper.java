@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.SetOptions;
 
@@ -17,13 +16,22 @@ import java.util.stream.Collectors;
 public class FireBaseHelper {
     // at some point location database will be useless because it is in hiking db
     private static final String DB_USERS = "users";
-    private static final String DB_LOCATIONS = "locations_deprecated";
     private static final String DB_HIKES = "hikes";
     private static final String DB_FRIENDS = "friends";
     private static final String TAG = "FireBaseHelper";
     // TODO: 21.05.2019 add friends database
 
     // TODO: 21.05.2019 read username from db or save in app?
+    // maybe change to only uid
+    public static void addFriendToLoggedInUser(UserBean user){
+        FirebaseFirestore.getInstance()
+                .collection(DB_USERS)
+                .document(MainActivity.currentFirebaseUser.getUid())
+                .collection(DB_FRIENDS)
+                .add(user)
+                .addOnSuccessListener(documentReference -> Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId()))
+                .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));;
+    }
 
     public static void createNewUserDatabase(){
         FirebaseFirestore.getInstance()

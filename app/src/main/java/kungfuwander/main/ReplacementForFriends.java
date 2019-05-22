@@ -14,7 +14,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,9 +26,9 @@ import java.util.Objects;
 
 import im.delight.android.location.SimpleLocation;
 
-import static kungfuwander.main.ExampleService.CHANNEL_ID;
-import static kungfuwander.main.ExampleService.CONTENT_TITLE;
-import static kungfuwander.main.ExampleService.CURRENT_HIKING_ID;
+import static kungfuwander.main.NotificationService.CHANNEL_ID;
+import static kungfuwander.main.NotificationService.CONTENT_TITLE;
+import static kungfuwander.main.NotificationService.CURRENT_HIKING_ID;
 
 public class ReplacementForFriends extends AppCompatActivity implements SensorEventListener {
 
@@ -41,8 +40,6 @@ public class ReplacementForFriends extends AppCompatActivity implements SensorEv
     private Hiking actualHiking;
     private SimpleLocation simpleLocation;
 
-    private ExampleService notificationService;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +49,6 @@ public class ReplacementForFriends extends AppCompatActivity implements SensorEv
         tvHikes = findViewById(R.id.tvHikes);
 
         simpleLocation = setUpSimpleLocation();
-        notificationService = new ExampleService();
 
         // if we can't access the location yet
         if (!simpleLocation.hasLocationEnabled()) {
@@ -68,21 +64,6 @@ public class ReplacementForFriends extends AppCompatActivity implements SensorEv
         setUpRename();
     }
 
-    private void setUpRename() {
-        Button btnRename = findViewById(R.id.btnRename);
-        EditText name = findViewById(R.id.editTextNameRename);
-        btnRename.setOnClickListener(v -> FireBaseHelper.updateLoggedInUserName(name.getText().toString()));
-    }
-
-    private SimpleLocation setUpSimpleLocation() {
-        Context context = this;
-        boolean requireFineGranularity = true;
-        boolean passiveMode = false;
-        long updateIntervalInMilliseconds = 100;
-        boolean requireNewLocation = true;
-
-        return new SimpleLocation(context, requireFineGranularity, passiveMode, updateIntervalInMilliseconds, requireNewLocation);
-    }
 
     private SimpleLocation.Listener defineCustomListener() {
         return () -> {
@@ -121,7 +102,7 @@ public class ReplacementForFriends extends AppCompatActivity implements SensorEv
     private void stopStepCounter() {
         // TODO: 22.05.2019 give user possibility to not add this hiking
         // cannot stop if it hasn't started
-        if (actualHiking == null){
+        if (actualHiking == null) {
             Toast.makeText(this, "You haven't even started yet", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "Hiking didn't start");
             return;
@@ -140,14 +121,14 @@ public class ReplacementForFriends extends AppCompatActivity implements SensorEv
     }
 
     private void stopStickyNotification() {
-        Intent serviceIntent = new Intent(this, ExampleService.class);
+        Intent serviceIntent = new Intent(this, NotificationService.class);
         stopService(serviceIntent);
     }
 
     private void showStickyNotification() {
         String input = "You are walking " + Math.random() + " steps";
 
-        Intent serviceIntent = new Intent(this, ExampleService.class);
+        Intent serviceIntent = new Intent(this, NotificationService.class);
         serviceIntent.putExtra("inputExtra", input);
 
         ContextCompat.startForegroundService(this, serviceIntent);
@@ -195,22 +176,41 @@ public class ReplacementForFriends extends AppCompatActivity implements SensorEv
         }
     }
 
-    private void setUpStartHiking(){
+    private void setUpRename() {
+        Button btnRename = findViewById(R.id.btnRename);
+        EditText name = findViewById(R.id.editTextNameRename);
+        btnRename.setOnClickListener(v -> FireBaseHelper.updateLoggedInUserName(name.getText().toString()));
+    }
+
+    private SimpleLocation setUpSimpleLocation() {
+        Context context = this;
+        boolean requireFineGranularity = true;
+        boolean passiveMode = false;
+        long updateIntervalInMilliseconds = 100;
+        boolean requireNewLocation = true;
+
+        return new SimpleLocation(context, requireFineGranularity, passiveMode, updateIntervalInMilliseconds, requireNewLocation);
+    }
+
+    private void setUpStartHiking() {
         Button btnStartHiking = findViewById(R.id.btnStartHiking);
         btnStartHiking.setOnClickListener(v -> startHiking());
     }
-    private void setUpStopHiking(){
+
+    private void setUpStopHiking() {
         Button btnStopHiking = findViewById(R.id.btnStopHiking);
         btnStopHiking.setOnClickListener(v -> stopStepCounter());
     }
-    private void setUpChartIntent(){
+
+    private void setUpChartIntent() {
         Button btnTestChart = findViewById(R.id.btnTestChart);
         btnTestChart.setOnClickListener(v -> {
             Intent intent = new Intent(this, TestRecentHikings.class);
             startActivity(intent);
         });
     }
-    private void setUpCompareFriendsIntent(){
+
+    private void setUpCompareFriendsIntent() {
         Button btnCompareFriends = findViewById(R.id.btnCompareFriends);
         btnCompareFriends.setOnClickListener(v -> {
             Intent intent = new Intent(this, FriendsList.class);

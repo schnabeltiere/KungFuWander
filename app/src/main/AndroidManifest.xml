@@ -58,7 +58,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".ExampleService" />
+        <service android:name=".NotificationService" />
     </application>
 
 </manifest>
