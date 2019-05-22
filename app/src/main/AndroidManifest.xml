@@ -21,7 +21,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ReplacementForFriends"></activity>
-        <activity android:name=".ActivityJustForNotification" />
         <activity android:name=".CompareFriends" />
         <activity
             android:name=".FriendsList"

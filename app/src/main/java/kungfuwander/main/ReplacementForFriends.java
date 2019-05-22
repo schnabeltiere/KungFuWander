@@ -6,13 +6,11 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -30,7 +28,7 @@ public class ReplacementForFriends extends AppCompatActivity implements SensorEv
     private TextView tvSteps;
     private TextView tvHikes;
 
-    private Hiking hiking;
+    private Hiking actualHiking;
     private SimpleLocation simpleLocation;
 
     @Override
@@ -39,19 +37,17 @@ public class ReplacementForFriends extends AppCompatActivity implements SensorEv
         setContentView(R.layout.activity_replacement_for_friends);
 
         tvSteps = findViewById(R.id.tvSteps);
-        tvHikes = findViewById(R.id.tvHikings);
+        tvHikes = findViewById(R.id.tvHikes);
 
         Button btnStartHiking = findViewById(R.id.btnStartHiking);
         Button btnStopHiking = findViewById(R.id.btnStopHiking);
         Button btnTestChart = findViewById(R.id.btnTestChart);
         Button btnCompareFriends = findViewById(R.id.btnCompareFriends);
-        Button btnNotification = findViewById(R.id.btnNotification);
 
-        btnStartHiking.setOnClickListener(v -> startStepCounter());
+        btnStartHiking.setOnClickListener(v -> startHiking());
         btnStopHiking.setOnClickListener(v -> stopStepCounter());
         btnTestChart.setOnClickListener(v -> openChart());
         btnCompareFriends.setOnClickListener(v -> compareFriends());
-        btnNotification.setOnClickListener(v -> startServiceNotification());
 
         simpleLocation = setUpSimpleLocation();
 
@@ -67,20 +63,15 @@ public class ReplacementForFriends extends AppCompatActivity implements SensorEv
             double longitude = simpleLocation.getLongitude();
 
             GeoPoint geoPoint = new GeoPoint(latitude, longitude);
-            if (hiking == null) {
-                Log.w(TAG, "No hiking init...");
+            if (actualHiking == null) {
+                Log.w(TAG, "No actualHiking init...");
             } else {
-                hiking.addGeoPoint(geoPoint);
-                tvHikes.setText("Added: " + geoPoint.toString() + ", size of hiking: " + hiking.getGeoPoints().size());
-                Log.d(TAG, "Added: " + geoPoint.toString() + ", size of hiking: " + hiking.getGeoPoints().size());
+                actualHiking.addGeoPoint(geoPoint);
+                tvHikes.setText("Added: " + geoPoint.toString() + ", size of actualHiking: " + actualHiking.getGeoPoints().size());
+                Log.d(TAG, "Added: " + geoPoint.toString() + ", size of actualHiking: " + actualHiking.getGeoPoints().size());
             }
         });
 
-    }
-
-    private void startServiceNotification() {
-        Intent intent = new Intent(this, ActivityJustForNotification.class);
-        startActivity(intent);
     }
 
     private SimpleLocation setUpSimpleLocation() {
@@ -125,21 +116,60 @@ public class ReplacementForFriends extends AppCompatActivity implements SensorEv
     }
 
     private void stopStepCounter() {
-        // TODO: 16.05.2019 stop this
+        // TODO: 16.05.2019 stop this and stop geo request
         // look if steps < 100
-        // now just add hiking and stop it
-        hiking.setSteps(currentSteps);
-        hiking.setEnd(Timestamp.now());
+        // now just add actualHiking and stop it
+        actualHiking.setSteps(currentSteps);
+        actualHiking.setEnd(Timestamp.now());
         // TODO: 16.05.2019 fetch locations and time
 
-        FireBaseHelper.addToLoggedInUser(hiking);
+        FireBaseHelper.addToLoggedInUser(actualHiking);
+        stopStickyNotification();
+        // TODO: 22.05.2019 maybe congrats for walking
+    }
+
+    private void stopStickyNotification() {
+        Intent serviceIntent = new Intent(this, ExampleService.class);
+        stopService(serviceIntent);
+    }
+
+    private void showStickyNotification() {
+        String input = "You are walking...";
+
+        Intent serviceIntent = new Intent(this, ExampleService.class);
+        serviceIntent.putExtra("inputExtra", input);
+
+        ContextCompat.startForegroundService(this, serviceIntent);
+    }
+
+    private void startHiking() {
+        // TODO: 20.05.2019 warning if actualHiking is already started
+        // let user decide what to because hiking is already started
+        if (actualHiking != null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                    .setMessage("Do you want to start all over again?")
+                    .setPositiveButton("Yes", (dialog, id) -> {
+                        // User wants to start again
+                        actualHiking = null;
+                        startHiking();
+                    })
+                    .setNegativeButton(R.string.cancel, (dialog, id) -> {
+                        // User wants everything back to normal - do nothing
+                    });
+
+            builder.create().show();
+            return;
+        }
+
+        // no actual hiking -> start one
+        actualHiking = new Hiking();
+        actualHiking.setStart(Timestamp.now());
+
+        showStickyNotification();
+        startStepCounter();
     }
 
     private void startStepCounter() {
-        // TODO: 20.05.2019 warning if hiking is already started
-        hiking = new Hiking();
-        hiking.setStart(Timestamp.now());
-
         try {
             SensorManager sensorManager = (SensorManager) Objects.requireNonNull(this)
                     .getSystemService(Context.SENSOR_SERVICE);
