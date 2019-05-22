@@ -1,11 +1,14 @@
 package kungfuwander.main;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +27,10 @@ import java.util.Objects;
 
 import im.delight.android.location.SimpleLocation;
 
+import static kungfuwander.main.ExampleService.CHANNEL_ID;
+import static kungfuwander.main.ExampleService.CONTENT_TITLE;
+import static kungfuwander.main.ExampleService.CURRENT_HIKING_ID;
+
 public class ReplacementForFriends extends AppCompatActivity implements SensorEventListener {
 
     private String TAG = getClass().getName();
@@ -34,6 +41,8 @@ public class ReplacementForFriends extends AppCompatActivity implements SensorEv
     private Hiking actualHiking;
     private SimpleLocation simpleLocation;
 
+    private ExampleService notificationService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +52,7 @@ public class ReplacementForFriends extends AppCompatActivity implements SensorEv
         tvHikes = findViewById(R.id.tvHikes);
 
         simpleLocation = setUpSimpleLocation();
+        notificationService = new ExampleService();
 
         // if we can't access the location yet
         if (!simpleLocation.hasLocationEnabled()) {
@@ -86,15 +96,31 @@ public class ReplacementForFriends extends AppCompatActivity implements SensorEv
                 Log.w(TAG, "No actualHiking init, should not happen, listener should be detached");
             } else {
                 actualHiking.addGeoPoint(geoPoint);
+                // TODO: 22.05.2019 replace this with method call from Example Service
+                updateNotification();
                 tvHikes.setText("Added: " + geoPoint.toString() + ", size of actualHiking: " + actualHiking.getGeoPoints().size());
                 Log.d(TAG, "Added: " + geoPoint.toString() + ", size of actualHiking: " + actualHiking.getGeoPoints().size());
             }
         };
     }
 
+    @Deprecated
+    private void updateNotification() {
+        // but the manager is always null
+//                notificationService.updateNotification(manager, "You are walking " + Math.random() + " steps");
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle(CONTENT_TITLE)
+                .setContentText("You are walking " + Math.random() + " steps")
+                .setSmallIcon(R.drawable.logo)
+                .build();
+
+        manager.notify(CURRENT_HIKING_ID, notification);
+    }
+
     private void stopStepCounter() {
-        // look if steps < 100
-        // crashes if hiking is null
+        // TODO: 22.05.2019 give user possibility to not add this hiking
+        // cannot stop if it hasn't started
         if (actualHiking == null){
             Toast.makeText(this, "You haven't even started yet", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "Hiking didn't start");
@@ -103,13 +129,12 @@ public class ReplacementForFriends extends AppCompatActivity implements SensorEv
 
         actualHiking.setSteps(currentSteps);
         actualHiking.setEnd(Timestamp.now());
-        // TODO: 16.05.2019 fetch locations and time
 
         FireBaseHelper.addToLoggedInUser(actualHiking);
         stopStickyNotification(); // also stop step counter
         simpleLocation.endUpdates();
-        // TODO: 22.05.2019 maybe congrats for walking
 
+        // TODO: 22.05.2019 maybe congrats for walking
         tvHikes.setText("Well done! Meters: " + actualHiking.inMeter());
         actualHiking = null;
     }
@@ -120,7 +145,7 @@ public class ReplacementForFriends extends AppCompatActivity implements SensorEv
     }
 
     private void showStickyNotification() {
-        String input = "You are walking...";
+        String input = "You are walking " + Math.random() + " steps";
 
         Intent serviceIntent = new Intent(this, ExampleService.class);
         serviceIntent.putExtra("inputExtra", input);

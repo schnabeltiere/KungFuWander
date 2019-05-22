@@ -12,9 +12,16 @@ import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
-
+import android.support.v4.app.NotificationManagerCompat;
 
 public class ExampleService extends Service {
+
+    public static final String CHANNEL_ID = "myService";
+    public static final String CHANNEL_NAME = "Walker Service";
+    public static final String CONTENT_TITLE = "Hello walking person";
+    public static final int CURRENT_HIKING_ID = 69;
+
+    private NotificationManager manager;
 
     @Override
     public void onCreate() {
@@ -27,7 +34,7 @@ public class ExampleService extends Service {
 
         String channelId;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            channelId = createNotificationChannel("my_service", "My Background Service");
+            channelId = createNotificationChannel(CHANNEL_ID, CHANNEL_NAME);
         } else {
             // If earlier version channel ID is not used
             // https://developer.android.com/reference/android/support/v4/app/NotificationCompat.Builder.html#NotificationCompat.Builder(android.content.Context)
@@ -39,13 +46,13 @@ public class ExampleService extends Service {
                 0, notificationIntent, 0);
 
         Notification notification = new NotificationCompat.Builder(this, channelId)
-                .setContentTitle("Example Service")
+                .setContentTitle(CONTENT_TITLE)
                 .setContentText(input)
                 .setSmallIcon(R.drawable.logo)
                 .setContentIntent(pendingIntent)
                 .build();
 
-        startForeground(1, notification);
+        startForeground(CURRENT_HIKING_ID, notification);
 
         //do heavy work on a background thread
         //stopSelf();
@@ -59,10 +66,27 @@ public class ExampleService extends Service {
         channel.setLightColor(Color.BLUE);
         channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
 
+        // consider NotificationManagerCompat?
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         manager.createNotificationChannel(channel);
 
         return channelId;
+    }
+
+    @Deprecated
+    // use this in future, but manager is always null
+    // even if i init it in the method
+    public void updateNotification(NotificationManager manager, String input){
+        // consider NotificationManagerCompat?
+        // remove this parameter
+
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle(CONTENT_TITLE)
+                .setContentText(input)
+                .setSmallIcon(R.drawable.logo)
+                .build();
+
+        manager.notify(CURRENT_HIKING_ID, notification);
     }
 
     @Override
