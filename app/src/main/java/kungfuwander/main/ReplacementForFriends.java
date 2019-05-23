@@ -101,8 +101,10 @@ public class ReplacementForFriends extends AppCompatActivity implements SensorEv
 
     private void stopStepCounter() {
         // TODO: 22.05.2019 give user possibility to not add this hiking
+        // the notification should definitely stop
+        stopStickyNotification(); // also stop step counter
         // cannot stop if it hasn't started
-        if (actualHiking == null) {
+        if (actualHiking == null) { // a bit tricky, because maybe the actual hiking is there
             Toast.makeText(this, "You haven't even started yet", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "Hiking didn't start");
             return;
@@ -112,7 +114,6 @@ public class ReplacementForFriends extends AppCompatActivity implements SensorEv
         actualHiking.setEnd(Timestamp.now());
 
         FireBaseHelper.addToLoggedInUser(actualHiking);
-        stopStickyNotification(); // also stop step counter
         simpleLocation.endUpdates();
 
         // TODO: 22.05.2019 maybe congrats for walking
@@ -236,16 +237,18 @@ public class ReplacementForFriends extends AppCompatActivity implements SensorEv
     public void onResume() {
         super.onResume();
 
+        // don't continue, because it is never stopped
         // make the device update its location
-        simpleLocation.beginUpdates();
+//        simpleLocation.beginUpdates();
     }
 
     @Override
     public void onPause() {
         super.onPause();
 
+        // don't end, because we need it to run without app
         // stop location updates (saves battery)
-        simpleLocation.endUpdates();
+//        simpleLocation.endUpdates();
     }
 
 }
