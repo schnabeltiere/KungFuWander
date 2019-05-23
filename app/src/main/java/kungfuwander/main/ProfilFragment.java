@@ -50,16 +50,19 @@ public class ProfilFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setUpFriendsListView() {
-        FireBaseHelper.fetchFriendsOfLoggedInUser(userBeans -> {
+        FireBaseHelper.fetchFriendsWithRoundTrip(userBeans -> {
             List<String> items = userBeans.stream()
                     .map(UserBean::getName)
                     .collect(Collectors.toList());
 
-            Log.d(TAG, "Count fetched friends: " + userBeans.size());
+            Log.d(TAG, "Count trip friends: " + userBeans.size());
             ArrayAdapter<String> itemsAdapter =
                     new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, items);
 
             lvFriends.setAdapter(itemsAdapter);
+        });
+        FireBaseHelper.fetchFriendsOfLoggedInUser(userBeans -> {
+            Log.d(TAG, "Count default friends: " + userBeans.size());
         });
     }
 

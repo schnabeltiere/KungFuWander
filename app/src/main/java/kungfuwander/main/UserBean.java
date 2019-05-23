@@ -39,7 +39,8 @@ public class UserBean {
     @Override
     public String toString() {
         return "UserBean{" +
-                "name='" + name + '\'' +
+                "uid='" + uid + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 

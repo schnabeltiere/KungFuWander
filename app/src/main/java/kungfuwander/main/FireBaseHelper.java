@@ -20,11 +20,51 @@ public class FireBaseHelper {
     private static final String DB_FRIENDS = "friends";
     private static final String TAG = "FireBaseHelper";
 
-    // TODO: 21.05.2019 read username from db or save in app?
-    // also add myself to other friend
-    // maybe change to only uid
+    public static void fetchFriendsWithRoundTrip(Consumer<List<UserBean>> consumer) {
+        List<UserBean> friends = new ArrayList<>();
+
+        // this fetch gets some wrong data, userBeam is returned, but some are filled
+        // with default_stuff.
+        fetchFriendsOfLoggedInUser(userBeans -> {
+            Log.d(TAG, "Friends of Logged in user: " + userBeans);
+
+            userBeans.forEach(bean -> {
+                // fetch real user based on uid
+                Log.d(TAG, "Started with " + bean);
+                fetchUserById(bean.getUid(), userBean -> {
+                    Log.d(TAG, "Fetched: " + userBean);
+                    friends.add(userBean);
+                    consumer.accept(friends);
+                });
+            });
+            // this comes to early - wait until all fetched
+//            consumer.accept(friends);
+        });
+    }
+
+    public static void fetchUserById(String userId, Consumer<UserBean> consumer) {
+        FirebaseFirestore.getInstance()
+                .collection(DB_USERS)
+                .document(userId)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            UserBean userBean = document.toObject(UserBean.class);
+                            consumer.accept(userBean);
+                            Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        } else {
+                            Log.d(TAG, "No such document");
+                        }
+                    } else {
+                        Log.d(TAG, "get failed with ", task.getException());
+                    }
+                });
+    }
+
     public static void fetchFriendsOfLoggedInUser(Consumer<List<UserBean>> consumer) {
-        List<UserBean> userIds = new ArrayList<>();
+        List<UserBean> friends = new ArrayList<>();
 
         FirebaseFirestore.getInstance()
                 .collection(DB_USERS)
@@ -35,17 +75,20 @@ public class FireBaseHelper {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             UserBean userBean = document.toObject(UserBean.class);
-                            userIds.add(userBean);
+                            friends.add(userBean);
                             Log.d(TAG, document.getId() + " => " + document.getData());
                         }
                     } else {
                         Log.w(TAG, "Error getting documents.", task.getException());
                     }
 
-                    consumer.accept(userIds);
+                    consumer.accept(friends);
                 });
     }
 
+    // TODO: 21.05.2019 read username from db or save in app?
+    // also add myself to other friend
+    // maybe change to only uid
     public static void addFriendToLoggedInUser(UserBean user) {
         FirebaseFirestore.getInstance()
                 .collection(DB_USERS)
