@@ -29,8 +29,9 @@ public class LoginActivity extends AppCompatActivity {
             String email = this.email.getText().toString();
             String pw = this.password.getText().toString();
 
-            FirebaseAuth.getInstance().signInWithEmailAndPassword(email,pw).addOnCompleteListener(task -> {
+            SignUpActivity.firebaseAuth.signInWithEmailAndPassword(email,pw).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
+                    MainActivity.currentFirebaseUser = SignUpActivity.firebaseAuth.getCurrentUser();
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     finish();
                 } else {
