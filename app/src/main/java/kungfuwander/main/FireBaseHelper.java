@@ -23,7 +23,30 @@ public class FireBaseHelper {
     // TODO: 21.05.2019 read username from db or save in app?
     // also add myself to other friend
     // maybe change to only uid
-    public static void addFriendToLoggedInUser(UserBean user){
+    public static void fetchFriendsOfLoggedInUser(Consumer<List<UserBean>> consumer) {
+        List<UserBean> userIds = new ArrayList<>();
+
+        FirebaseFirestore.getInstance()
+                .collection(DB_USERS)
+                .document(MainActivity.currentFirebaseUser.getUid())
+                .collection(DB_FRIENDS)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            UserBean userBean = document.toObject(UserBean.class);
+                            userIds.add(userBean);
+                            Log.d(TAG, document.getId() + " => " + document.getData());
+                        }
+                    } else {
+                        Log.w(TAG, "Error getting documents.", task.getException());
+                    }
+
+                    consumer.accept(userIds);
+                });
+    }
+
+    public static void addFriendToLoggedInUser(UserBean user) {
         FirebaseFirestore.getInstance()
                 .collection(DB_USERS)
                 .document(MainActivity.currentFirebaseUser.getUid())
@@ -33,7 +56,8 @@ public class FireBaseHelper {
                 .addOnSuccessListener(documentReference -> Log.d(TAG, "UserReference set with ID: " + documentReference))
                 .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
     }
-    public static void addLoggedInUserAsFriend(UserBean user){
+
+    public static void addLoggedInUserAsFriend(UserBean user) {
         FirebaseFirestore.getInstance()
                 .collection(DB_USERS)
                 .document(user.getUid())
@@ -45,7 +69,7 @@ public class FireBaseHelper {
                 .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
     }
 
-    public static void createNewUserDatabase(){
+    public static void createNewUserDatabase() {
         FirebaseFirestore.getInstance()
                 .collection(DB_USERS)
                 .document(MainActivity.currentFirebaseUser.getUid())
@@ -53,14 +77,14 @@ public class FireBaseHelper {
     }
 
     // if there is more to update -> write methods
-    public static void updateLoggedInUserName(String userName){
+    public static void updateLoggedInUserName(String userName) {
         FirebaseFirestore.getInstance()
                 .collection(DB_USERS)
                 .document(MainActivity.currentFirebaseUser.getUid())
                 .set(new UserBean(MainActivity.currentFirebaseUser.getUid(), userName), SetOptions.mergeFields("name"));
     }
 
-    public static void fetchAllUsers(Consumer<List<UserBean>> consumer){
+    public static void fetchAllUsers(Consumer<List<UserBean>> consumer) {
         FirebaseFirestore.getInstance()
                 .collection(DB_USERS)
                 .get()
@@ -76,7 +100,7 @@ public class FireBaseHelper {
                 });
     }
 
-    public static void fetchSpecificUserHikes(String userUuid, Consumer<List<Hiking>> consumer){
+    public static void fetchSpecificUserHikes(String userUuid, Consumer<List<Hiking>> consumer) {
         List<Hiking> hikes = new ArrayList<>();
 
         FirebaseFirestore.getInstance()
