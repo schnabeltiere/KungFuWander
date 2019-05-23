@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ public class ProfilFragment extends Fragment implements View.OnClickListener {
     private static final int CAMERA_REQUEST = 1888;
     private ImageView imageView;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
+    private String TAG = getClass().getName();
 
     private ListView lvFriends;
 
@@ -48,11 +50,12 @@ public class ProfilFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setUpFriendsListView() {
-        FireBaseHelper.fetchAllUsers(userBeans -> {
+        FireBaseHelper.fetchFriendsOfLoggedInUser(userBeans -> {
             List<String> items = userBeans.stream()
                     .map(UserBean::getName)
                     .collect(Collectors.toList());
 
+            Log.d(TAG, "Count fetched friends: " + userBeans.size());
             ArrayAdapter<String> itemsAdapter =
                     new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, items);
 
