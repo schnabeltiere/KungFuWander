@@ -92,6 +92,7 @@ public class FriendsList extends AppCompatActivity {
                 .setMessage("Dou you want to add him as your friend?")
                 .setPositiveButton("Yes", (dialog, id) -> {
                     FireBaseHelper.addFriendToLoggedInUser(user);
+                    FireBaseHelper.addLoggedInUserAsFriend(user);
                 })
                 .setNegativeButton(R.string.cancel, (dialog, id) -> {
                     // User wants everything back to normal - do nothing

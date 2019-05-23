@@ -19,18 +19,30 @@ public class FireBaseHelper {
     private static final String DB_HIKES = "hikes";
     private static final String DB_FRIENDS = "friends";
     private static final String TAG = "FireBaseHelper";
-    // TODO: 21.05.2019 add friends database
 
     // TODO: 21.05.2019 read username from db or save in app?
+    // also add myself to other friend
     // maybe change to only uid
     public static void addFriendToLoggedInUser(UserBean user){
         FirebaseFirestore.getInstance()
                 .collection(DB_USERS)
                 .document(MainActivity.currentFirebaseUser.getUid())
                 .collection(DB_FRIENDS)
-                .add(user)
-                .addOnSuccessListener(documentReference -> Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId()))
-                .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));;
+                .document(user.getUid())
+                .set(user) // TODO: 23.05.2019 instead of set check if user is already friend
+                .addOnSuccessListener(documentReference -> Log.d(TAG, "UserReference set with ID: " + documentReference))
+                .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
+    }
+    public static void addLoggedInUserAsFriend(UserBean user){
+        FirebaseFirestore.getInstance()
+                .collection(DB_USERS)
+                .document(user.getUid())
+                .collection(DB_FRIENDS)
+                .document(MainActivity.currentFirebaseUser.getUid())
+                // TODO: 23.05.2019 replace with just reference
+                .set(new UserBean(MainActivity.currentFirebaseUser.getUid(), "deprecated_cheat_new_user"))
+                .addOnSuccessListener(documentReference -> Log.d(TAG, "UserReference set with ID: " + documentReference))
+                .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
     }
 
     public static void createNewUserDatabase(){
