@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="132dp"
-        tools:layout_editor_absoluteY="0dp">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="132dp"
-        tools:layout_editor_absoluteY="0dp">
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageViewProfilePicture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:layout_weight="1"
+            android:padding="30dp"
+            app:srcCompat="@mipmap/ic_launcher"
+            android:background="@drawable/border_iv"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,130 +25,129 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="237dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:layout_weight="3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@drawable/profile"
-                tools:srcCompat="@drawable/profile" />
-
-
-
-            <ImageView
-                android:id="@+id/imageProfilePicture"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:layout_gravity="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.497"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.283"
-                app:srcCompat="@mipmap/ic_launcher_round" />
-
             <TextView
-                android:id="@+id/textViewName"
-                android:layout_width="102dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:text="Sofia Schmidmair"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.484" />
-            <Button
-                android:id="@+id/button"
+                android:id="@+id/textViewUsrName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:onClick="toast"
-                android:text="Button" />
+                android:layout_marginTop="60dp"
+                android:inputType="none"
+                android:padding="20dp"
+                android:text="TextView"
+                android:textAlignment="viewStart"
+                android:background="@drawable/border_tv"/>
 
             <TextView
-                android:id="@+id/textViewCountry"
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:text="From Austria"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.53"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.535" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="LETZTE WANDERUNG"
-                tools:layout_editor_absoluteX="26dp"
-                tools:layout_editor_absoluteY="433dp" />
-
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="FREUNDE"
-                tools:layout_editor_absoluteX="26dp"
-                tools:layout_editor_absoluteY="481dp" />
-
-            <ListView
-                android:id="@+id/friends"
+                android:id="@+id/textViewUsrEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:inputType="none"
+                android:text="TextView"
+                android:background="@drawable/border_tv"/>
         </LinearLayout>
+
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/textViewDisplayHikingCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:inputType="none"
+            android:padding="10dp"
+            android:text="Wanderungen: 0"
+            android:background="@drawable/border_tv"/>
 
+        <TextView
+            android:id="@+id/textViewDisplayFriendsCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:inputType="none"
+            android:padding="10dp"
+            android:text="Freunde: 0"
+            android:background="@drawable/border_tv"/>
+
+        <TextView
+            android:id="@+id/textViewDisplayChallangesCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:inputType="none"
+            android:padding="10dp"
+            android:text="Challanges: 0"
+            android:background="@drawable/border_tv"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonAddFriend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/border_tv"
+            android:text="@string/Add_Friend" />
+
+        <TextView
+            android:id="@+id/textViewDisplayCurrentChallange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/border_tv"
+            android:inputType="none"
+            android:padding="10dp"
+            android:text="TextView" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Friends"
+            android:textSize="20sp"
+            android:background="@drawable/border_tv"/>
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:inputType="none"
+            android:text="TextView"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listViewFriends"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"/>
+
+</LinearLayout>

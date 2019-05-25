@@ -3,7 +3,6 @@ package kungfuwander.main;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -35,16 +34,25 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             Fragment fragment = null;
 
             switch (menuItem.getItemId()) {
-                case R.id.navigation_home:
-                    fragment = new ProfilFragment();
+                case R.id.navigation_weather:
+                    fragment = new Fragment_Weather();
                     break;
 
-                case R.id.navigation_dashboard:
-                    fragment = new FriendsFragment();
+                case R.id.navigation_map:
+                    fragment = new Fragment_Map();
                     break;
 
-                case R.id.navigation_notifications:
-                    fragment = new HomeFragment();
+                case R.id.navigation_currentHike:
+                    fragment = new Fragment_CurrentHike();
+                    break;
+
+                case R.id.navigation_recentHikes:
+                    fragment = new Fragment_RecentHikes();
+                    break;
+
+                case R.id.navigation_profile:
+                    fragment = new Fragment_Profile();
+                    break;
             }
             return loadFragment(fragment);
         }
