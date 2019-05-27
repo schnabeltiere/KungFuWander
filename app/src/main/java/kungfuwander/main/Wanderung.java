@@ -8,7 +8,6 @@ public class Wanderung {
     private GeoPoint location;
     private LocalDateTime date = LocalDateTime.now();
     private int $STEPCOUNT;
-    private int seconds;
 
 
 

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/gradient_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +17,7 @@
             android:layout_margin="30dp"
             android:layout_weight="1"
             android:padding="30dp"
-            app:srcCompat="@mipmap/ic_launcher"
+            app:srcCompat="@mipmap/ic_launcher_round"
             android:background="@drawable/border_iv"/>
 
         <LinearLayout
@@ -91,7 +92,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@drawable/border_lv"
+        android:backgroundTint="@color/background_special1">
 
         <Button
             android:id="@+id/buttonAddFriend"
@@ -99,6 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:background="@drawable/border_tv"
             android:text="@string/Add_Friend" />
@@ -120,29 +124,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="Friends"
-            android:textSize="20sp"
-            android:background="@drawable/border_tv"/>
-
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:inputType="none"
-            android:text="TextView"
-            android:visibility="invisible" />
-    </LinearLayout>
+        android:layout_height="wrap_content"/>
 
     <ListView
         android:id="@+id/listViewFriends"

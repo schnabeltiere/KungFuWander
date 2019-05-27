@@ -64,7 +64,6 @@ public class User {
             user.challangeCount = this.challangeCount;
             user.hikingCount = this.hikingCount;
             user.friends = this.friends;
-
             return user;
         }
 

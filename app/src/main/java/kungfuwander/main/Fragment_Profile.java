@@ -15,6 +15,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Fragment_Profile extends Fragment {
 
     private static final int CAMERA_REQUEST = 1888;
@@ -47,12 +50,10 @@ public class Fragment_Profile extends Fragment {
             if (getContext().checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
             } else {
-                switch (v.getId()) {
-                    case R.id.imageViewProfilePicture:
+
                         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                         startActivityForResult(cameraIntent, CAMERA_REQUEST);
-                        break;
-                }
+
             }
         });
 
@@ -65,6 +66,16 @@ public class Fragment_Profile extends Fragment {
 
         buttonAddFriends = v.findViewById(R.id.buttonAddFriend);
         listViewFriends = v.findViewById(R.id.listViewFriends);
+
+        View headerView = getLayoutInflater().inflate(R.layout.listview_friends_header, null);
+        listViewFriends.addHeaderView(headerView);
+
+        List<String> item = new ArrayList<>();
+        item.add("item");
+
+        AdapterListViewFriends adapterListViewFriends = new AdapterListViewFriends(getContext(),R.layout.adapter_friends_listview,item);
+        listViewFriends.setAdapter(adapterListViewFriends);
+        adapterListViewFriends.notifyDataSetChanged();
     }
 
 
