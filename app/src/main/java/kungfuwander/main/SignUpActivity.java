@@ -2,7 +2,6 @@ package kungfuwander.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -11,15 +10,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SignUpActivity extends AppCompatActivity {
 
-     private EditText email, password;
+     private EditText email, password,username;
      private Button registerButton;
      private TextView textViewLogin;
      public static FirebaseAuth firebaseAuth;
@@ -35,6 +31,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         email = findViewById(R.id.editTextEmail);
         password = findViewById(R.id.editTextPassword);
+        username = findViewById(R.id.editTextUsername);
         registerButton = findViewById(R.id.buttonSignUp);
         textViewLogin = findViewById(R.id.textViewLogin);
 
@@ -57,6 +54,10 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                     if (TextUtils.isEmpty(password)) {
                         Toast.makeText(getApplicationContext(), "Please fill in the required fields", Toast.LENGTH_SHORT).show();
+                    }
+                    if(TextUtils.isEmpty(username.getText().toString())){
+                        Toast.makeText(getApplicationContext(), "Please fill in the required fields", Toast.LENGTH_SHORT).show();
+                        return;
                     }
 
                     if (password.length() < 6) {

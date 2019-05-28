@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">KungFuWander</string>
     <string name="title_activity_navigation_bar">NavigationBar</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_weather">Weather</string>
+    <string name="title_map">Map</string>
+    <string name="title_recetnHikes">Recent Hikes</string>
     <string name="title_activity_navi">navi</string>
     <string name="email">E-mail</string>
     <string name="password">Password</string>
@@ -15,4 +15,8 @@
     <string name="signup">Sign Up</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_compare_friends">CompareFriends</string>
+    <string name="title_currenthiking">Current Hiking</string>
+    <string name="title_profile">Profil</string>
+    <string name="Add_Friend">Add Friend</string>
+    <string name="Username">Username</string>
 </resources>
