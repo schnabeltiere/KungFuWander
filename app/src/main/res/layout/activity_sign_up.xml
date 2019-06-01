@@ -24,8 +24,8 @@
         android:ems="10"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
-        android:textColor="@color/colorText"
-        android:textColorHint="@color/colorText"
+        android:textColor="@color/colorLoginText"
+        android:textColorHint="@color/colorLoginText"
         tools:ignore="Autofill" />
 
     <EditText
@@ -36,9 +36,17 @@
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
-        android:textColor="@color/colorText"
-        android:textColorHint="@color/colorText"
+        android:textColor="@color/colorLoginText"
+        android:textColorHint="@color/colorLoginText"
         tools:ignore="Autofill" />
+
+    <EditText
+        android:id="@+id/editTextUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/Username" />
 
     <Button
         android:id="@+id/buttonSignUp"
