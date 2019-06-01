@@ -28,7 +28,14 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
-        return PlaceholderFragment.newInstance(position + 1);
+        Fragment fragment;
+        switch (position){
+            case 0: fragment = new DayFragment(); break;
+            case 1: fragment = new MonthFragment(); break;
+            case 2: fragment = new YearFragment(); break;
+            default: fragment = PlaceholderFragment.newInstance(position + 1);
+        }
+        return fragment;
     }
 
     @Nullable
