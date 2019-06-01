@@ -20,20 +20,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
+        <activity
+            android:name=".CompareActivity"
+            android:label="@string/title_activity_compare"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".navi"
-            android:label="@string/title_activity_navi"></activity>
+            android:label="@string/title_activity_navi" />
         <activity
             android:name=".NavigationBar"
-            android:label="@string/title_activity_navigation_bar" />
-
-        <!--<activity android:name=".MainActivity">-->
-
-        <activity android:name=".LoginActivity"></activity>
+            android:label="@string/title_activity_navigation_bar" /> <!-- <activity android:name=".MainActivity"> -->
+        <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".ReplacementForFriends"></activity>
+        <activity android:name=".ReplacementForFriends" />
         <activity android:name=".CompareFriends" />
         <activity
             android:name=".FriendsList"
@@ -54,18 +53,15 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps" />
-        <!--<activity-->
-            <!--android:name=".navi"-->
-            <!--android:label="@string/title_activity_navi" />-->
-        <!--<activity-->
-            <!--android:name=".NavigationBar"-->
-            <!--android:label="@string/title_activity_navigation_bar" />-->
-        <!--<activity android:name=".MainActivity" />-->
-        <!--<activity android:name=".LoginActivity" />-->
-
+            android:label="@string/title_activity_maps" /> <!-- <activity -->
+        <!-- android:name=".navi" -->
+        <!-- android:label="@string/title_activity_navi" /> -->
+        <!-- <activity -->
+        <!-- android:name=".NavigationBar" -->
+        <!-- android:label="@string/title_activity_navigation_bar" /> -->
+        <!-- <activity android:name=".MainActivity" /> -->
+        <!-- <activity android:name=".LoginActivity" /> -->
         <activity android:name=".SignUpActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -74,11 +70,6 @@
         </activity>
 
         <service android:name=".NotificationService" />
-
-
-
     </application>
-
-
 
 </manifest>

@@ -1,4 +1,4 @@
-package kungfuwander.main.view.draw.data;
+package kungfuwander.main.chartview.draw.data;
 
 import java.util.ArrayList;
 import java.util.List;

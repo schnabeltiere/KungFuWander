@@ -4,6 +4,7 @@
 
 
     <TextView
+        android:id="@+id/tvFriendsFragment"
         android:layout_width="349dp"
         android:layout_height="83dp"
         android:layout_alignParentEnd="true"

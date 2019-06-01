@@ -1,4 +1,4 @@
-package kungfuwander.main.view.draw;
+package kungfuwander.main.chartview.draw;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -8,13 +8,13 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import kungfuwander.main.R;
-import kungfuwander.main.view.animation.AnimationManager;
-import kungfuwander.main.view.animation.data.AnimationValue;
-import kungfuwander.main.view.draw.data.Chart;
-import kungfuwander.main.view.draw.data.DrawData;
-import kungfuwander.main.view.draw.data.InputData;
-import kungfuwander.main.view.utils.DateUtils;
-import kungfuwander.main.view.utils.ValueUtils;
+import kungfuwander.main.chartview.animation.AnimationManager;
+import kungfuwander.main.chartview.animation.data.AnimationValue;
+import kungfuwander.main.chartview.draw.data.Chart;
+import kungfuwander.main.chartview.draw.data.DrawData;
+import kungfuwander.main.chartview.draw.data.InputData;
+import kungfuwander.main.chartview.utils.DateUtils;
+import kungfuwander.main.chartview.utils.ValueUtils;
 
 public class DrawController {
 

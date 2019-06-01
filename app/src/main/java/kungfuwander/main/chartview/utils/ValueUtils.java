@@ -1,4 +1,4 @@
-package kungfuwander.main.view.utils;
+package kungfuwander.main.chartview.utils;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.concurrent.TimeUnit;
 
-import kungfuwander.main.view.draw.data.Chart;
-import kungfuwander.main.view.draw.data.DrawData;
-import kungfuwander.main.view.draw.data.InputData;
+import kungfuwander.main.chartview.draw.data.Chart;
+import kungfuwander.main.chartview.draw.data.DrawData;
+import kungfuwander.main.chartview.draw.data.InputData;
 
 public class ValueUtils {
 

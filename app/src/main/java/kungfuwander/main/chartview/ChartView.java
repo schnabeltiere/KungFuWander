@@ -1,4 +1,4 @@
-package kungfuwander.main.view;
+package kungfuwander.main.chartview;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -11,9 +11,9 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-import kungfuwander.main.view.draw.data.Chart;
-import kungfuwander.main.view.draw.data.InputData;
-import kungfuwander.main.view.utils.ValueUtils;
+import kungfuwander.main.chartview.draw.data.Chart;
+import kungfuwander.main.chartview.draw.data.InputData;
+import kungfuwander.main.chartview.utils.ValueUtils;
 
 public class ChartView extends View implements ChartManager.AnimationListener {
 
