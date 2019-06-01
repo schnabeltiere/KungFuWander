@@ -1,7 +1,6 @@
 package kungfuwander.main.ui.main;
 
 import android.os.Bundle;
-import android.renderscript.ScriptGroup;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +17,8 @@ import kungfuwander.main.chartview.ChartView;
 import kungfuwander.main.chartview.draw.data.InputData;
 
 public class DayFragment extends Fragment {
+
+    private final String TAG = getClass().getName();
 
     @Nullable
     @Override

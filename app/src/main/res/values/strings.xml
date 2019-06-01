@@ -26,7 +26,7 @@
     <string name="Username">Username</string>
     <string name="title_activity_compare">CompareActivity</string>
     <string name="tab_text_1">Day</string>
-    <string name="tab_text_2">Month</string>
-    <string name="tab_text_3">Year</string>
+    <string name="tab_text_2">Week</string>
+    <string name="tab_text_3">Month</string>
 
 </resources>

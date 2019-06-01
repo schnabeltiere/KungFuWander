@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <kungfuwander.main.chartview.ChartView
-        android:id="@+id/chartViewYear"
+        android:id="@+id/chartViewWeek"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"

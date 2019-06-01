@@ -31,8 +31,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment;
         switch (position){
             case 0: fragment = new DayFragment(); break;
-            case 1: fragment = new MonthFragment(); break;
-            case 2: fragment = new YearFragment(); break;
+            case 1: fragment = new WeekFragment(); break;
+            case 2: fragment = new MonthFragment(); break;
             default: fragment = PlaceholderFragment.newInstance(position + 1);
         }
         return fragment;
