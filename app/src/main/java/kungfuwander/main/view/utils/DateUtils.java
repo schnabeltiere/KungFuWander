@@ -1,4 +1,4 @@
-package com.rd.chartview.view.utils;
+package kungfuwander.main.view.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;

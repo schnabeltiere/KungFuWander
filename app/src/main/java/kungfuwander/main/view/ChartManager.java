@@ -1,12 +1,13 @@
-package com.rd.chartview.view;
+package kungfuwander.main.view;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import com.rd.chartview.view.animation.AnimationManager;
-import com.rd.chartview.view.animation.data.AnimationValue;
-import com.rd.chartview.view.draw.data.Chart;
-import com.rd.chartview.view.draw.DrawManager;
+
+import kungfuwander.main.view.animation.AnimationManager;
+import kungfuwander.main.view.animation.data.AnimationValue;
+import kungfuwander.main.view.draw.DrawManager;
+import kungfuwander.main.view.draw.data.Chart;
 
 public class ChartManager implements AnimationManager.AnimationListener {
 

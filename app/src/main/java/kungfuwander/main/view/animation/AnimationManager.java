@@ -1,4 +1,4 @@
-package com.rd.chartview.view.animation;
+package kungfuwander.main.view.animation;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
@@ -7,12 +7,13 @@ import android.animation.ValueAnimator;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import com.rd.chartview.view.animation.data.AnimationValue;
-import com.rd.chartview.view.draw.data.Chart;
-import com.rd.chartview.view.draw.data.DrawData;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import kungfuwander.main.view.animation.data.AnimationValue;
+import kungfuwander.main.view.draw.data.Chart;
+import kungfuwander.main.view.draw.data.DrawData;
 
 public class AnimationManager {
 

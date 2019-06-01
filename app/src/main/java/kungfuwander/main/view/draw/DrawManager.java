@@ -1,10 +1,12 @@
-package com.rd.chartview.view.draw;
+package kungfuwander.main.view.draw;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.support.annotation.NonNull;
-import com.rd.chartview.view.animation.data.AnimationValue;
-import com.rd.chartview.view.draw.data.Chart;
+
+
+import kungfuwander.main.view.animation.data.AnimationValue;
+import kungfuwander.main.view.draw.data.Chart;
 
 public class DrawManager {
 

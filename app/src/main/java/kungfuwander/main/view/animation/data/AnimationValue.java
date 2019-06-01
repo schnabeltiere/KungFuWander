@@ -1,4 +1,4 @@
-package com.rd.chartview.view.animation.data;
+package kungfuwander.main.view.animation.data;
 
 public class AnimationValue {
 
