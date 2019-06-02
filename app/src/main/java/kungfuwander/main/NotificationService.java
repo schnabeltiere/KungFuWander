@@ -48,7 +48,7 @@ public class NotificationService extends Service {
         Notification notification = new NotificationCompat.Builder(this, channelId)
                 .setContentTitle(CONTENT_TITLE)
                 .setContentText(input)
-                .setSmallIcon(R.drawable.logo)
+                .setSmallIcon(R.mipmap.kfwl2)
                 .setContentIntent(pendingIntent)
                 .build();
 
@@ -83,7 +83,7 @@ public class NotificationService extends Service {
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle(CONTENT_TITLE)
                 .setContentText(input)
-                .setSmallIcon(R.drawable.logo)
+                .setSmallIcon(R.mipmap.kfwl2)
                 .build();
 
         manager.notify(CURRENT_HIKING_ID, notification);

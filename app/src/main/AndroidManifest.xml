@@ -60,5 +60,4 @@
 
         <service android:name=".NotificationService" />
     </application>
-
 </manifest>

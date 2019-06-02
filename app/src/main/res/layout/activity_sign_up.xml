@@ -4,58 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/logoscreen2"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".SignUpActivity">
+    tools:context=".SignUpActivity"
+    android:background="@drawable/signupbackgroundxx">
 
     <ImageView
         android:id="@+id/imageViewLogo1"
         android:layout_width="100dp"
-        android:layout_height="120dp"
-        app:srcCompat="@drawable/logo"
-        tools:ignore="ContentDescription" />
+        android:layout_height="100dp"
+        android:layout_marginBottom="40dp"
+        tools:ignore="ContentDescription"
+        android:background="@drawable/kfwl2"/>
 
     <EditText
         android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="20dp"
         android:ems="10"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
-        android:textColor="@color/colorLoginText"
-        android:textColorHint="@color/colorLoginText"
+        android:textColor="#C5D7E4"
+        android:textColorHint="#C5D7E4"
         tools:ignore="Autofill" />
 
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="20dp"
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
-        android:textColor="@color/colorLoginText"
-        android:textColorHint="@color/colorLoginText"
+        android:textColor="#C5D7E4"
+        android:textColorHint="#C5D7E4"
         tools:ignore="Autofill" />
 
     <EditText
         android:id="@+id/editTextUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="50dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="@string/Username" />
+        android:text="@string/Username"
+        android:textColor="#C5D7E4"
+        android:textColorHint="@android:color/white" />
 
     <Button
         android:id="@+id/buttonSignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
-        android:background="@color/colorAccent"
+        android:background="#04554A"
         android:text="@string/signup"
-        android:textColor="@color/colorText" />
+        android:textColor="#C5D7E4" />
 
     <TextView
         android:id="@+id/textViewLogin"
@@ -64,10 +76,9 @@
         android:ems="10"
         android:hint="@string/login"
         android:inputType="textPassword"
-        android:padding="20dp"
         android:textAlignment="center"
-        android:textColor="@color/colorText"
-        android:textColorHint="@color/colorText"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
         tools:ignore="Autofill" />
 
 </LinearLayout>

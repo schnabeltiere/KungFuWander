@@ -3,24 +3,24 @@
 
     <item
         android:id="@+id/navigation_weather"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/ic_weather"
         android:title="@string/title_weather" />
 
     <item
         android:id="@+id/navigation_map"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@android:drawable/ic_dialog_map"
         android:title="@string/title_map" />
 
     <item
         android:id="@+id/navigation_recentHikes"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@android:drawable/ic_menu_agenda"
         android:title="@string/title_recetnHikes" />
     <item
         android:id="@+id/navigation_currentHike"
-        android:icon="@drawable/fui_ic_twitter_bird_white_24dp"
+        android:icon="@drawable/ic_mountain"
         android:title="@string/title_currenthiking"/>
     <item
         android:id="@+id/navigation_profile"
-        android:icon="@drawable/profile"
+        android:icon="@drawable/ic_profile"
         android:title="@string/title_profile"/>
 </menu>
