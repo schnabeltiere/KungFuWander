@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     break;
 
                 case R.id.navigation_map:
-//                    fragment = new Fragment_Map();
                     startActivity(new Intent(this, MapsActivity.class));
                     break;
 

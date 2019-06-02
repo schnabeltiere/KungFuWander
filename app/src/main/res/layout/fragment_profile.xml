@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/gradient_background">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,13 +11,11 @@
 
         <ImageView
             android:id="@+id/imageViewProfilePicture"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="30dp"
+            android:layout_width="450dp"
+            android:layout_height="150dp"
             android:layout_weight="1"
             android:padding="30dp"
-            app:srcCompat="@mipmap/ic_launcher_round"
-            android:background="@drawable/border_iv"/>
+            app:srcCompat="@drawable/kfwl2" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,12 +27,12 @@
                 android:id="@+id/textViewUsrName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/profiletextview_border"
                 android:inputType="none"
                 android:padding="20dp"
                 android:text="TextView"
-                android:textAlignment="viewStart"
-                android:background="@drawable/border_tv"/>
+                android:textAlignment="viewStart" />
 
             <TextView
                 android:id="@+id/textViewUsrEmail"
@@ -45,7 +42,7 @@
                 android:layout_marginEnd="20dp"
                 android:inputType="none"
                 android:text="TextView"
-                android:background="@drawable/border_tv"/>
+                android:background="@drawable/profiletextview_border"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -63,7 +60,7 @@
             android:inputType="none"
             android:padding="10dp"
             android:text="Wanderungen: 0"
-            android:background="@drawable/border_tv"/>
+            android:background="@drawable/profiletextview_border"/>
 
         <TextView
             android:id="@+id/textViewDisplayFriendsCount"
@@ -74,7 +71,7 @@
             android:inputType="none"
             android:padding="10dp"
             android:text="Freunde: 0"
-            android:background="@drawable/border_tv"/>
+            android:background="@drawable/profiletextview_border"/>
 
         <TextView
             android:id="@+id/textViewDisplayChallangesCount"
@@ -85,7 +82,7 @@
             android:inputType="none"
             android:padding="10dp"
             android:text="Challanges: 0"
-            android:background="@drawable/border_tv"/>
+            android:background="@drawable/profiletextview_border"/>
     </LinearLayout>
 
     <LinearLayout
@@ -93,8 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
-        android:background="@drawable/border_lv"
-        android:backgroundTint="@color/background_special1">
+        android:background="@drawable/border_lv">
 
         <Button
             android:id="@+id/buttonAddFriend"
@@ -104,7 +100,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:layout_weight="1"
-            android:background="@drawable/border_tv"
+            android:background="@drawable/profiletextview_border"
             android:text="@string/Add_Friend" />
 
         <TextView
@@ -116,9 +112,9 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="5dp"
             android:layout_weight="1"
-            android:background="@drawable/border_tv"
+            android:background="@drawable/profiletextview_border"
             android:inputType="none"
-            android:padding="10dp"
+            android:padding="14dp"
             android:text="TextView" />
     </LinearLayout>
 

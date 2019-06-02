@@ -56,9 +56,9 @@
         android:layout_marginRight="50dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="@string/Username"
+        android:hint="@string/Username"
         android:textColor="#C5D7E4"
-        android:textColorHint="@android:color/white" />
+        android:textColorHint="#C5D7E4" />
 
     <Button
         android:id="@+id/buttonSignUp"

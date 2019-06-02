@@ -15,9 +15,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Fragment_Profile extends Fragment {
 
     private static final int CAMERA_REQUEST = 1888;
@@ -70,12 +67,6 @@ public class Fragment_Profile extends Fragment {
         View headerView = getLayoutInflater().inflate(R.layout.listview_friends_header, null);
         listViewFriends.addHeaderView(headerView);
 
-        List<String> item = new ArrayList<>();
-        item.add("item");
-
-        AdapterListViewFriends adapterListViewFriends = new AdapterListViewFriends(getContext(),R.layout.adapter_friends_listview,item);
-        listViewFriends.setAdapter(adapterListViewFriends);
-        adapterListViewFriends.notifyDataSetChanged();
     }
 
 
