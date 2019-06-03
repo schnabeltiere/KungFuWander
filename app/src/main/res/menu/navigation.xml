@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+    <item
+        android:id="@+id/navigation_recentHikes"
+        android:icon="@drawable/ic_resent"
+        android:title="@string/title_recetnHikes" />
     <item
         android:id="@+id/navigation_weather"
         android:title="@string/title_weather"
@@ -12,14 +17,11 @@
         android:title="@string/title_map" />
 
     <item
-        android:id="@+id/navigation_recentHikes"
-        android:icon="@android:drawable/ic_menu_agenda"
-        android:title="@string/title_recetnHikes" />
-    <item
         android:id="@+id/navigation_currentHike"
         android:icon="@drawable/ic_mountain"
         android:title="@string/title_currenthiking"/>
     <item
         android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_profil"
         android:title="@string/title_profile"/>
 </menu>
