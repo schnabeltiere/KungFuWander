@@ -93,7 +93,7 @@ public class ReplacementForFriends extends AppCompatActivity implements SensorEv
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle(CONTENT_TITLE)
                 .setContentText("You are walking " + Math.random() + " steps")
-                .setSmallIcon(R.mipmap.kfwl2)
+                .setSmallIcon(R.drawable.kfwl2)
                 .build();
 
         manager.notify(CURRENT_HIKING_ID, notification);

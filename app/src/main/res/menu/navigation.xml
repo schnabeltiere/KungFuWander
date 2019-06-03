@@ -3,8 +3,8 @@
 
     <item
         android:id="@+id/navigation_weather"
-        android:icon="@drawable/ic_weather"
-        android:title="@string/title_weather" />
+        android:title="@string/title_weather"
+        android:icon="@drawable/ic_weather"/>
 
     <item
         android:id="@+id/navigation_map"
@@ -21,6 +21,6 @@
         android:title="@string/title_currenthiking"/>
     <item
         android:id="@+id/navigation_profile"
-        android:icon="@drawable/ic_profile"
-        android:title="@string/title_profile"/>
+        android:title="@string/title_profile"
+        android:icon="@drawable/ic_profil"/>
 </menu>
