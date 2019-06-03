@@ -21,6 +21,5 @@
         android:title="@string/title_currenthiking"/>
     <item
         android:id="@+id/navigation_profile"
-        android:title="@string/title_profile"
-        android:icon="@drawable/ic_profil"/>
+        android:title="@string/title_profile"/>
 </menu>
