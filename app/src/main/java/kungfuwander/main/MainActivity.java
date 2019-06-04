@@ -14,10 +14,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 
 import android.view.MenuItem;
 
@@ -34,6 +32,13 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.util.List;
+
+import kungfuwander.main.fragments.Fragment_CurrentHike;
+import kungfuwander.main.fragments.Fragment_Profile;
+import kungfuwander.main.fragments.Fragment_RecentHikes;
+import kungfuwander.main.fragments.Fragment_Weather;
+import kungfuwander.main.fragments.MapsActivity;
+import kungfuwander.main.weather.Common;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 

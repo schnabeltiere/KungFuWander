@@ -24,26 +24,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".CompareActivity"
+            android:name=".deprecated.CompareActivity"
             android:label="@string/title_activity_compare"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".navi"
+            android:name=".deprecated.navi"
             android:label="@string/title_activity_navi" />
         <activity
-            android:name=".NavigationBar"
+            android:name=".deprecated.NavigationBar"
             android:label="@string/title_activity_navigation_bar" /> <!-- <activity android:name=".MainActivity"> -->
 
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".authenticate.LoginActivity"></activity>
 
         <activity android:name=".MainActivity" />
-        <activity android:name=".ReplacementForFriends" />
-        <activity android:name=".CompareFriends" />
+        <activity android:name=".deprecated.ReplacementForFriends" />
+        <activity android:name=".deprecated.CompareFriends" />
         <activity
-            android:name=".FriendsList"
+            android:name=".deprecated.FriendsList"
             android:label="@string/title_activity_compare_friends"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".TestRecentHikings" />
+        <activity android:name=".deprecated.TestRecentHikes" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -57,7 +57,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".fragments.MapsActivity"
 
             android:label="@string/title_activity_maps" /> <!-- <activity -->
         <!-- android:name=".navi" -->
@@ -68,7 +68,7 @@
         <!-- <activity android:name=".MainActivity" /> -->
         <!-- <activity android:name=".LoginActivity" /> -->
 
-        <activity android:name=".SignUpActivity">
+        <activity android:name=".authenticate.SignUpActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -76,7 +76,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".NotificationService" />
+        <service android:name=".helper.NotificationService" />
     </application>
 
 </manifest>

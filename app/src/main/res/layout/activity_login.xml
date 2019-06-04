@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".LoginActivity"
+    tools:context=".authenticate.LoginActivity"
     android:background="@drawable/loginbackgroundxx">
 
     <ImageView
