@@ -7,6 +7,7 @@ public class WeatherForecast {
     public double mesg;
     public int cnt;
     public List<MyListWeather> list;
-    public City city;
+    public WeatherResult city;
+
 
 }

@@ -3,6 +3,7 @@ package kungfuwander.main;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,7 @@ public class Weather_Adapter extends RecyclerView.Adapter<Weather_Adapter.MyView
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View itemView = LayoutInflater.from(context).inflate(R.layout.weather_item,viewGroup,false)
+        View itemView = LayoutInflater.from(context).inflate(R.layout.weather_item,viewGroup,false);
         return new MyViewHolder(itemView);
     }
 
@@ -39,9 +40,10 @@ public class Weather_Adapter extends RecyclerView.Adapter<Weather_Adapter.MyView
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, dd.MM.YYYY");
         myViewHolder.txt_date.setText(new StringBuilder(Common.convertToDate(weatherForecast.list.get(i).dt)));
-        myViewHolder.txt_time.setText(new StringBuilder(weatherForecast.list.get(i).weather.get(0).getDescription()));
-        myViewHolder.txt_temp.setText(new StringBuilder(String.valueOf(weatherForecast.list.get(i).main.getTemp())).append(" °C"));
+          myViewHolder.txt_time.setText(new StringBuilder(weatherForecast.list.get(i).weather.get(0).getDescription()));
 
+        myViewHolder.txt_temp.setText(new StringBuilder(String.valueOf(weatherForecast.list.get(i).main.getTemp())).append(" °C"));
+        Log.d("WORKER ", "adapter set");
     }
 
     @Override
@@ -60,7 +62,7 @@ public class Weather_Adapter extends RecyclerView.Adapter<Weather_Adapter.MyView
         img_weather = itemView.findViewById(R.id.img_weather);
         txt_date = itemView.findViewById(R.id.txt_day);
         txt_temp = itemView.findViewById(R.id.txt_temperature);
-        txt_time = itemView.findViewById(R.id.txt_dateTime);
+        txt_time = itemView.findViewById(R.id.txt_time);
         }
     }
 }
