@@ -3,58 +3,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context=".Fragment_Weather">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:id="@+id/main">
 
-        <ImageView
-            android:id="@+id/img_weather"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:layout_gravity="right"
-            android:src="@mipmap/ic_launcher" />
 
-        <LinearLayout
-            android:id="@+id/weather_panel"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/txt"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="Wettervorhersage"
+            android:textStyle="bold"
+            android:textSize="24dp"/>
+
+        <TextView
+            android:id="@+id/txt_city_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="London, GB"
+            android:textStyle="bold"
+            android:textSize="20dp"/>
 
 
-            <TextView
-                android:id="@+id/txt_city_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Weather in London"
-                android:layout_gravity="right"
-
-                android:textSize="30dp" />
-
-
-            <TextView
-                android:id="@+id/txt_temperature"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="15"
-                android:textSize="35dp" />
-
-            <TextView
-                android:id="@+id/txt_dateTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="13:30 31.05.2019"
-                android:textSize="27dp" />
-
-
-        </LinearLayout>
     </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_forecast"
+        android:layout_below="@+id/main"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        ></android.support.v7.widget.RecyclerView>
+
 
 
 </RelativeLayout>

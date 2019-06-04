@@ -3,6 +3,8 @@ package kungfuwander.main;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,9 +34,9 @@ import retrofit2.Retrofit;
  */
 public class Fragment_Weather extends Fragment {
     ImageView imageView;
-    TextView txt_city_name, txt_temperature, txt_dateTime;
-    LinearLayout weather_panel;
-    ProgressBar loading;
+    TextView txt_city_name;
+    RecyclerView recyclerView;
+
 
     CompositeDisposable compositeDisposable;
     IOpenWeatherMap mService;
@@ -62,11 +64,10 @@ public class Fragment_Weather extends Fragment {
         View itemView =  inflater.inflate(R.layout.fragment_weather, container, false);
         imageView = (ImageView) itemView.findViewById(R.id.img_weather);
         txt_city_name = itemView.findViewById(R.id.txt_city_name);
-        txt_temperature = itemView.findViewById(R.id.txt_temperature);
-        txt_dateTime = itemView.findViewById(R.id.txt_dateTime);
 
+        recyclerView = itemView.findViewById(R.id.recycler_forecast);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
 
-        weather_panel = (LinearLayout) itemView.findViewById(R.id.weather_panel);
 
 
         getWeatherInformation();
