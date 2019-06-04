@@ -33,7 +33,7 @@ import retrofit2.Retrofit;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Fragment_Weather extends Fragment {
+public class WeatherFragment extends Fragment {
     ImageView imageView;
     TextView txt_city_name, txt_temperature, txt_dateTime;
     LinearLayout weather_panel;
@@ -43,15 +43,15 @@ public class Fragment_Weather extends Fragment {
     IOpenWeatherMap mService;
 
 
-    static Fragment_Weather instance;
+    static WeatherFragment instance;
 
-    public static Fragment_Weather getInstance() {
+    public static WeatherFragment getInstance() {
         if(instance==null)
-            instance = new Fragment_Weather();
+            instance = new WeatherFragment();
         return instance;
     }
 
-    public Fragment_Weather() {
+    public WeatherFragment() {
         compositeDisposable = new CompositeDisposable();
         Retrofit retrofit = RetrofitClient.getInstance();
         mService = retrofit.create(IOpenWeatherMap.class);

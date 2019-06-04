@@ -34,9 +34,9 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import java.util.List;
 
 import kungfuwander.main.fragments.CompareActivity;
-import kungfuwander.main.fragments.Fragment_CurrentHike;
-import kungfuwander.main.fragments.Fragment_Profile;
-import kungfuwander.main.fragments.Fragment_Weather;
+import kungfuwander.main.fragments.CurrentHikeFragment;
+import kungfuwander.main.fragments.ProfileFragment;
+import kungfuwander.main.fragments.WeatherFragment;
 import kungfuwander.main.fragments.MapsActivity;
 import kungfuwander.main.weather.Common;
 
@@ -132,11 +132,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
             switch (menuItem.getItemId()) {
                 case R.id.navigation_currentHike:
-                    fragment = new Fragment_CurrentHike();
+                    fragment = new CurrentHikeFragment();
                     break;
 
                 case R.id.navigation_weather:
-                    fragment = new Fragment_Weather();
+                    fragment = new WeatherFragment();
                     break;
 
                 case R.id.navigation_map:
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     break;
 
                 case R.id.navigation_profile:
-                    fragment = new Fragment_Profile();
+                    fragment = new ProfileFragment();
                     break;
             }
             return loadFragment(fragment);

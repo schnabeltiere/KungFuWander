@@ -25,7 +25,7 @@ import kungfuwander.main.helper.FirebaseHelper;
 import kungfuwander.main.R;
 import kungfuwander.main.beans.User;
 
-public class Fragment_Profile extends Fragment {
+public class ProfileFragment extends Fragment {
 
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
