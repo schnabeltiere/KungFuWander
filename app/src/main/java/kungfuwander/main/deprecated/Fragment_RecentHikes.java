@@ -1,4 +1,4 @@
-package kungfuwander.main.fragments;
+package kungfuwander.main.deprecated;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import kungfuwander.main.deprecated.CompareActivity;
 import kungfuwander.main.R;
+import kungfuwander.main.fragments.CompareActivity;
 
 public class Fragment_RecentHikes extends Fragment {
     @Nullable

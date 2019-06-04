@@ -6,19 +6,22 @@
 
     <TextView
         android:id="@+id/tvFriendsFragment"
-        android:layout_width="349dp"
-        android:layout_height="83dp"
+
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="543dp"
-        android:text="Friends" />
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="@string/title_recetnHikes" />
+<!--
+android:layout_width="349dp"
+        android:layout_height="83dp"
+                android:text="Friends"
 
+-->
     <ListView
         android:id="@+id/listViewRecentHikes"
         android:layout_width="match_parent"

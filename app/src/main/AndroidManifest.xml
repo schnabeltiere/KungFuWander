@@ -24,7 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".deprecated.CompareActivity"
+            android:name=".fragments.CompareActivity"
             android:label="@string/title_activity_compare"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity

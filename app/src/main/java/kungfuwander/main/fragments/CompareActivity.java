@@ -1,4 +1,4 @@
-package kungfuwander.main.deprecated;
+package kungfuwander.main.fragments;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +12,25 @@ import kungfuwander.main.ui.statistics.SectionsPagerAdapter;
 
 public class CompareActivity extends AppCompatActivity {
 
+    /*@Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.activity_compare, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        // Setup any handles to view objects here
+        // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getContext(),
+                getActivity().getSupportFragmentManager());
+        ViewPager viewPager = view.findViewById(R.id.view_pager);
+        viewPager.setAdapter(sectionsPagerAdapter);
+        TabLayout tabs = view.findViewById(R.id.tabs);
+        tabs.setupWithViewPager(viewPager);
+    }
+    */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,9 +40,5 @@ public class CompareActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-        FloatingActionButton fab = findViewById(R.id.fab);
-
-        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
     }
 }

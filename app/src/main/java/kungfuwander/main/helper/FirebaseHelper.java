@@ -1,8 +1,12 @@
 package kungfuwander.main.helper;
 
 
+import android.net.Uri;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -16,6 +20,8 @@ import java.util.stream.Collectors;
 import kungfuwander.main.MainActivity;
 import kungfuwander.main.beans.Hike;
 import kungfuwander.main.beans.User;
+
+import static kungfuwander.main.MainActivity.currentFirebaseUser;
 
 public class FirebaseHelper {
     // at some point location database will be useless because it is in hiking db
@@ -72,7 +78,7 @@ public class FirebaseHelper {
 
         FirebaseFirestore.getInstance()
                 .collection(DB_USERS)
-                .document(MainActivity.currentFirebaseUser.getUid())
+                .document(currentFirebaseUser.getUid())
                 .collection(DB_FRIENDS)
                 .get()
                 .addOnCompleteListener(task -> {
@@ -96,7 +102,7 @@ public class FirebaseHelper {
     public static void addFriendToLoggedInUser(User user) {
         FirebaseFirestore.getInstance()
                 .collection(DB_USERS)
-                .document(MainActivity.currentFirebaseUser.getUid())
+                .document(currentFirebaseUser.getUid())
                 .collection(DB_FRIENDS)
                 .document(user.getUid())
                 .set(user) // TODO: 23.05.2019 instead of set check if user is already friend
@@ -109,9 +115,9 @@ public class FirebaseHelper {
                 .collection(DB_USERS)
                 .document(user.getUid())
                 .collection(DB_FRIENDS)
-                .document(MainActivity.currentFirebaseUser.getUid())
+                .document(currentFirebaseUser.getUid())
                 // TODO: 23.05.2019 replace with just reference
-                .set(new User(MainActivity.currentFirebaseUser.getUid(), "deprecated_cheat_new_user"))
+                .set(new User(currentFirebaseUser.getUid(), "deprecated_cheat_new_user"))
                 .addOnSuccessListener(documentReference -> Log.d(TAG, "UserReference set with ID: " + documentReference))
                 .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
     }
@@ -119,16 +125,16 @@ public class FirebaseHelper {
     public static void createNewUserDatabase(String userName) {
         FirebaseFirestore.getInstance()
                 .collection(DB_USERS)
-                .document(MainActivity.currentFirebaseUser.getUid())
-                .set(new User(MainActivity.currentFirebaseUser.getUid(), userName));
+                .document(currentFirebaseUser.getUid())
+                .set(new User(currentFirebaseUser.getUid(), userName));
     }
 
     // if there is more to update -> write methods
     public static void updateLoggedInUserName(String userName) {
         FirebaseFirestore.getInstance()
                 .collection(DB_USERS)
-                .document(MainActivity.currentFirebaseUser.getUid())
-                .set(new User(MainActivity.currentFirebaseUser.getUid(), userName), SetOptions.mergeFields("name"));
+                .document(currentFirebaseUser.getUid())
+                .set(new User(currentFirebaseUser.getUid(), userName), SetOptions.mergeFields("name"));
     }
 
     public static void fetchAllUsers(Consumer<List<User>> consumer) {
@@ -171,7 +177,7 @@ public class FirebaseHelper {
     }
 
     public static void fetchLoggedInUserHikes(Consumer<List<Hike>> consumer) {
-        fetchSpecificUserHikes(MainActivity.currentFirebaseUser.getUid(), consumer);
+        fetchSpecificUserHikes(currentFirebaseUser.getUid(), consumer);
     }
 
     public static void addToLoggedInUser(Hike hike) {
@@ -180,11 +186,25 @@ public class FirebaseHelper {
         // no need for sub-collection
         FirebaseFirestore.getInstance()
                 .collection(DB_USERS)
-                .document(MainActivity.currentFirebaseUser.getUid())
+                .document(currentFirebaseUser.getUid())
                 .collection(DB_HIKES)
                 .add(hike)
                 .addOnSuccessListener(documentReference -> Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId()))
                 .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
     }
 
+    public static void updateDisplayName(String username) {
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(username)
+                .build();
+
+        currentFirebaseUser.updateProfile(profileUpdates)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "User profile updated: "
+                                + currentFirebaseUser.getDisplayName()
+                                + " = " + username);
+                    }
+                });
+    }
 }

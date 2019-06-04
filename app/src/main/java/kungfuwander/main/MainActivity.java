@@ -33,9 +33,9 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.util.List;
 
+import kungfuwander.main.fragments.CompareActivity;
 import kungfuwander.main.fragments.Fragment_CurrentHike;
 import kungfuwander.main.fragments.Fragment_Profile;
-import kungfuwander.main.fragments.Fragment_RecentHikes;
 import kungfuwander.main.fragments.Fragment_Weather;
 import kungfuwander.main.fragments.MapsActivity;
 import kungfuwander.main.weather.Common;
@@ -140,13 +140,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     break;
 
                 case R.id.navigation_map:
+                    // TODO: 04.06.2019 change to fragment
                     startActivity(new Intent(this, MapsActivity.class));
                     break;
 
-
-
                 case R.id.navigation_recentHikes:
-                    fragment = new Fragment_RecentHikes();
+//                    fragment = new Fragment_RecentHikes();
+                    // TODO: 04.06.2019 change to fragment
+                    startActivity(new Intent(this, CompareActivity.class));
+//                    fragment = new CompareActivity();
                     break;
 
                 case R.id.navigation_profile:

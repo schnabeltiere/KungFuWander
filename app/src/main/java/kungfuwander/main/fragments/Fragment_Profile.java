@@ -19,6 +19,8 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import kungfuwander.main.MainActivity;
+import kungfuwander.main.deprecated.Main;
 import kungfuwander.main.helper.FirebaseHelper;
 import kungfuwander.main.R;
 import kungfuwander.main.beans.User;
@@ -82,8 +84,6 @@ public class Fragment_Profile extends Fragment {
     private void showAllUsers(View view) {
         // TODO: 04.06.2019 gets only added to logged in user, like a following
         // later expand to firebase function with permission
-
-
     }
 
 
@@ -98,15 +98,21 @@ public class Fragment_Profile extends Fragment {
         FirebaseHelper.fetchFriendsOfLoggedInUser(friends -> {
             // should be string.valueOf otherwise it's an id
             textViewDisplayFriendsCount.setText(String.valueOf(friends.size()));
-            // TODO: 04.06.2019 change to custom
-            List<String> items = friends.stream()
-                    .map(User::getName)
-                    .collect(Collectors.toList());
-
-            ArrayAdapter<String> itemsAdapter =
-                    new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, items);
-            listViewFriends.setAdapter(itemsAdapter);
+            setUpListViewAdapter(friends);
         });
+        textViewUsrEmail.setText(MainActivity.currentFirebaseUser.getEmail());
+        textViewUsrName.setText(MainActivity.currentFirebaseUser.getDisplayName());
+    }
+
+    private void setUpListViewAdapter(List<User> friends) {
+        // TODO: 04.06.2019 maybe change to custom
+        List<String> items = friends.stream()
+                .map(User::getName)
+                .collect(Collectors.toList());
+
+        ArrayAdapter<String> itemsAdapter =
+                new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, items);
+        listViewFriends.setAdapter(itemsAdapter);
     }
 
     @Override
