@@ -10,10 +10,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.google.firebase.analytics.FirebaseAnalytics;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Fragment_Profile extends Fragment {
 
@@ -48,8 +56,8 @@ public class Fragment_Profile extends Fragment {
                 requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
             } else {
 
-                        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, CAMERA_REQUEST);
 
             }
         });
@@ -67,8 +75,30 @@ public class Fragment_Profile extends Fragment {
         View headerView = getLayoutInflater().inflate(R.layout.listview_friends_header, null);
         listViewFriends.addHeaderView(headerView);
 
+        initProfileWithFirebase();
     }
 
+    @Deprecated
+    private void initProfileWithFirebase() {
+        // this is a cheat and takes a lot of data base requests
+
+        FireBaseHelper.fetchLoggedInUserHikes(hikes -> {
+            // should be string.valueOf otherwise it's an id
+            textViewDisplayHikingCount.setText(String.valueOf(hikes.size()));
+        });
+        FireBaseHelper.fetchFriendsOfLoggedInUser(friends -> {
+            // should be string.valueOf otherwise it's an id
+            textViewDisplayFriendsCount.setText(String.valueOf(friends.size()));
+            // TODO: 04.06.2019 change to custom
+            List<String> items = friends.stream()
+                    .map(UserBean::getName)
+                    .collect(Collectors.toList());
+
+            ArrayAdapter<String> itemsAdapter =
+                    new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, items);
+            listViewFriends.setAdapter(itemsAdapter);
+        });
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {

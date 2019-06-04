@@ -112,11 +112,11 @@ public class FireBaseHelper {
                 .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
     }
 
-    public static void createNewUserDatabase() {
+    public static void createNewUserDatabase(String userName) {
         FirebaseFirestore.getInstance()
                 .collection(DB_USERS)
                 .document(MainActivity.currentFirebaseUser.getUid())
-                .set(new UserBean(MainActivity.currentFirebaseUser.getUid()));
+                .set(new UserBean(MainActivity.currentFirebaseUser.getUid(), userName));
     }
 
     // if there is more to update -> write methods

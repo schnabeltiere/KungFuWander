@@ -70,7 +70,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                     MainActivity.currentFirebaseUser = firebaseAuth.getCurrentUser();
                                     // this creates at login, updates following later...
-                                    FireBaseHelper.createNewUserDatabase();
+                                    FireBaseHelper.createNewUserDatabase(username);
                                     finish();
                                 } else {
                                     Toast.makeText(getApplicationContext(), "E-mail or password wrong", Toast.LENGTH_SHORT).show();
