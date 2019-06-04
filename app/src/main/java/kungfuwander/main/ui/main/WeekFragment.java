@@ -87,7 +87,7 @@ public class WeekFragment extends Fragment {
 
             // ok like for real what is this shit?
             // i mean how can i control the text on the bottom?
-            data.get(i).setMillis(i*5_000_000_000_00L);
+            data.get(i).setMillis(millis);
         }
 
         return data;

@@ -16,7 +16,7 @@ import kungfuwander.main.R;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2,R.string.tab_text_3};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_2,R.string.tab_text_3};
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -30,9 +30,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         // Return a PlaceholderFragment (defined as a static inner class below).
         Fragment fragment;
         switch (position){
-            case 0: fragment = new DayFragment(); break;
-            case 1: fragment = new WeekFragment(); break;
-            case 2: fragment = new MonthFragment(); break;
+            case 0: fragment = new WeekFragment(); break;
+            case 1: fragment = new MonthFragment(); break;
             default: fragment = PlaceholderFragment.newInstance(position + 1);
         }
         return fragment;
@@ -47,6 +46,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // Show 3 total pages.
-        return 3;
+        return 2;
     }
 }
