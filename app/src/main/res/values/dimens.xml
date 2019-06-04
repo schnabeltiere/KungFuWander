@@ -5,6 +5,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
+
     <dimen name="frame_padding">8dp</dimen>
     <dimen name="frame_line_width">1dp</dimen>
     <dimen name="frame_text_size">14sp</dimen>
@@ -14,4 +15,5 @@
     <dimen name="iner_radius">5dp</dimen>
     <dimen name="appbar_padding">16dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
+
 </resources>

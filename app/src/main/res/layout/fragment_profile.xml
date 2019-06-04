@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/gradient_background">
+    android:background="@drawable/profilbackground">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,13 +12,11 @@
 
         <ImageView
             android:id="@+id/imageViewProfilePicture"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="30dp"
+            android:layout_width="450dp"
+            android:layout_height="150dp"
             android:layout_weight="1"
             android:padding="30dp"
-            app:srcCompat="@mipmap/ic_launcher_round"
-            android:background="@drawable/border_iv"/>
+            app:srcCompat="@drawable/kfwl2" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,12 +28,14 @@
                 android:id="@+id/textViewUsrName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/profiletextview_border"
                 android:inputType="none"
-                android:padding="20dp"
-                android:text="TextView"
-                android:textAlignment="viewStart"
-                android:background="@drawable/border_tv"/>
+                android:textSize="20sp"
+                android:gravity="start"
+                android:textColor="@color/black"
+                android:padding="15dp"
+                android:text="TextView" />
 
             <TextView
                 android:id="@+id/textViewUsrEmail"
@@ -43,58 +43,113 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
+                android:textColor="@color/black"
                 android:inputType="none"
                 android:text="TextView"
-                android:background="@drawable/border_tv"/>
+                android:background="@drawable/profiletextview_border"/>
         </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_lv">
 
-        <TextView
-            android:id="@+id/textViewDisplayHikingCount"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:layout_weight="1"
-            android:inputType="none"
-            android:padding="10dp"
-            android:text="Wanderungen: 0"
-            android:background="@drawable/border_tv"/>
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textViewDisplayFriendsCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:inputType="none"
-            android:padding="10dp"
-            android:text="Freunde: 0"
-            android:background="@drawable/border_tv"/>
+            <TextView
+                android:id="@+id/textViewDisplayHikingCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:padding="10dp"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_weight="1"/>
 
-        <TextView
-            android:id="@+id/textViewDisplayChallangesCount"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Wanderungen"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:layout_weight="1"
-            android:inputType="none"
-            android:padding="10dp"
-            android:text="Challanges: 0"
-            android:background="@drawable/border_tv"/>
+            android:orientation="vertical"
+            android:background="@drawable/border_lv">
+
+            <TextView
+                android:id="@+id/textViewDisplayFriendsCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:padding="10dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Freunde"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewDisplayChallangesCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:padding="10dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Challanges"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:background="@drawable/border_lv"
-        android:backgroundTint="@color/background_special1">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/buttonAddFriend"
@@ -104,7 +159,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:layout_weight="1"
-            android:background="@drawable/border_tv"
+            android:background="@drawable/profiletextview_border"
             android:text="@string/Add_Friend" />
 
         <TextView
@@ -116,15 +171,12 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="5dp"
             android:layout_weight="1"
-            android:background="@drawable/border_tv"
+            android:background="@drawable/profiletextview_border"
             android:inputType="none"
-            android:padding="10dp"
+            android:padding="14dp"
             android:text="TextView" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 
     <ListView
         android:id="@+id/listViewFriends"

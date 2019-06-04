@@ -1,32 +1,28 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!--<string name="app_name">KungFuWander</string>-->
     <string name="title_activity_navigation_bar">NavigationBar</string>
-    <string name="title_weather">Weather</string>
+    <string name="title_weather">Wetter</string>
     <string name="title_map">Map</string>
-    <string name="title_recetnHikes">Recent Hikes</string>
+    <string name="title_recetnHikes">Letzte Wanderungen</string>
     <string name="title_activity_navi">navi</string>
-
-
-    <string name="app_name" tools:ignore="ExtraTranslation">KungFuWander</string>
-    <string name="email">E-mail</string>
-    <string name="password">Password</string>
-    <string name="login">Already got an Account? Tap here to login!</string>
-    <string name="login2">Login</string>
-    <string name="cancel">Cancel</string>
-    <string name="buy">Buy</string>
-    <string name="search">Enter search term</string>
-    <string name="signup">Sign Up</string>
-
-
+    <string name="email">E-Mail Adresse</string>
+    <string name="password">Passwort</string>
+    <string name="login">Account bereits vorhanden? Clicke hier um dich einzuloggen!</string>
+    <string name="login2">Einloggen</string>
+    <string name="signup">Anmelden</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_compare_friends">CompareFriends</string>
-    <string name="title_currenthiking">Current Hiking</string>
+    <string name="title_currenthiking">Derzeitige Wanderung</string>
     <string name="title_profile">Profil</string>
-    <string name="Add_Friend">Add Friend</string>
-    <string name="Username">Username</string>
+
     <string name="title_activity_compare">CompareActivity</string>
     <string name="tab_text_1">Day</string>
     <string name="tab_text_2">Week</string>
     <string name="tab_text_3">Month</string>
+
+    <string name="Add_Friend">Freund hinzufügen</string>
+    <string name="Username">Benutzername</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="Freunde">Freunde</string>
 
 </resources>

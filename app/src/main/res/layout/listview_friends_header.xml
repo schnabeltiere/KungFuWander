@@ -7,10 +7,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#00F000"
+        android:background="@android:color/white"
         android:textAlignment="center"
-        android:text="This is a header"
-        android:textSize="20sp"
+        android:text="@string/Freunde"
+        android:textSize="10sp"
         android:textStyle="bold"
         android:textColor="#000"/>
 
