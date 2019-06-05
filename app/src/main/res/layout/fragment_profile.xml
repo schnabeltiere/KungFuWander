@@ -12,8 +12,8 @@
 
         <ImageView
             android:id="@+id/imageViewProfilePicture"
-            android:layout_width="450dp"
-            android:layout_height="150dp"
+            android:layout_width="480dp"
+            android:layout_height="160dp"
             android:layout_weight="1"
             android:padding="30dp"
             app:srcCompat="@drawable/kfw3" />
