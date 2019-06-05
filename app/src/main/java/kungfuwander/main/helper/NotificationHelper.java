@@ -3,11 +3,15 @@ package kungfuwander.main.helper;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.graphics.Color;
 
+import kungfuwander.main.MainActivity;
 import kungfuwander.main.R;
+import kungfuwander.main.fragments.CurrentHikeFragment;
 
 /**
  * Helper class to manage notification channels, and create notifications.
@@ -15,6 +19,7 @@ import kungfuwander.main.R;
 public class NotificationHelper extends ContextWrapper {
 
     private NotificationManager manager;
+    private Notification.Builder builder;
     public static final String PRIMARY_CHANNEL = "current_hike";
 
     /**
@@ -30,8 +35,17 @@ public class NotificationHelper extends ContextWrapper {
         channel.setLightColor(Color.GREEN);
         channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
         getManager().createNotificationChannel(channel);
+
+        builder = getNotification("Hike", "Wird bald beginnen");
+        setUpOnClick();
     }
 
+
+    private void setUpOnClick(){
+        PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 0,
+                new Intent(this, MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentIntent);
+    }
 
     /**
      * Get a notification of type 1
@@ -60,8 +74,10 @@ public class NotificationHelper extends ContextWrapper {
      * @param body         The body
      */
     public void sendNotification(int id, String title, String body) {
-        Notification.Builder notification = getNotification(title, body);
-        getManager().notify(id, notification.build());
+//        Notification.Builder notification = getNotification(title, body);
+        builder.setContentTitle(title)
+                .setContentText(body);
+        getManager().notify(id, builder.build());
     }
 
     /**
