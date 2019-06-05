@@ -117,7 +117,7 @@ public class WeatherFragment extends Fragment {
 
     private void displayWeather(WeatherForecast weatherResult) {
 
-        txt_city_name.setText("CITY");
+        txt_city_name.setText(weatherResult.city.name);
         Log.d("SET WEATHER", "DKFSD");
         Weather_Adapter adapter = new Weather_Adapter(this.getContext(), weatherResult);
         Log.d("SET HELP", "DKFSD");
