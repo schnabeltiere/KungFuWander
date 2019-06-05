@@ -1,7 +1,6 @@
 package kungfuwander.main;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Looper;
@@ -31,7 +30,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.util.List;
 
-import kungfuwander.main.fragments.CompareActivity;
+import kungfuwander.main.fragments.CompareFragment;
 import kungfuwander.main.fragments.CurrentHikeFragment;
 import kungfuwander.main.fragments.MapsFragment;
 import kungfuwander.main.fragments.ProfileFragment;
@@ -140,15 +139,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     break;
 
                 case R.id.navigation_map:
-                    // TODO: 04.06.2019 change to fragment
                         fragment = new MapsFragment();
                     break;
 
                 case R.id.navigation_recentHikes:
-//                    fragment = new Fragment_RecentHikes();
-                    // TODO: 04.06.2019 change to fragment
-                    startActivity(new Intent(this, CompareActivity.class));
-//                    fragment = new CompareActivity();
+                    fragment = new CompareFragment();
                     break;
 
                 case R.id.navigation_profile:

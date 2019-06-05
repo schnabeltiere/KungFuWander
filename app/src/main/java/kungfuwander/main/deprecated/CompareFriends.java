@@ -30,7 +30,6 @@ import java.util.stream.Collectors;
 import kungfuwander.main.MainActivity;
 import kungfuwander.main.R;
 import kungfuwander.main.beans.Hike;
-import kungfuwander.main.fragments.CompareActivity;
 import kungfuwander.main.helper.FirebaseHelper;
 
 import static kungfuwander.main.deprecated.FriendsList.*;
