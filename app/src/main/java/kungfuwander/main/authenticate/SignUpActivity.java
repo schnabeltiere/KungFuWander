@@ -9,10 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
-
 import kungfuwander.main.MainActivity;
 import kungfuwander.main.R;
 import kungfuwander.main.helper.FirebaseHelper;
@@ -38,53 +36,53 @@ public class SignUpActivity extends AppCompatActivity {
         textViewLogin = findViewById(R.id.textViewLogin);
 
         //If the user already logged in once on the device AND if no authentification error occures, the user is automatically logged in
-/*
+
         if (firebaseAuth.getCurrentUser() != null) {
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
             MainActivity.currentFirebaseUser = firebaseAuth.getCurrentUser();
             finish();
         }
-*/
-            textViewLogin.setOnClickListener(log -> startActivity(new Intent(getApplicationContext(), LoginActivity.class)));
 
-            registerButton.setOnClickListener(v -> {
-                String email = this.email.getText().toString();
-                String password = this.password.getText().toString();
-                String username = this.username.getText().toString();
+        textViewLogin.setOnClickListener(log -> startActivity(new Intent(getApplicationContext(), LoginActivity.class)));
 
-                if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(username)) {
-                    Toast.makeText(getApplicationContext(), "Pflichtfelder ausfüllen!", Toast.LENGTH_SHORT).show();
-                    this.email.setText("");
-                    this.password.setText("");
-                    this.username.setText("");
-                    return;
-                }
-                if (password.length() < 6) {
-                    Toast.makeText(getApplicationContext(), "Passwort muss mehr als 6 Zeichen beinhalten", Toast.LENGTH_SHORT).show();
-                    this.password.setText("");
-                    return;
-                }
+        registerButton.setOnClickListener(v -> {
+            String email = this.email.getText().toString();
+            String password = this.password.getText().toString();
+            String username = this.username.getText().toString();
 
-                if (username.length() < 5) {
-                    Toast.makeText(this, "Benutzername muss mehr als 5 Zeichen beinhalten", Toast.LENGTH_SHORT).show();
-                    return;
+            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(username)) {
+                Toast.makeText(getApplicationContext(), "Pflichtfelder ausfüllen!", Toast.LENGTH_SHORT).show();
+                this.email.setText("");
+                this.password.setText("");
+                this.username.setText("");
+                return;
+            }
+            if (password.length() < 6) {
+                Toast.makeText(getApplicationContext(), "Passwort muss mehr als 6 Zeichen beinhalten", Toast.LENGTH_SHORT).show();
+                this.password.setText("");
+                return;
+            }
+
+            if (username.length() < 5) {
+                Toast.makeText(this, "Benutzername muss mehr als 5 Zeichen beinhalten", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    MainActivity.currentFirebaseUser = firebaseAuth.getCurrentUser();
+                    // this creates at login, updates following later...
+                    FirebaseHelper.createNewUserDatabase(username);
+                    FirebaseHelper.updateDisplayName(username);
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), "E-mail or password wrong", Toast.LENGTH_SHORT).show();
                 }
-                firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        MainActivity.currentFirebaseUser = firebaseAuth.getCurrentUser();
-                        // this creates at login, updates following later...
-                        FirebaseHelper.createNewUserDatabase(username);
-                        FirebaseHelper.updateDisplayName(username);
-                        finish();
-                    } else {
-                        Toast.makeText(getApplicationContext(), "E-mail or password wrong", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(e -> {
-                    if (e instanceof FirebaseAuthException) {
-                        Log.e("kungfuwander.main.", ((FirebaseAuthException) e).getErrorCode());
-                    }
-                });
+            }).addOnFailureListener(e -> {
+                if (e instanceof FirebaseAuthException) {
+                    Log.e("kungfuwander.main.", ((FirebaseAuthException) e).getErrorCode());
+                }
             });
-        }
+        });
     }
+}

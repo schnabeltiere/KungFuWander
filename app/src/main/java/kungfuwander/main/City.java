@@ -5,7 +5,7 @@ import kungfuwander.main.beans.Coord;
 public class City {
     public int id;
     public String name;
-    public Coord coord;
+
     public City city;
 
     public int getId() {
@@ -24,13 +24,7 @@ public class City {
         this.name = name;
     }
 
-    public Coord getCoord() {
-        return coord;
-    }
 
-    public void setCoord(Coord coord) {
-        this.coord = coord;
-    }
 
     public City getCity() {
         return city;

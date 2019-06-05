@@ -2,11 +2,14 @@ package kungfuwander.main.fragments;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +27,7 @@ import kungfuwander.main.R;
 import kungfuwander.main.beans.Hike;
 import kungfuwander.main.beans.User;
 import kungfuwander.main.helper.FirebaseHelper;
+import kungfuwander.main.helper.FriendsListAdapter;
 
 public class ProfileFragment extends Fragment {
 
@@ -76,28 +80,59 @@ public class ProfileFragment extends Fragment {
         listViewFriends.addHeaderView(headerView);
 
         initProfileWithFirebase();
-        buttonAddFriends.setOnClickListener(this::showAllUsers);
+        buttonAddFriends.setOnClickListener(view -> FirebaseHelper.fetchAllUsers(this::createDialog));
     }
 
-    private void showAllUsers(View view) {
 
+    private void createDialog(List<User> users) {
+        Log.d("Profile", "gotten: " + users);
+        // Get the layout inflater
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        View alertView = inflater.inflate(R.layout.alert_all_users, null);
+
+        setUpListViewAllUsers(users, alertView);
+
+        new AlertDialog.Builder(getContext())
+                .setView(alertView)
+                .setPositiveButton("Cool", (dialog, which) -> dialog.cancel())
+                .setNegativeButton("Cancel", (dialog, id) -> dialog.cancel())
+                .show();
     }
 
+    private void setUpListViewAllUsers(List<User> users, View alertView) {
+        FriendsListAdapter adapter = new FriendsListAdapter(getContext(), 0, users);
+        ListView listView =  alertView.findViewById(R.id.lvAllUsers);
+
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            User friend = users.get(position);
+
+            new AlertDialog.Builder(getContext())
+                    .setMessage("Willst du " + friend.getName() + " als Freund hinzufügen?")
+                    .setPositiveButton("Ja", (dialog, which) -> {
+                        FirebaseHelper.addFriendToLoggedInUser(friend);
+                        // TODO: 05.06.2019 update friend view
+                        // just for testing, is a bad solution
+                        initProfileWithFirebase();
+                    })
+                    .setNegativeButton("Nein", (dialog, which) -> dialog.cancel())
+                    .show();
+        });
+    }
 
     @Deprecated
     private void initProfileWithFirebase() {
         // this is a cheat and takes a lot of data base requests
 
         FirebaseHelper.fetchLoggedInUserHikes(hikes -> {
-            int overallsteps = 0;
-            for(Hike h : hikes){
-                overallsteps += h.getSteps();
-            }
-            textViewDisplayOverallSteps.setText(String.valueOf(overallsteps));
-        });
-
-        FirebaseHelper.fetchLoggedInUserHikes(hikes -> {
             // should be string.valueOf otherwise it's an id
+            int steps = hikes.stream()
+                    .mapToInt(Hike::getSteps)
+                    .sum();
+            textViewDisplayOverallSteps.setText(String.valueOf(steps));
             textViewDisplayHikingCount.setText(String.valueOf(hikes.size()));
         });
         FirebaseHelper.fetchFriendsOfLoggedInUser(friends -> {

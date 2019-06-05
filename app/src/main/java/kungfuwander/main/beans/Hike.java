@@ -3,7 +3,6 @@ package kungfuwander.main.beans;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.GeoPoint;
-
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;

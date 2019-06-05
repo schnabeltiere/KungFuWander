@@ -7,10 +7,8 @@ import android.os.Build;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import kungfuwander.main.chartview.draw.data.Chart;
 import kungfuwander.main.chartview.draw.data.InputData;
 import kungfuwander.main.chartview.utils.ValueUtils;

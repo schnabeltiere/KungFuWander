@@ -50,13 +50,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private LocationCallback locationCallback;
     private LocationRequest locationRequest;
 
-    private Fragment fragment = new CurrentHikeFragment();
+    private Fragment fragment_currenthike = new CurrentHikeFragment();
+    private Fragment fragment_map = new MapsFragment();
+    private Fragment fragment_profil = new ProfileFragment();
+    private Fragment fragment_weather = new WeatherFragment();
+    private Fragment fragment_statistic = new CompareFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navi);
-
 
 
         BottomNavigationView nav = findViewById(R.id.navigation);
@@ -66,8 +69,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.root);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
 
 
         Dexter.withActivity(this)
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
                     }
                 }).check();
-        loadFragment(fragment);
+        loadFragment(fragment_currenthike);
 
     }
 
@@ -130,27 +131,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         public boolean onNavigationItemSelected (@NonNull MenuItem menuItem){
 
             switch (menuItem.getItemId()) {
-                case R.id.navigation_currentHike:
-                    fragment = new CurrentHikeFragment();
-                    break;
-
-                case R.id.navigation_weather:
-                    fragment = new WeatherFragment();
-                    break;
-
-                case R.id.navigation_map:
-                        fragment = new MapsFragment();
-                    break;
-
-                case R.id.navigation_recentHikes:
-                    fragment = new CompareFragment();
-                    break;
-
-                case R.id.navigation_profile:
-                    fragment = new ProfileFragment();
-                    break;
+                case R.id.navigation_currentHike:return loadFragment(fragment_currenthike);
+                case R.id.navigation_weather:return loadFragment(fragment_weather);
+                case R.id.navigation_map:return loadFragment(fragment_map);
+                case R.id.navigation_recentHikes: return loadFragment(fragment_statistic);
+                case R.id.navigation_profile:return loadFragment(fragment_profil);
             }
-            return loadFragment(fragment);
+            return loadFragment(fragment_currenthike);
         }
     }
 

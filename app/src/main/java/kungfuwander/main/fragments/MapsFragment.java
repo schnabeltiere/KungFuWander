@@ -19,6 +19,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 import kungfuwander.main.R;
 import kungfuwander.main.beans.Hike;
+import kungfuwander.main.helper.FirebaseHelper;
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
@@ -34,6 +35,11 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
 
         mapFragment.getMapAsync(this);
+
+        FirebaseHelper.fetchLoggedInUserHikes(hikes -> {
+            hikes.forEach(this::markPathOfHiking);
+//            hikes.forEach(this::markAreaOfHiking);
+        });
 
         return rootView;
     }

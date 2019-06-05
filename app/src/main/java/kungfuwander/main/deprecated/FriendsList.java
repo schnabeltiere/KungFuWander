@@ -12,12 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import java.util.List;
-
 import kungfuwander.main.R;
 import kungfuwander.main.beans.User;
-import kungfuwander.main.deprecated.CompareFriends;
 import kungfuwander.main.helper.FirebaseHelper;
 import kungfuwander.main.helper.FriendsListAdapter;
 
@@ -44,20 +41,14 @@ public class FriendsList extends AppCompatActivity {
     private boolean compareWithUser(int position) {
         User user = users.get(position);
 
-        // Get the layout inflater
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
         View alertView = inflater.inflate(R.layout.alert_about_user, null);
 
-        // set default price
         TextView tvUserName = alertView.findViewById(R.id.atvUserName);
         TextView tvHikingSince = alertView.findViewById(R.id.atvUserHikingSince);
         TextView tvNHikes = alertView.findViewById(R.id.atvUserNHikings);
 
-        // TODO: 19.05.2019 change this to only display nCounts
-        // otherwise waste of queries if we just want number of hikes
         FirebaseHelper.fetchSpecificUserHikes(user.getUid(), hikes -> {
             tvUserName.setText("Challenger: " + user.getName());
             tvHikingSince.setText("Hike since: " + user.getUid());
@@ -76,9 +67,6 @@ public class FriendsList extends AppCompatActivity {
     }
 
     private void setUpListView(List<User> users) {
-        // first attempt was to just read all users from authentification database
-        // this is not possible - at least i didn't find any way.
-        // so just list all users from users database - consider creating database at login for user
         ListView listView = findViewById(R.id.listViewUsers);
         this.users = users;
 
@@ -91,7 +79,6 @@ public class FriendsList extends AppCompatActivity {
     }
 
     private boolean showAddUserDialog(int position) {
-        // TODO: 22.05.2019 can't add himself
         User user = users.get(position);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
@@ -100,9 +87,7 @@ public class FriendsList extends AppCompatActivity {
                     FirebaseHelper.addFriendToLoggedInUser(user);
                     FirebaseHelper.addLoggedInUserAsFriend(user);
                 })
-                .setNegativeButton(R.string.cancel, (dialog, id) -> {
-                    // User wants everything back to normal - do nothing
-                });
+                .setNegativeButton(R.string.cancel, (dialog, id) -> {});
 
         builder.create().show();
         return true;

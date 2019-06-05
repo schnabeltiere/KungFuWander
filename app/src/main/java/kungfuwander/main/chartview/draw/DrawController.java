@@ -6,7 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import java.util.List;
-
 import kungfuwander.main.R;
 import kungfuwander.main.chartview.animation.AnimationManager;
 import kungfuwander.main.chartview.animation.data.AnimationValue;

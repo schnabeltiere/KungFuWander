@@ -3,7 +3,6 @@ package kungfuwander.main.chartview;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
 import kungfuwander.main.chartview.animation.AnimationManager;
 import kungfuwander.main.chartview.animation.data.AnimationValue;
 import kungfuwander.main.chartview.draw.DrawManager;

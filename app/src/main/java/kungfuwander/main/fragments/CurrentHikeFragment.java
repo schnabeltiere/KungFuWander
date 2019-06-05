@@ -157,8 +157,13 @@ public class CurrentHikeFragment extends Fragment implements SensorEventListener
                         hour = 0;
                         hourI++;
                     }
-
-                    getActivity().runOnUiThread(()-> tvDuration.setText(String.valueOf(hourI) + String.valueOf(hour) + ":" + String.valueOf(minuteI) + String.valueOf(minute) + ":" + String.valueOf(secondI) + String.valueOf(second)));
+                    if(getActivity() != null){
+                        getActivity().runOnUiThread(()-> {
+                            if(tvDuration != null){
+                                tvDuration.setText(String.valueOf(hourI) + String.valueOf(hour) + ":" + String.valueOf(minuteI) + String.valueOf(minute) + ":" + String.valueOf(secondI) + String.valueOf(second));
+                            }
+                        });
+                    }
                 }
             }
         });

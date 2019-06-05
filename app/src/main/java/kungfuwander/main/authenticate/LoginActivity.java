@@ -7,9 +7,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuthException;
-
 import kungfuwander.main.MainActivity;
 import kungfuwander.main.R;
 

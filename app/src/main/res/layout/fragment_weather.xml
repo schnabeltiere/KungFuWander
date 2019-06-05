@@ -17,7 +17,6 @@
             android:layout_height="wrap_content"
             android:text="Wettervorhersage"
             android:textSize="24dp"
-            android:textColor="@color/black"
             android:textStyle="bold" />
 
         <TextView
@@ -25,8 +24,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="London, GB"
-            android:textColor="@color/black"
-            android:layout_marginTop="5dp"
             android:textSize="20dp"
             android:textStyle="bold" />
 
@@ -36,8 +33,9 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_forecast"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/main"
         android:layout_marginTop="20dp"></android.support.v7.widget.RecyclerView>
+
 
 </RelativeLayout>
