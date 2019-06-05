@@ -31,8 +31,8 @@ public class LoginActivity extends AppCompatActivity {
 
             SignUpActivity.firebaseAuth.signInWithEmailAndPassword(email,pw).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    MainActivity.currentFirebaseUser = SignUpActivity.firebaseAuth.getCurrentUser();
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    MainActivity.currentFirebaseUser = SignUpActivity.firebaseAuth.getCurrentUser();
                     finish();
                 } else {
                     Toast.makeText(getApplicationContext(), "E-mail or password is wrong", Toast.LENGTH_SHORT).show();

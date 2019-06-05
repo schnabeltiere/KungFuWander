@@ -12,7 +12,6 @@ import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 
 public class NotificationService extends Service {
 
@@ -48,7 +47,7 @@ public class NotificationService extends Service {
         Notification notification = new NotificationCompat.Builder(this, channelId)
                 .setContentTitle(CONTENT_TITLE)
                 .setContentText(input)
-                .setSmallIcon(R.drawable.logo)
+                .setSmallIcon(R.drawable.kfwl2)
                 .setContentIntent(pendingIntent)
                 .build();
 
@@ -83,7 +82,7 @@ public class NotificationService extends Service {
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle(CONTENT_TITLE)
                 .setContentText(input)
-                .setSmallIcon(R.drawable.logo)
+                .setSmallIcon(R.drawable.kfwl2)
                 .build();
 
         manager.notify(CURRENT_HIKING_ID, notification);

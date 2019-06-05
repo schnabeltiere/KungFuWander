@@ -2,6 +2,7 @@ package kungfuwander.main;
 
 import android.Manifest;
 import android.content.Intent;
+import android.os.Bundle;
 import android.content.pm.PackageManager;
 import android.os.Looper;
 import android.support.annotation.NonNull;
@@ -12,10 +13,12 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+
 import android.view.MenuItem;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -132,7 +135,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     break;
 
                 case R.id.navigation_map:
-//                    fragment = new Fragment_Map();
                     startActivity(new Intent(this, MapsActivity.class));
                     break;
 
