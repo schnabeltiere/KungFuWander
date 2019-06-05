@@ -26,11 +26,12 @@ import io.reactivex.disposables.CompositeDisposable;
 
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import kungfuwander.main.WeatherForecast;
+import kungfuwander.main.Weather_Adapter;
 import kungfuwander.main.weather.Common;
 import kungfuwander.main.weather.IOpenWeatherMap;
 import kungfuwander.main.R;
 import kungfuwander.main.weather.RetrofitClient;
-import kungfuwander.main.beans.WeatherResult;
 import retrofit2.Retrofit;
 
 
@@ -92,7 +93,7 @@ public class WeatherFragment extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<WeatherForecast>() {
                     @Override
-                    public void accept(WeatherForecast weatherForecast) throws Exception {
+                    public void accept(WeatherForecast weatherForecast)  {
 
                         if(weatherForecast==null)
                         {
@@ -106,7 +107,7 @@ public class WeatherFragment extends Fragment {
                     }
                 }, new Consumer<Throwable>() {
                     @Override
-                    public void accept(Throwable throwable) throws Exception {
+                    public void accept(Throwable throwable){
                    Log.d("ERROR", "" + throwable.getMessage());
                     }
                 })

@@ -14,6 +14,8 @@ import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 
+import kungfuwander.main.weather.Common;
+
 public class Weather_Adapter extends RecyclerView.Adapter<Weather_Adapter.MyViewHolder> {
 
     Context context;
