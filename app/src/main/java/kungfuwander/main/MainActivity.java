@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private LocationCallback locationCallback;
     private LocationRequest locationRequest;
 
+    private Fragment fragment = new CurrentHikeFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +94,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
                     }
                 }).check();
+        loadFragment(fragment);
+
     }
 
     private void buildLocationCallBack() {
@@ -128,7 +131,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
         @Override
         public boolean onNavigationItemSelected (@NonNull MenuItem menuItem){
-            Fragment fragment = null;
 
             switch (menuItem.getItemId()) {
                 case R.id.navigation_currentHike:

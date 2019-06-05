@@ -16,14 +16,15 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import kungfuwander.main.MainActivity;
-import kungfuwander.main.deprecated.Main;
-import kungfuwander.main.helper.FirebaseHelper;
 import kungfuwander.main.R;
+import kungfuwander.main.beans.Hike;
 import kungfuwander.main.beans.User;
+import kungfuwander.main.helper.FirebaseHelper;
 
 public class ProfileFragment extends Fragment {
 
@@ -82,12 +83,26 @@ public class ProfileFragment extends Fragment {
     private void showAllUsers(View view) {
         // TODO: 04.06.2019 gets only added to logged in user, like a following
         // later expand to firebase function with permission
+        List<User> userList = new ArrayList<>();
+        FirebaseHelper.fetchAllUsers(user -> userList.addAll(user));
+
+
+
+
     }
 
 
     @Deprecated
     private void initProfileWithFirebase() {
         // this is a cheat and takes a lot of data base requests
+
+        FirebaseHelper.fetchLoggedInUserHikes(hikes -> {
+            int overallsteps = 0;
+            for(Hike h : hikes){
+                overallsteps += h.getSteps();
+            }
+            textViewDisplayOverallSteps.setText(String.valueOf(overallsteps));
+        });
 
         FirebaseHelper.fetchLoggedInUserHikes(hikes -> {
             // should be string.valueOf otherwise it's an id
