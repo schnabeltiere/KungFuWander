@@ -25,7 +25,7 @@ public class Fragment_Profile extends Fragment {
             textViewUsrEmail,
             textViewDisplayHikingCount,
             textViewDisplayFriendsCount,
-            textViewDisplayChallengeCount,
+            textViewDisplayOverallSteps,
             textViewDisplayCurrentChallenge;
 
     private Button buttonAddFriends;
@@ -58,7 +58,7 @@ public class Fragment_Profile extends Fragment {
         textViewUsrEmail = v.findViewById(R.id.textViewUsrEmail);
         textViewDisplayHikingCount = v.findViewById(R.id.textViewDisplayHikingCount);
         textViewDisplayFriendsCount = v.findViewById(R.id.textViewDisplayFriendsCount);
-        textViewDisplayChallengeCount = v.findViewById(R.id.textViewDisplayChallangesCount);
+        textViewDisplayOverallSteps = v.findViewById(R.id.textViewDisplayOverallSteps);
         textViewDisplayCurrentChallenge = v.findViewById(R.id.textViewDisplayCurrentChallange);
 
         buttonAddFriends = v.findViewById(R.id.buttonAddFriend);
