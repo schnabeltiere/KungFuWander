@@ -80,7 +80,14 @@ public class ProfileFragment extends Fragment {
         listViewFriends.addHeaderView(headerView);
 
         initProfileWithFirebase();
-        buttonAddFriends.setOnClickListener(view -> FirebaseHelper.fetchAllUsers(this::createDialog));
+        buttonAddFriends.setOnClickListener(view -> {
+            FirebaseHelper.fetchAllUsers(allUsers -> {
+                FirebaseHelper.fetchFriendsOfLoggedInUser(friends -> {
+                    allUsers.removeAll(friends);
+                    createDialog(allUsers);
+                });
+            });
+        });
     }
 
 
