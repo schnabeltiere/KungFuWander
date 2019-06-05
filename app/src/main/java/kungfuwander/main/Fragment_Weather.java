@@ -3,6 +3,9 @@ package kungfuwander.main;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +23,7 @@ import java.util.Calendar;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
@@ -30,9 +34,9 @@ import retrofit2.Retrofit;
  */
 public class Fragment_Weather extends Fragment {
     ImageView imageView;
-    TextView txt_city_name, txt_temperature, txt_dateTime;
-    LinearLayout weather_panel;
-    ProgressBar loading;
+    TextView txt_city_name;
+    RecyclerView recyclerView;
+
 
     CompositeDisposable compositeDisposable;
     IOpenWeatherMap mService;
@@ -50,6 +54,8 @@ public class Fragment_Weather extends Fragment {
         compositeDisposable = new CompositeDisposable();
         Retrofit retrofit = RetrofitClient.getInstance();
         mService = retrofit.create(IOpenWeatherMap.class);
+
+
     }
 
 
@@ -60,11 +66,12 @@ public class Fragment_Weather extends Fragment {
         View itemView =  inflater.inflate(R.layout.fragment_weather, container, false);
         imageView = (ImageView) itemView.findViewById(R.id.img_weather);
         txt_city_name = itemView.findViewById(R.id.txt_city_name);
-        txt_temperature = itemView.findViewById(R.id.txt_temperature);
-        txt_dateTime = itemView.findViewById(R.id.txt_dateTime);
 
+        recyclerView = itemView.findViewById(R.id.recycler_forecast);
+        LinearLayoutManager ll = new LinearLayoutManager(this.getContext());
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(ll);
 
-        weather_panel = (LinearLayout) itemView.findViewById(R.id.weather_panel);
 
 
         getWeatherInformation();
@@ -72,39 +79,46 @@ public class Fragment_Weather extends Fragment {
     }
 
     private void getWeatherInformation() {
-        DateFormat df = new SimpleDateFormat("dd MMM yyyy, HH:mm");
-        final String date = df.format(Calendar.getInstance().getTime());
-        compositeDisposable.add(mService.getWeatherByLatLng(String.valueOf(Common.current_lcation.getLatitude()),String.valueOf(Common.current_lcation.getLongitude()),
+
+        compositeDisposable.add(mService.getForcastWeather(String.valueOf(Common.current_lcation.getLatitude()),String.valueOf(Common.current_lcation.getLongitude()),
                 Common.APP_ID,
                 "metric")
                         .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Consumer<WeatherResult>() {
-                                       @Override
-                                       public void accept(WeatherResult weatherResult) throws Exception {
-//
-                                           Picasso.get().load(new StringBuilder("https://openweathermap.org/img/w/").append(weatherResult.getWeather().get(0).getIcon())
-                                                   .append(".png").toString()).into(imageView);
-                                           txt_city_name.setText(weatherResult.getName());
-                                           txt_temperature.setText(new StringBuilder(String.valueOf(weatherResult.getMain().getTemp())).append("° C"));
-                                           txt_dateTime.setText(date);
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<WeatherForecast>() {
+                    @Override
+                    public void accept(WeatherForecast weatherForecast) throws Exception {
 
+                        if(weatherForecast==null)
+                        {
+                            Log.d("NULL POINT", "DKFSD");
+                        }
+                        else
+                        {
+                            displayWeather(weatherForecast);
+                        }
 
-                                           weather_panel.setVisibility(View.VISIBLE);
-                                       }
-
-                                   },  new Consumer<Throwable>()
-                                   {
-                                       @Override
-                                       public void accept(Throwable throwable) throws Exception
-                                       {
-                                           Toast.makeText(getActivity(), " " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
-                                       }
-                                   }
-
-                        )
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                   Log.d("ERROR", "" + throwable.getMessage());
+                    }
+                })
 
         );
+    }
+
+    private void displayWeather(WeatherForecast weatherResult) {
+
+        txt_city_name.setText("CITY");
+        Log.d("SET WEATHER", "DKFSD");
+        Weather_Adapter adapter = new Weather_Adapter(this.getContext(), weatherResult);
+        Log.d("SET HELP", "DKFSD");
+
+
+        recyclerView.setAdapter(adapter);
+
     }
 
 }
