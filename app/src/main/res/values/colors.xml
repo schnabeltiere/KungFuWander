@@ -3,5 +3,25 @@
     <color name="colorPrimaryDark">#16202d</color>
     <color name="colorAccent">#397298</color>
     <color name="background_special1">#12D8FA</color>
+
+
+    <color name="white">#ffffff</color>
+
+    <color name="gray_50">#FAFAFA</color>
+    <color name="gray_100">#F5F5F5</color>
+    <color name="gray_200">#EEEEEE</color>
+    <color name="gray_300">#E0E0E0</color>
+    <color name="gray_400">#BDBDBD</color>
+    <color name="gray_500">#9E9E9E</color>
+    <color name="gray_600">#757575</color>
+    <color name="gray_700">#616161</color>
+    <color name="gray_800">#424242</color>
+    <color name="gray_900">#212121</color>
+
+    <color name="gray">#f4f2ee</color>
+    <color name="light_blue">#b2ccde</color>
+    <color name="blue">#6dbef4</color>
+
     <color name="black">@android:color/black</color>
+
 </resources>

@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    <!--https://www.pexels.com/photo/woman-standing-on-the-cliff-1374064/-->
+    android:orientation="vertical"
+    android:background="@drawable/currenthikebackground2">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="100dp">
 
         <TextView
             android:id="@+id/textViewDisplayStepCount"
@@ -27,6 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Steps"
+            android:textColor="@color/black"
             android:padding="10dp"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -38,8 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@drawable/border_lv"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="100dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,25 +54,27 @@
                 android:layout_height="wrap_content"
                 android:text="0"
                 android:padding="10dp"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 android:textStyle="bold"
                 android:gravity="center"
+                android:textColor="@color/black"
                 android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Kaloien"
+                android:text="Kalorien"
+                android:textColor="@color/black"
                 android:gravity="center"
+                android:textSize="25sp"
                 android:layout_weight="1"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_weight="1"
-            android:background="@drawable/border_lv">
+            android:layout_weight="1">
 
             <TextView
                 android:id="@+id/tvDisplayWalkedMeters"
@@ -80,8 +82,9 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:text="0"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 android:textStyle="bold"
+                android:textColor="@color/black"
                 android:gravity="center"
                 android:layout_weight="1"/>
 
@@ -90,7 +93,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Meter"
+                android:textColor="@color/black"
                 android:gravity="center"
+                android:textSize="25sp"
                 android:layout_weight="1"/>
         </LinearLayout>
         <LinearLayout
@@ -104,10 +109,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="0"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:padding="10dp"
+                android:textColor="@color/black"
                 android:layout_weight="1"/>
 
             <TextView
@@ -115,7 +121,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Dauer"
+                android:textSize="25sp"
                 android:gravity="center"
+                android:textColor="@color/black"
                 android:layout_weight="1"/>
         </LinearLayout>
     </LinearLayout>
@@ -125,7 +133,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:orientation="horizontal"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="120dp">
 
         <Button
             android:id="@+id/buttonStart"
@@ -133,7 +141,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:layout_weight="1"
-            android:text="Start" />
+            android:text="Start"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:background="@drawable/border_lv"/>
 
         <Button
             android:id="@+id/buttonStop"
@@ -141,7 +152,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:layout_weight="1"
-            android:text="Stop" />
+            android:text="Stop"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:background="@drawable/border_lv"/>
     </LinearLayout>
 
 </LinearLayout>
