@@ -43,6 +43,7 @@ public class MonthFragment extends Fragment {
         // nested so data gets loaded all or nothing
         FirebaseHelper.fetchLoggedInUserHikes(hikes -> {
             List<InputData> inputData = extractDataOutOfMonth(hikes);
+            Log.d(TAG, "The size of month data is : " + inputData.size());
             chartView.setData(inputData);
         });
     }
@@ -62,6 +63,7 @@ public class MonthFragment extends Fragment {
             LocalDate startOfWeek = LocalDate.now().plusWeeks(i);
             List<Hike> hikesInWeek = extractOfWeek(hikes, startOfWeek);
             int steps = sumSteps(hikesInWeek);
+            Log.d(TAG, "Steps in week: " + startOfWeek + " = " + steps);
 
             // TODO: 05.06.2019 change back
             data.add(new InputData(steps + i));
@@ -84,6 +86,8 @@ public class MonthFragment extends Fragment {
         // because it's not included
         LocalDate startOfWeek = week.minusDays(1);
         LocalDate endOfWeek = week.plusDays(7);
+        Log.d(TAG, "Start of week " + startOfWeek);
+        Log.d(TAG, "End of week " + endOfWeek);
 
         return hikes.stream()
                 .filter(hike -> hike.startAsLocalDate().isAfter(startOfWeek)

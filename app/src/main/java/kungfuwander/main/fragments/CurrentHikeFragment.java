@@ -1,6 +1,7 @@
 package kungfuwander.main.fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -35,6 +36,8 @@ public class CurrentHikeFragment extends Fragment implements SensorEventListener
 
     private static final int NOTI_PRIMARY = 1100;
     private static final String TAG = CurrentHikeFragment.class.getName();
+    private static final String STEPS_ID = "steps_id";
+    private static final String PREF_ID = "pref_id";
 
     private int currentSteps = 0;
     private TextView tvSteps;
@@ -48,6 +51,7 @@ public class CurrentHikeFragment extends Fragment implements SensorEventListener
     Thread controlTime;
     TimeControllAccessor accessor = new TimeControllAccessor();
 
+    private SharedPreferences shared;
 
     @Nullable
     @Override
@@ -257,10 +261,11 @@ public class CurrentHikeFragment extends Fragment implements SensorEventListener
             } else {
                 actualHike.addGeoPoint(geoPoint);
                 // TODO: 05.06.2019 other calculation for meter
-                tvMeter.setText(String.valueOf((int) (currentSteps*0.7)));
+//                tvMeter.setText(String.valueOf((int) (currentSteps*0.7)));
 
                 notificationHelper.sendNotification(NOTI_PRIMARY,
                         "Hike - Sike", geoPoint.toString());
+
                 Log.d(TAG, "Added: " + geoPoint.toString() + ", size of actualHike: "
                         + actualHike.getGeoPoints().size());
             }
@@ -279,14 +284,25 @@ public class CurrentHikeFragment extends Fragment implements SensorEventListener
         // don't continue, because it is never stopped
         // make the device update its location
 //        simpleLocation.beginUpdates();
+
+
+        // here we have to init all vars again
+        shared = getContext().getSharedPreferences(PREF_ID, Context.MODE_PRIVATE);
+        currentSteps = shared.getInt(STEPS_ID, 0);
+
+        this.tvSteps.setText(String.valueOf(currentSteps));
+        this.tvCalories.setText(String.valueOf((int) (currentSteps*0.3)));
+        this.tvMeter.setText(String.valueOf((int)(currentSteps*0.7)));
     }
 
     @Override
     public void onPause() {
         super.onPause();
 
+        shared.edit().putInt(STEPS_ID, currentSteps).apply();
         // don't end, because we need it to run without app
         // stop location updates (saves battery)
 //        simpleLocation.endUpdates();
     }
+
 }
