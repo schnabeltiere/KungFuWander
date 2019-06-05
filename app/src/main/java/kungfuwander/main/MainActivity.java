@@ -2,8 +2,8 @@ package kungfuwander.main;
 
 import android.Manifest;
 import android.content.Intent;
-import android.os.Bundle;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -13,10 +13,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-
 import android.view.MenuItem;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -35,9 +33,9 @@ import java.util.List;
 
 import kungfuwander.main.fragments.CompareActivity;
 import kungfuwander.main.fragments.CurrentHikeFragment;
+import kungfuwander.main.fragments.MapsFragment;
 import kungfuwander.main.fragments.ProfileFragment;
 import kungfuwander.main.fragments.WeatherFragment;
-import kungfuwander.main.fragments.MapsActivity;
 import kungfuwander.main.weather.Common;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -143,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
                 case R.id.navigation_map:
                     // TODO: 04.06.2019 change to fragment
-                    startActivity(new Intent(this, MapsActivity.class));
+                        fragment = new MapsFragment();
                     break;
 
                 case R.id.navigation_recentHikes:

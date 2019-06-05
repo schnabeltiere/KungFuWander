@@ -1,8 +1,11 @@
 package kungfuwander.main.fragments;
 
 import android.graphics.Color;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -16,29 +19,26 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 import kungfuwander.main.R;
 import kungfuwander.main.beans.Hike;
-import kungfuwander.main.helper.FirebaseHelper;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
-    private static final String TAG = MapsActivity.class.getName();
+    private static final String TAG = MapsFragment.class.getName();
     private GoogleMap mMap;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View rootView = inflater.inflate(R.layout.activity_maps, container, false);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+
         mapFragment.getMapAsync(this);
 
-
-        // here fetch of friends if wanted
-        FirebaseHelper.fetchLoggedInUserHikes(hikes -> {
-            hikes.forEach(this::markPathOfHiking);
-//            hikes.forEach(this::markAreaOfHiking);
-        });
+        return rootView;
     }
+
+
 
     private void markPathOfHiking(Hike hike) {
         // TODO: 22.05.2019 add what date the hike was on click
