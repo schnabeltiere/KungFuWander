@@ -31,32 +31,33 @@ public class WeekFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_week, container, false);
-        ChartView chartView = view.findViewById(R.id.chartViewWeek);
+        return inflater.inflate(R.layout.fragment_week, container, false);
+    }
 
-//        List<InputData> chartData = createChartData();
-//        chartView.setData(chartData);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        ChartView chartView = view.findViewById(R.id.chartViewWeek);
 
         // nested so data gets loaded all or nothing
         FirebaseHelper.fetchLoggedInUserHikes(hikes -> {
-            List<InputData> inputData = extractDataOutOfHikes(hikes);
+            List<InputData> inputData = extractDataOutOfWeek(hikes);
             chartView.setData(inputData);
         });
-
-        return view;
     }
 
-    private List<InputData> extractDataOutOfHikes(List<Hike> hikes) {
+    private List<InputData> extractDataOutOfWeek(List<Hike> hikes) {
         List<InputData> data = new ArrayList<>();
 
         // makes it easier
         hikes.sort(Comparator.comparing(Hike::getStart));
 
-        LocalDate previousMonday = determineStartOfWeek();
-        LocalDate endOfWeek = determineEndOfWeek(previousMonday);
-        Log.d(TAG, "Start is: " + previousMonday + " end is: " + endOfWeek);
+        LocalDate startOfWeek = startOfWeek();
+        LocalDate endOfWeek = endOfWeek(startOfWeek);
+        Log.d(TAG, "Start is: " + startOfWeek + " end is: " + endOfWeek);
 
-        for (LocalDate currentDay = previousMonday; currentDay.isBefore(endOfWeek);
+        for (LocalDate currentDay = startOfWeek; currentDay.isBefore(endOfWeek);
              currentDay = currentDay.plusDays(1)) {
 
             List<Hike> hikesOnSameDay = hikesOnSameDay(hikes, currentDay);
@@ -69,15 +70,40 @@ public class WeekFragment extends Fragment {
             data.add(new InputData(steps+currentDay.getDayOfMonth()));
         }
 
+        setUpMillisForData(data);
+        return data;
+    }
+    private List<Hike> hikesOnSameDay(List<Hike> hikes, LocalDate currentDay) {
+        return hikes.stream()
+                .filter(hiking -> hiking.startAsLocalDate().isEqual(currentDay))
+                .collect(Collectors.toList());
+    }
+
+    private LocalDate endOfWeek(LocalDate startDate) {
+        return startDate
+                .with(TemporalAdjusters.next(DayOfWeek.SUNDAY)); // TODO: 20.05.2019 change to monday
+    }
+
+    private LocalDate startOfWeek() {
+        // TODO: 20.05.2019 this could be a unit test
+        // what happens if today is monday?
+        return LocalDate.now()
+                .with(TemporalAdjusters.previous(DayOfWeek.MONDAY)); // TODO: 20.05.2019 change to monday
+    }
+    
+    private int sumSteps(List<Hike> allHikes) {
+        return allHikes.stream()
+                .mapToInt(Hike::getSteps)
+                .sum();
+    }
+
+    private void setUpMillisForData(List<InputData> data) {
         long currMillis = System.currentTimeMillis();
         currMillis -= currMillis % TimeUnit.DAYS.toMillis(1);
 
-        Log.d(TAG, "ok what is currentMillis? " + currMillis);
         for (int i = 0; i < data.size(); i++) {
             long position = (long) (data.size() - 1 - i);
             long offsetMillis = TimeUnit.DAYS.toMillis(position);
-            Log.d(TAG, "the position: " + position);
-            Log.d(TAG, "The offset: " + offsetMillis);
 
             long millis = currMillis - offsetMillis;
             Log.wtf(TAG, "And now the millis: " + millis);
@@ -86,51 +112,6 @@ public class WeekFragment extends Fragment {
             // i mean how can i control the text on the bottom?
             data.get(i).setMillis(millis);
         }
-
-        return data;
     }
 
-    private int sumSteps(List<Hike> allHikes) {
-        return allHikes.stream()
-                .mapToInt(Hike::getSteps)
-                .sum();
-    }
-
-    private List<Hike> hikesOnSameDay(List<Hike> hikes, LocalDate currentDay) {
-        return hikes.stream().filter(hiking -> hiking.startAsLocalDate().isEqual(currentDay)).collect(Collectors.toList());
-    }
-
-    private LocalDate determineEndOfWeek(LocalDate startDate) {
-        return startDate.with(TemporalAdjusters.next(DayOfWeek.SUNDAY)); // TODO: 20.05.2019 change to monday
-    }
-
-    private LocalDate determineStartOfWeek() {
-        // TODO: 20.05.2019 this could be a unit test
-        // what happens if today is monday?
-        return LocalDate.now().with(TemporalAdjusters.previous(DayOfWeek.MONDAY)); // TODO: 20.05.2019 change to monday
-    }
-
-    private List<InputData> createChartData() {
-        ArrayList<InputData> dataList = new ArrayList<>();
-        dataList.add(new InputData(1));
-        dataList.add(new InputData(5));
-        dataList.add(new InputData(40));
-        dataList.add(new InputData(3));
-        dataList.add(new InputData(2));
-        dataList.add(new InputData(5));
-        dataList.add(new InputData(40));
-
-        long currMillis = System.currentTimeMillis();
-        currMillis -= currMillis % TimeUnit.DAYS.toMillis(1);
-
-        for (int i = 0; i < dataList.size(); i++) {
-            long position = (long) (dataList.size() - 1 - i);
-            long offsetMillis = TimeUnit.DAYS.toMillis(position);
-
-            long millis = currMillis - offsetMillis;
-            dataList.get(i).setMillis(millis);
-        }
-
-        return dataList;
-    }
 }
