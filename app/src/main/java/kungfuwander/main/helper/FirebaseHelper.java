@@ -24,11 +24,11 @@ import kungfuwander.main.beans.User;
 import static kungfuwander.main.MainActivity.currentFirebaseUser;
 
 public class FirebaseHelper {
+    private static final String TAG = FirebaseHelper.class.getName();
     // at some point location database will be useless because it is in hiking db
     private static final String DB_USERS = "users";
     private static final String DB_HIKES = "hikes";
     private static final String DB_FRIENDS = "friends";
-    private static final String TAG = "FirebaseHelper";
 
     public static void fetchFriendsWithRoundTrip(Consumer<List<User>> consumer) {
         List<User> friends = new ArrayList<>();

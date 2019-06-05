@@ -25,4 +25,6 @@
     <string name="cancel">Abbrechen</string>
     <string name="Freunde">Freunde</string>
 
+    <string name="notification_channel">NotificationChannel</string>
+
 </resources>

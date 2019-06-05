@@ -20,7 +20,7 @@ import kungfuwander.main.helper.FirebaseHelper;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private final String TAG = getClass().getName();
+    private static final String TAG = MapsActivity.class.getName();
     private GoogleMap mMap;
 
     @Override

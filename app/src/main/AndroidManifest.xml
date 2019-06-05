@@ -76,7 +76,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".helper.NotificationService" />
+        <service android:name=".deprecated.NotificationService" />
     </application>
 
 </manifest>

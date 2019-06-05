@@ -26,7 +26,7 @@ import kungfuwander.main.chartview.draw.data.InputData;
 
 public class WeekFragment extends Fragment {
 
-    private final String TAG = getClass().getName();
+    private static final String TAG = WeekFragment.class.getName();
 
     @Nullable
     @Override

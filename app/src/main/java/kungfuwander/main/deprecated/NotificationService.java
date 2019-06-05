@@ -1,4 +1,4 @@
-package kungfuwander.main.helper;
+package kungfuwander.main.deprecated;
 
 import android.app.Notification;
 import android.app.NotificationChannel;

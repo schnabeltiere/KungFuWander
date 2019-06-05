@@ -31,7 +31,7 @@ import kungfuwander.main.helper.FirebaseHelper;
 
 public class TestRecentHikes extends AppCompatActivity {
 
-    private final String TAG = getClass().getName();
+    private static final String TAG = TestRecentHikes.class.getName();
     private List<Hike> hikes;
 
     @Override

@@ -1,9 +1,6 @@
 package kungfuwander.main.fragments;
 
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.content.Context;
-import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -12,15 +9,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,25 +26,23 @@ import java.util.Objects;
 import im.delight.android.location.SimpleLocation;
 import kungfuwander.main.R;
 import kungfuwander.main.beans.Hike;
-import kungfuwander.main.deprecated.FriendsList;
-import kungfuwander.main.deprecated.TestRecentHikes;
 import kungfuwander.main.helper.FirebaseHelper;
-import kungfuwander.main.helper.NotificationService;
-
-import static kungfuwander.main.helper.NotificationService.CHANNEL_ID;
-import static kungfuwander.main.helper.NotificationService.CONTENT_TITLE;
-import static kungfuwander.main.helper.NotificationService.CURRENT_HIKING_ID;
+import kungfuwander.main.helper.NotificationHelper;
 
 
 public class CurrentHikeFragment extends Fragment implements SensorEventListener {
 
-    private String TAG = getClass().getName();
+    private static final int NOTI_PRIMARY = 1100;
+    private static final String TAG = CurrentHikeFragment.class.getName();
+
     private int currentSteps = 0;
     private TextView tvSteps;
     private TextView tvMeter;
 
     private Hike actualHike;
     private SimpleLocation simpleLocation;
+    private NotificationHelper notificationHelper;
+
 
     @Nullable
     @Override
@@ -63,6 +55,7 @@ public class CurrentHikeFragment extends Fragment implements SensorEventListener
         super.onViewCreated(view, savedInstanceState);
 
         simpleLocation = setUpSimpleLocation();
+        notificationHelper = new NotificationHelper(getContext());
 
         // if we can't access the location yet
         if (!simpleLocation.hasLocationEnabled()) {
@@ -89,32 +82,18 @@ public class CurrentHikeFragment extends Fragment implements SensorEventListener
                 Log.w(TAG, "No actualHike init, should not happen, listener should be detached");
             } else {
                 actualHike.addGeoPoint(geoPoint);
-                tvMeter.setText(String.valueOf(currentSteps*0.7));
-                // TODO: 22.05.2019 replace this with method call from Example Service
-                updateNotification();
-                Log.d(TAG, "Added: " + geoPoint.toString() + ", size of actualHike: " + actualHike.getGeoPoints().size());
+                // TODO: 05.06.2019 other calculation for meter
+                tvMeter.setText(String.valueOf((int) (currentSteps*0.7)));
+                notificationHelper.sendNotification(NOTI_PRIMARY,
+                        "Hike - Sike", geoPoint.toString());
+                Log.d(TAG, "Added: " + geoPoint.toString() + ", size of actualHike: "
+                        + actualHike.getGeoPoints().size());
             }
         };
     }
 
-    @Deprecated
-    private void updateNotification() {
-        // but the manager is always null
-//                notificationService.updateNotification(manager, "You are walking " + Math.random() + " steps");
-        NotificationManager manager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
-        Notification notification = new NotificationCompat.Builder(getContext(), CHANNEL_ID)
-                .setContentTitle(CONTENT_TITLE)
-                .setContentText("You are walking " + Math.random() + " steps")
-                .setSmallIcon(R.drawable.kfwl2)
-                .build();
-
-        manager.notify(CURRENT_HIKING_ID, notification);
-    }
-
     private void stopStepCounter() {
         // TODO: 22.05.2019 give user possibility to not add this hiking
-        // the notification should definitely stop
-        stopStickyNotification(); // also stop step counter
         // cannot stop if it hasn't started
         if (actualHike == null) { // a bit tricky, because maybe the actual hiking is there
             Toast.makeText(getContext(), "You haven't even started yet", Toast.LENGTH_SHORT).show();
@@ -127,24 +106,11 @@ public class CurrentHikeFragment extends Fragment implements SensorEventListener
 
         FirebaseHelper.addToLoggedInUser(actualHike);
         simpleLocation.endUpdates();
+        notificationHelper.cancel(NOTI_PRIMARY);
 
         // TODO: 22.05.2019 maybe congrats for walking
         Toast.makeText(getContext(), "Congrats!", Toast.LENGTH_LONG).show();
         actualHike = null;
-    }
-
-    private void stopStickyNotification() {
-        Intent serviceIntent = new Intent(getContext(), NotificationService.class);
-        getContext().stopService(serviceIntent);
-    }
-
-    private void showStickyNotification() {
-        String input = "You are walking " + Math.random() + " steps";
-
-        Intent serviceIntent = new Intent(getContext(), NotificationService.class);
-        serviceIntent.putExtra("inputExtra", input);
-
-        ContextCompat.startForegroundService(getContext(), serviceIntent);
     }
 
     private void startHiking() {
@@ -169,7 +135,8 @@ public class CurrentHikeFragment extends Fragment implements SensorEventListener
         actualHike = new Hike();
         actualHike.setStart(Timestamp.now());
 
-        showStickyNotification();
+        // TODO: 05.06.2019 start notification here and update later ?
+        // currently notification only gets update with new geolocation
         startStepCounter();
 
         simpleLocation.setListener(defineCustomListener()); // should i start?

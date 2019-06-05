@@ -30,13 +30,14 @@ import java.util.stream.Collectors;
 import kungfuwander.main.MainActivity;
 import kungfuwander.main.R;
 import kungfuwander.main.beans.Hike;
+import kungfuwander.main.fragments.CompareActivity;
 import kungfuwander.main.helper.FirebaseHelper;
 
 import static kungfuwander.main.deprecated.FriendsList.*;
 
 public class CompareFriends extends AppCompatActivity {
 
-    private final String TAG = getClass().getName();
+    private static final String TAG = CompareFriends.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

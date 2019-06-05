@@ -28,15 +28,14 @@ import im.delight.android.location.SimpleLocation;
 import kungfuwander.main.R;
 import kungfuwander.main.beans.Hike;
 import kungfuwander.main.helper.FirebaseHelper;
-import kungfuwander.main.helper.NotificationService;
 
-import static kungfuwander.main.helper.NotificationService.CHANNEL_ID;
-import static kungfuwander.main.helper.NotificationService.CONTENT_TITLE;
-import static kungfuwander.main.helper.NotificationService.CURRENT_HIKING_ID;
+import static kungfuwander.main.deprecated.NotificationService.CHANNEL_ID;
+import static kungfuwander.main.deprecated.NotificationService.CONTENT_TITLE;
+import static kungfuwander.main.deprecated.NotificationService.CURRENT_HIKING_ID;
 
 public class ReplacementForFriends extends AppCompatActivity implements SensorEventListener {
 
-    private String TAG = getClass().getName();
+    private static String TAG = ReplacementForFriends.class.getName();
     private int currentSteps = 0;
     private TextView tvSteps;
     private TextView tvHikes;
