@@ -4,17 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.WeatherFragment">
-    android:layout_height="wrap_content"
-    android:padding="16dp"
-    tools:context=".Fragment_Weather">
 
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/txt"
@@ -22,6 +17,7 @@
             android:layout_height="wrap_content"
             android:text="Wettervorhersage"
             android:textSize="24dp"
+            android:textColor="@color/black"
             android:textStyle="bold" />
 
         <TextView
@@ -29,6 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="London, GB"
+            android:textColor="@color/black"
+            android:layout_marginTop="5dp"
             android:textSize="20dp"
             android:textStyle="bold" />
 
@@ -41,6 +39,5 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/main"
         android:layout_marginTop="20dp"></android.support.v7.widget.RecyclerView>
-
 
 </RelativeLayout>
