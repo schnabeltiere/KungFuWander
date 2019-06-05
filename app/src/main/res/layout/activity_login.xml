@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".authenticate.LoginActivity"
-    android:background="@drawable/loginbackgroundxx">
+    android:background="@drawable/background_login">
 
     <ImageView
         android:id="@+id/imageViewLogo2"
@@ -15,7 +15,7 @@
         android:layout_height="100dp"
         android:layout_marginBottom="60dp"
         tools:ignore="ContentDescription"
-        android:background="@drawable/kfwl2"/>
+        android:background="@drawable/logo3"/>
 
     <EditText
         android:id="@+id/editTextEmail"

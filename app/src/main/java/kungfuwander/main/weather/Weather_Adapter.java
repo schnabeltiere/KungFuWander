@@ -1,4 +1,4 @@
-package kungfuwander.main;
+package kungfuwander.main.weather;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -14,7 +14,7 @@ import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 
-import kungfuwander.main.weather.Common;
+import kungfuwander.main.R;
 
 public class Weather_Adapter extends RecyclerView.Adapter<Weather_Adapter.MyViewHolder> {
 

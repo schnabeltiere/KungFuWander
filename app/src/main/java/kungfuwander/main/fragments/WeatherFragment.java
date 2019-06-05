@@ -10,24 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.squareup.picasso.Picasso;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import kungfuwander.main.WeatherForecast;
-import kungfuwander.main.Weather_Adapter;
+import kungfuwander.main.weather.WeatherForecast;
+import kungfuwander.main.weather.Weather_Adapter;
 import kungfuwander.main.weather.Common;
 import kungfuwander.main.weather.IOpenWeatherMap;
 import kungfuwander.main.R;

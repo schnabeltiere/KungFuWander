@@ -1,4 +1,4 @@
-package kungfuwander.main.deprecated;
+package kungfuwander.main.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import kungfuwander.main.R;
 
-public class navi extends AppCompatActivity {
+public class NavigationFragment extends AppCompatActivity {
 
     private TextView mTextMessage;
 
@@ -26,7 +26,7 @@ public class navi extends AppCompatActivity {
                     mTextMessage.setText(R.string.title_map);
                     return true;
                 case R.id.navigation_recentHikes:
-                    mTextMessage.setText(R.string.title_recetnHikes);
+                    mTextMessage.setText(R.string.title_statistics);
                     return true;
                 case R.id.navigation_profile:
                     mTextMessage.setText(R.string.title_profile);

@@ -1,6 +1,4 @@
-package kungfuwander.main;
-
-import kungfuwander.main.beans.Coord;
+package kungfuwander.main.weather;
 
 public class City {
     public int id;

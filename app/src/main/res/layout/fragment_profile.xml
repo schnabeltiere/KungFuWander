@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/profilbackground">
+    android:background="@drawable/backgroudn_profil">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:layout_height="100dp"
             android:layout_weight="1"
             android:layout_marginTop="30dp"
-            android:background="@drawable/kfw3" />
+            android:background="@drawable/logo2" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:background="@drawable/profiletextview_border"
+                android:background="@drawable/border_textview_1"
                 android:inputType="none"
                 android:textSize="25sp"
                 android:gravity="left"
@@ -46,7 +46,7 @@
                 android:textSize="15sp"
                 android:inputType="none"
                 android:text="TextView"
-                android:background="@drawable/profiletextview_border"/>
+                android:background="@drawable/border_textview_1"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -159,7 +159,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:layout_weight="1"
-            android:background="@drawable/profiletextview_border"
+            android:background="@drawable/border_textview_1"
             android:text="@string/Add_Friend" />
 
 

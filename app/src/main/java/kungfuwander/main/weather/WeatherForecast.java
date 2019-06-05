@@ -1,8 +1,6 @@
-package kungfuwander.main;
+package kungfuwander.main.weather;
 
 import java.util.List;
-
-import kungfuwander.main.beans.WeatherResult;
 
 public class WeatherForecast {
     public String cod;

@@ -1,9 +1,9 @@
-package kungfuwander.main;
+package kungfuwander.main.weather;
 
 import java.util.List;
 
 import kungfuwander.main.beans.Weather;
-import kungfuwander.main.deprecated.Main;
+import kungfuwander.main.weather.Main;
 
 class MyListWeather {
  public int dt;

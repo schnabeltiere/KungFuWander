@@ -3,7 +3,7 @@
     <string name="title_activity_navigation_bar">NavigationBar</string>
     <string name="title_weather">Wetter</string>
     <string name="title_map">Map</string>
-    <string name="title_recetnHikes">Letzte Wanderungen</string>
+    <string name="title_statistics">Statistiken</string>
     <string name="title_activity_navi">navi</string>
     <string name="email">E-Mail Adresse</string>
     <string name="password">Passwort</string>
@@ -12,18 +12,15 @@
     <string name="signup">Anmelden</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_compare_friends">CompareFriends</string>
-    <string name="title_currenthiking">Derzeitige Wanderung</string>
+    <string name="title_currenthiking">Aktuelle Wanderung</string>
     <string name="title_profile">Profil</string>
-
     <string name="title_activity_compare">CompareActivity</string>
     <string name="tab_text_1">Day</string>
     <string name="tab_text_2">Week</string>
     <string name="tab_text_3">Month</string>
-
     <string name="Add_Friend">Freund hinzufügen</string>
     <string name="Username">Benutzername</string>
     <string name="cancel">Abbrechen</string>
     <string name="Freunde">Freunde</string>
-
-    <string name="notification_channel">NotificationChannel</string>
+    <string name="notification_channel">Benachrichtigungskanal</string>
 </resources>

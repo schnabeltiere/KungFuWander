@@ -1,4 +1,4 @@
-package kungfuwander.main.deprecated;
+package kungfuwander.main.weather;
 
 // TODO: 04.06.2019 remove this - i mean wtf is this?
 public class Main {

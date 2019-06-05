@@ -4,12 +4,12 @@
 
     <item
         android:id="@+id/navigation_currentHike"
-        android:icon="@drawable/ic_mountain"
+        android:icon="@drawable/ic_navi_mountain"
         android:title="@string/title_currenthiking"/>
     <item
         android:id="@+id/navigation_weather"
         android:title="@string/title_weather"
-        android:icon="@drawable/ic_weather"/>
+        android:icon="@drawable/ic_navi_weather"/>
 
     <item
         android:id="@+id/navigation_map"
@@ -17,10 +17,10 @@
         android:title="@string/title_map" />
     <item
         android:id="@+id/navigation_recentHikes"
-        android:icon="@drawable/ic_resent"
-        android:title="@string/title_recetnHikes" />
+        android:icon="@drawable/ic_navi_chart"
+        android:title="@string/title_statistics" />
     <item
         android:id="@+id/navigation_profile"
-        android:icon="@drawable/ic_profil"
+        android:icon="@drawable/ic_navi_profil"
         android:title="@string/title_profile"/>
 </menu>

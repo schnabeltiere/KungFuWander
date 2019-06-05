@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="@string/title_recetnHikes" />
+        android:text="@string/title_statistics" />
 <!--
 android:layout_width="349dp"
         android:layout_height="83dp"

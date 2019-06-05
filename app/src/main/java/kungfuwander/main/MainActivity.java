@@ -66,9 +66,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         nav.setOnNavigationItemSelectedListener(this);
 
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.root);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
 
         Dexter.withActivity(this)

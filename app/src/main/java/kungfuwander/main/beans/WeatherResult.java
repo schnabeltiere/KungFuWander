@@ -2,7 +2,7 @@ package kungfuwander.main.beans;
 
 import java.util.List;
 
-import kungfuwander.main.deprecated.Main;
+import kungfuwander.main.weather.Main;
 
 public class WeatherResult {
     private Coord coord;

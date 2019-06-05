@@ -2,7 +2,6 @@ package kungfuwander.main.weather;
 
 
 import io.reactivex.Observable;
-import kungfuwander.main.WeatherForecast;
 import kungfuwander.main.beans.WeatherResult;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
