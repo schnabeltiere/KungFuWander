@@ -1,5 +1,7 @@
 package kungfuwander.main;
 
+import kungfuwander.main.beans.Coord;
+
 public class City {
     public int id;
     public String name;
