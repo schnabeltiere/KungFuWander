@@ -38,13 +38,13 @@ public class SignUpActivity extends AppCompatActivity {
         textViewLogin = findViewById(R.id.textViewLogin);
 
         //If the user already logged in once on the device AND if no authentification error occures, the user is automatically logged in
-
+/*
         if (firebaseAuth.getCurrentUser() != null) {
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
             MainActivity.currentFirebaseUser = firebaseAuth.getCurrentUser();
             finish();
         }
-
+*/
             textViewLogin.setOnClickListener(log -> startActivity(new Intent(getApplicationContext(), LoginActivity.class)));
 
             registerButton.setOnClickListener(v -> {

@@ -11,11 +11,11 @@
 
     <ImageView
         android:id="@+id/imageViewLogo1"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="200dp"
+        android:layout_height="140dp"
         android:layout_marginBottom="40dp"
         tools:ignore="ContentDescription"
-        android:background="@drawable/kfwl2"/>
+        android:background="@drawable/kfw3"/>
 
     <EditText
         android:id="@+id/editTextEmail"

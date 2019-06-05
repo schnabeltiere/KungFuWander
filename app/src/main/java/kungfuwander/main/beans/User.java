@@ -32,10 +32,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "uid='" + uid + '\'' +
-                ", name='" + name + '\'' +
-                '}';
+        return name;
     }
 
     @Override

@@ -16,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -81,13 +80,6 @@ public class ProfileFragment extends Fragment {
     }
 
     private void showAllUsers(View view) {
-        // TODO: 04.06.2019 gets only added to logged in user, like a following
-        // later expand to firebase function with permission
-        List<User> userList = new ArrayList<>();
-        FirebaseHelper.fetchAllUsers(user -> userList.addAll(user));
-
-
-
 
     }
 
@@ -123,8 +115,7 @@ public class ProfileFragment extends Fragment {
                 .map(User::getName)
                 .collect(Collectors.toList());
 
-        ArrayAdapter<String> itemsAdapter =
-                new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, items);
+        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, items);
         listViewFriends.setAdapter(itemsAdapter);
     }
 
