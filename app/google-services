@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "311203015313",
+    "firebase_url": "https://kungfuwander.firebaseio.com",
+    "project_id": "kungfuwander",
+    "storage_bucket": "kungfuwander.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:311203015313:android:abca2ceaae352c22",
+        "android_client_info": {
+          "package_name": "kungfuwander.main"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "311203015313-bf4005rsvom6kekh2kiuvsdng255nisr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5tmTvJbjYXyREOpTRBN1HNz3jNk9r_a4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "311203015313-bf4005rsvom6kekh2kiuvsdng255nisr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:311203015313:android:f4b2e2cf5bb70766",
+        "android_client_info": {
+          "package_name": "kungfuwander.main.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "311203015313-bf4005rsvom6kekh2kiuvsdng255nisr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5tmTvJbjYXyREOpTRBN1HNz3jNk9r_a4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "311203015313-bf4005rsvom6kekh2kiuvsdng255nisr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
