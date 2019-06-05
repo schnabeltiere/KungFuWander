@@ -56,6 +56,8 @@ public class Fragment_Weather extends Fragment {
         compositeDisposable = new CompositeDisposable();
         Retrofit retrofit = RetrofitClient.getInstance();
         mService = retrofit.create(IOpenWeatherMap.class);
+
+
     }
 
 
@@ -68,7 +70,9 @@ public class Fragment_Weather extends Fragment {
         txt_city_name = itemView.findViewById(R.id.txt_city_name);
 
         recyclerView = itemView.findViewById(R.id.recycler_forecast);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        LinearLayoutManager ll = new LinearLayoutManager(this.getContext());
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(ll);
 
 
 
@@ -89,7 +93,7 @@ public class Fragment_Weather extends Fragment {
 
                         if(weatherForecast==null)
                         {
-                            Log.d("WORKER", "DKFSD");
+                            Log.d("NULL POINT", "DKFSD");
                         }
                         else
                         {
@@ -111,8 +115,10 @@ public class Fragment_Weather extends Fragment {
 
         txt_city_name.setText("CITY");
         Log.d("SET WEATHER", "DKFSD");
-        Weather_Adapter adapter = new Weather_Adapter(getContext(), weatherResult);
+        Weather_Adapter adapter = new Weather_Adapter(this.getContext(), weatherResult);
         Log.d("SET HELP", "DKFSD");
+
+
         recyclerView.setAdapter(adapter);
 
     }
