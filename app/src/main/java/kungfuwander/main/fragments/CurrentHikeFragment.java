@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.GeoPoint;
 
+import java.sql.Time;
 import java.util.Objects;
 
 import im.delight.android.location.SimpleLocation;
@@ -292,7 +293,8 @@ public class CurrentHikeFragment extends Fragment implements SensorEventListener
         shared = getContext().getSharedPreferences(PREF_ID, Context.MODE_PRIVATE);
         currentSteps = shared.getInt(STEPS_ID, 0);
         // what?
-        actualHike = new Hike();
+//        actualHike = new Hike();
+//        actualHike.setStart(Timestamp.now());
 
         this.tvSteps.setText(String.valueOf(currentSteps));
         this.tvCalories.setText(String.valueOf((int) (currentSteps*0.3)));
