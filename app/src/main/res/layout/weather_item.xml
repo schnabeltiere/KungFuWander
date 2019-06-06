@@ -50,7 +50,7 @@
                 android:layout_margin="15dp"
                 android:text="15 C"
                 android:textColor="@color/black"
-                android:textSize="35dp" />
+                android:textSize="25dp" />
 
 
         </LinearLayout>
