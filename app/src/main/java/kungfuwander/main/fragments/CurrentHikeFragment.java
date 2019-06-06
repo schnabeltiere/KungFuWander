@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.GeoPoint;
 
+import java.sql.Time;
 import java.util.Objects;
 
 import im.delight.android.location.SimpleLocation;
@@ -114,6 +115,8 @@ public class CurrentHikeFragment extends Fragment implements SensorEventListener
         // no actual hiking -> start one
         actualHike = new Hike();
         actualHike.setStart(Timestamp.now());
+        notificationHelper.sendNotification(NOTI_PRIMARY,
+                "Hike - Sike", "Starting soon ...");
 
         // TODO: 05.06.2019 start notification here and update later ?
         // currently notification only gets update with new geolocation
@@ -289,6 +292,9 @@ public class CurrentHikeFragment extends Fragment implements SensorEventListener
         // here we have to init all vars again
         shared = getContext().getSharedPreferences(PREF_ID, Context.MODE_PRIVATE);
         currentSteps = shared.getInt(STEPS_ID, 0);
+        // what?
+//        actualHike = new Hike();
+//        actualHike.setStart(Timestamp.now());
 
         this.tvSteps.setText(String.valueOf(currentSteps));
         this.tvCalories.setText(String.valueOf((int) (currentSteps*0.3)));

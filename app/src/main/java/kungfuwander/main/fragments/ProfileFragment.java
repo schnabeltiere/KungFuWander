@@ -28,6 +28,7 @@ import kungfuwander.main.beans.Hike;
 import kungfuwander.main.beans.User;
 import kungfuwander.main.helper.FirebaseHelper;
 import kungfuwander.main.helper.FriendsListAdapter;
+import kungfuwander.main.weather.Main;
 
 public class ProfileFragment extends Fragment {
 
@@ -84,6 +85,8 @@ public class ProfileFragment extends Fragment {
             FirebaseHelper.fetchAllUsers(allUsers -> {
                 FirebaseHelper.fetchFriendsOfLoggedInUser(friends -> {
                     allUsers.removeAll(friends);
+                    User self = new User(MainActivity.currentFirebaseUser.getUid(), MainActivity.currentFirebaseUser.getDisplayName());
+                    allUsers.remove(self);
                     createDialog(allUsers);
                 });
             });
