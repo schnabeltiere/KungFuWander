@@ -47,10 +47,10 @@ public class FriendsListAdapter extends ArrayAdapter<User> {
         User currentUser = users.get(position);
 
         TextView tvName = listItem.findViewById(R.id.lvUserName);
-        TextView tvUid = listItem.findViewById(R.id.lvUserUid);
+//        TextView tvUid = listItem.findViewById(R.id.lvUserUid);
 
         tvName.setText(currentUser.getName());
-        tvUid.setText(currentUser.getUid());
+//        tvUid.setText(currentUser.getUid());
 
         return listItem;
     }
